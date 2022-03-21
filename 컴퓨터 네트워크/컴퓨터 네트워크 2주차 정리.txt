@@ -132,7 +132,7 @@ SFD : Start frame delimiter, flag(10101011)   1바이트
 데이터의 길이가 가변적이니 Length 필드로 바뀜 하지만 기존 방식 타입 필드로 사용
 IEEE가 정한건 Length 필드이지만 아직도 기존 Type 방식이 많이 사용되어
 Length or Type 로 해석을 함 두 필드를 해석해야 하는데
-Length/Type 값이 0x0600 이상이면 DIX2.0Type 으로 인식하고,
+Length/Type 값이 0x0600 이상이면 DIX2.0Type 으로 인식하고,              16진수
 	           0x0600 미만이면 IEEE 802.3 Length 필드로 인식
 값에따라 타입이 바뀜 그게 가장최근 이더넷 방식이다
 
