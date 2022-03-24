@@ -28,10 +28,11 @@ passwd = 패스워드 변경
 exit = Ctrl + d = 나가기
 ln -s ab.txt abc.txt = ab파일을 abc 파일로 바로가기 만들기 ab는 abc를 가리키고 있다
 ln = 심볼릭 링크 = 바로가기 만들기
-gcc -o= 컴파일러
+gcc -o= 컴파일러 (gcc 가 파일이름 -o 가 실행파일 이름
 gcc -o sum.exe= 컴파일러
 cd ~ = 원래 디렉토리(홈) 으로 가는것
 vi ~~.c = c파일 생성&쓰기
+vim 도 포함
 
 @ 중요 ls -la 치면 나옴
 cd ~~~
