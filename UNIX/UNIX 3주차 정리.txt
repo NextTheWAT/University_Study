@@ -11,6 +11,7 @@ clear = 화면 지우기
 mkdir 디렉토리 만들기
 ls = 파일 리스트
 컨+z = 파일 나오기
+컨+d = txt파일 만들었을때 저장
 cat > a.txt = a.txt 파일 만들기
 cat a.txt = a.txt 파일 내용보기    
 mkdir exam1 = 디렉토리 만들기 exam1
