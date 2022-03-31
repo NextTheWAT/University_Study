@@ -1,7 +1,6 @@
 UNIX 4주차 정리
 
 cd ../suwon/ 하면 바로 그 디렉토리 파일로 들어감
-cat >> a.txt = 텍스트 파일 내용 추가 @@@
 more/etc/services = 문서 나눠보기
 cat/etc/services = 문서 전체보기
 tail/etc/services = 문서 마지막부분 보기
@@ -16,6 +15,7 @@ tail/etc/services = 문서 마지막부분 보기
 11번 - rmdir = 디렉토리 파일 지우기
 12번 - cp -r Seoul/ Hansung = 파일 이름을 바꾸고 하위파일을 복사
 
+cat >> a.txt = 텍스트 파일 내용 추가 @@@
 
 cat [ 옵션 ] 파일명
 - 간단한 파일보기 명령으로 짧은 파일에 적합
