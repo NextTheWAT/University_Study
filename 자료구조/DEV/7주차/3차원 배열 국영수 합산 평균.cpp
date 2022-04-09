@@ -10,10 +10,10 @@ int main()
 	int std_num, pepl, i, j;
 	int std_num_num[50][50], pepl_num[50][50];
 	
-	printf("°¢ ¹İ°ú ÇĞ»ıÀÇ ±¹¿µ¼ö ÇÕ»ê°ú Æò±Õ ±¸ÇÏ´Â ÇÁ·Î±×·¥\n");
-	printf("¸î¹İ±îÁö ÀÖ´ÂÁö  Àû¾îÁÖ¼¼¿ä: ");
+	printf("ê° ë°˜ê³¼ í•™ìƒì˜ êµ­ì˜ìˆ˜ í•©ì‚°ê³¼ í‰ê·  êµ¬í•˜ëŠ” í”„ë¡œê·¸ë¨\n");
+	printf("ëª‡ë°˜ê¹Œì§€ ìˆëŠ”ì§€  ì ì–´ì£¼ì„¸ìš”: ");
 	scanf("%d", &std_num);
-	printf("°¢ ¹İÀÇ ÇĞ»ıÀÌ ¸î¸íÀÎÁö Àû¾îÁÖ¼¼¿ä: ");
+	printf("ê° ë°˜ì˜ í•™ìƒì´ ëª‡ëª…ì¸ì§€ ì ì–´ì£¼ì„¸ìš”: ");
 	scanf("%d", &pepl);
 	printf("\n");
 	
@@ -23,26 +23,26 @@ int main()
 		{
 			std_num_num[i][j] = i;
 			pepl_num[i][j] = j;
-			printf("%d¹İÀÇ %d¹ø ÇĞ»ı Á¡¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä\n", std_num_num[i][j], pepl_num[i][j]);
-			printf("±¹¾î: ");
+			printf("%dë°˜ì˜ %dë²ˆ í•™ìƒ ì ìˆ˜ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”\n", std_num_num[i][j], pepl_num[i][j]);
+			printf("êµ­ì–´: ");
 			scanf("%d", &kr[i][j]);
-			printf("¿µ¾î: ");
+			printf("ì˜ì–´: ");
 			scanf("%d", &en[i][j]);
-			printf("¼öÇĞ: ");
+			printf("ìˆ˜í•™: ");
 			scanf("%d", &mh[i][j]);
 			sum[i][j] = kr[i][j] + en[i][j] + mh[i][j];
 			age[i][j] = sum[i][j]/3;
-			printf("%d¹İÀÇ %d¹ø ÇĞ»ı \nÇÕ»ê Á¡¼ö: %d \nÆò±Õ: %d\n\n", std_num_num[i][j], pepl_num[i][j],sum[i][j], age[i][j]);
+			printf("%dë°˜ì˜ %dë²ˆ í•™ìƒ \ní•©ì‚° ì ìˆ˜: %d \ní‰ê· : %d\n\n", std_num_num[i][j], pepl_num[i][j],sum[i][j], age[i][j]);
 			all_sum[i][j] += sum[i][j];
 		}
 		all_age[i] = all_sum[i];
-		printf("%d¹İÀÇ Æò±Õ : %d\n", std_sum, all_age[i]);
+		printf("%dë°˜ì˜ í‰ê·  : %d\n", std_sum, all_age[i]);
 		
 	}
 }
 
 
-
+ë¯¸ì™„ì„±..
 
 
 
