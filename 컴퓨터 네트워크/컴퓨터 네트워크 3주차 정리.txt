@@ -259,7 +259,7 @@ C가 A,B 통신에 노출되어 있기 때문이다 C입장에서는 D와 통신
 
  - 브리지(Bridge) / L2 스위치(Switch)  23분 14p
  	- OSI 모델의 물리계층과 데이터 링크 계층의 기능 수행
-	- 필터링(Filtering), 포워딩(Forwarding), 학습(Learning)
+	- 필터링(Filtering), 포워딩(Forwarding), 학습(Learning) @@@
 학습(Learning) : MAC 주소를 학습한다 그것을 맥 주소 테이블(MAC Address table)에 저장한다
 브리지가 프레임을 수신할때 어떤 포트에 어떤 맥 주소가 있는지 모른다
 학습이 되어있지 않아서
