@@ -112,6 +112,7 @@ LLC : Logical link control : 802.2
  - Token ring MAC : 802.5
  - Token bus MAC : 802.4 라고 불림
  - 무선 LAN : 802.11
+ IEEE로 넘어오면서 Data link 계층이 LLc, Mac 주소 두개로 나누어짐 알아두자
 
 MAC : Media access control
 
