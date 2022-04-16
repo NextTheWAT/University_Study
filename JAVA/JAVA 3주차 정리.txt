@@ -6,6 +6,8 @@ JAVA 3주차 정리
 비트 쉬프트 연산자
 
 if~else 문과 유사한 성격의 조건 연산자 시험에 나올수있음 38p
+ex) big = (num1 > num2) ? num1 : num2;
+ex) diff = (num1 > num2) ? (num1 - num2) : (num2 - num1);
 
 스위치문은 기존에 정수만 들어갔는데 문자열도 가능 '  ' 
 
