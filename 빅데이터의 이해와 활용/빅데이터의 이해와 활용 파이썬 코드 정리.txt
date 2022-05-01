@@ -7,13 +7,7 @@
 a = int(input())
 b = int(input())
 result = a + b
-print(a, "+", b, "=", result)
-result = a - b
-print(a, "-" , b, "=", result)
-result = a * b
-print(a, "*", b, "=", result)
-result = a / b
-print(a, "/", b, "=", result)
+print(a, "+", b, "=", result) 
 
 a = int(input("첫 번째 숫자를 입력하세요 : "))
 b = int(input("두 번째 숫자를 입력하세요 : "))
@@ -38,7 +32,7 @@ print("%d"%a)         // a출력
 
 print("100+100")
 print("%d"%(100+100))
-
+    
 print("%d" % 123)
 print("%5d" % 123)    // 오른쪽부터 5칸
 print("%05d" % 123)     //5칸 띄우고 그 전칸은 0으로 채움
