@@ -25,7 +25,7 @@ print(a, "/", b, "=", result)
 4주차
 
 print("100")
-print("%d"%100)        // 100출력
+print("%d"%100)        // 100출력    
 
 a=100
 print("%d"%a)         // a출력
