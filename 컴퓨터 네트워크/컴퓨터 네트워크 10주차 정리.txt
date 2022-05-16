@@ -78,7 +78,8 @@ IP	ICMP	IP	IP	   8		IP
 
 - 질의 (Query) 메세지
 	- 네트워크 문제 진단
-Echo - request and reply 8, 0....
+Echo request and reply
+Timestamp request and relply 시간 정보
 
 
 - 검사합 (Checksum)
