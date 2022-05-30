@@ -190,7 +190,7 @@ FIN: Terminate the connection
 	- 윈도우크기(rwnd)는 수신측에 의해서 결정
 cf. Window Scale Factor
 0~14번
-64KB X 2^14승까지 크기를 키울수있다 대략 1기가
+64KB X 2^14승까지 크기를 키울수있다 10MB
 - 검사합(checksum) : 오류 제어
 - 긴급 포인터(urgent pointer)
 	- 긴급 데이터의 끝(일반 데이터의 시작) 표시
