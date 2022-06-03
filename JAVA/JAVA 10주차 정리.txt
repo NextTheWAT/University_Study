@@ -28,7 +28,7 @@ super.yummy();
 instanceof 연산자의 기본
 else if 로 바꾸자
 if, else if, else 로
-3개다 참이다
+3개다 참이다   
 
 instanceof 연산자의 활용
 메소드 오버라이딩으로 만드는것 과제@@@!
