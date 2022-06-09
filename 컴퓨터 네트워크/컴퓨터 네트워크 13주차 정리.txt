@@ -248,75 +248,223 @@ Fast retransmission - 빠른 재전송
 
 
 
+15.9 혼잡 제어 (congestion control)
 
+라우터 큐(Queue) - 버퍼(Buffer)
 
+혼잡(Congestion) 현상
+- 라우터가 패킷을 처리할 수 있는 속도보다 더 빨리 패킷을 수신하는 경우 발생
+	-> 부하 (Load)를 네트워크 용량(Capacity)보다 적도록 조절 필요
 
+TCP는 손실 세그먼트의 원인이 혼잡에 기인한 것이라고 가정한다.
 
 
+흐름제어란 최종 수신측의 버퍼오버플로우가 생기지 않도록 송신량을 조절하는것
+혼잡제어는 중간에 있는 라우터단의 버퍼 오버플로우를 방지하기 위해서 송신량을 조절하는것
 
+두 제어에서의 차이점
 
+ 흐름제어는 최종 수신측이 명시적으로 확인응답 세그먼에 포함된
+rwnd값에 의해서 수신측 버퍼 여유공간을 명시적으로 송신측에게 알려준다
+ 혼잡제어를 위해서 라우터단이 송신측에게 자신의 버퍼의 여유공간을 알려주는것은 하지않는다
 
 
+네트워크 성능
+- 측정 인자: 지연(Delay), 처리율(Throughut)
+	- Delay = Queuing delay + Propagation delay + Processing delay
+	- Throughput: 단위 시간 동안 망을 통하여 전송되는 패킷의 수
 
+Queuing delay : Queue 버퍼에 진입해서 버퍼에서 빠져나가는 버퍼링 딜레이
+Propagation delay - 전파 지연 : 실제적으로 데이터가 링크를 지나가는 시간
+Processing delay : 중간의 노드에 의해 프로세스가 프로세싱 하기 위한 처리 지연 이다
+이걸 다 합쳐서 Delay라고 하는것
 
+CPU, 하드웨어에 의해서 Processing Delay가 결정된다
+Queuing Delay는 라우터단에서 버퍼 메니지먼트 버퍼 관리를 어떻게 하느냐에 따라 결정된다
 
+Propagation Delay와 Processing Delay는 네트워크를 구축할때 하드웨어, 물리적인 조건에 의해서 결정
+Queuing Delay는 네트워크 관리를 어떻게 하느냐에 따라서 결정된다
 
+이미 구축된 네트워크에서는 Queuing Delay를 낮추는것이 타겟이 된다
 
+Throughput : 초당 망을 통하여 전송되는 패킷의 수 단위는 - bps 
+왜 감소하냐면 - 혼잡이 발생하면 송신측이 또 재전송을 통해서 혼잡을 더 증폭시키기 떄문에
+		    결국은 수신측에 세그먼트가 제대로 도달하지 못 한다는 것
 
+혼잡제어의 목적은 네트워크Load가 걸려서 Throughput 이 최대값에 도달하게 되고 네트워크 Load도 
+더 올라가면 혼잡이 발생할수밖에 없으니 오히려 일정부분이 떨어진다
+떨어지는데 떨어지는 부분을 완전히 떨어뜨리는 것이 아니라 조금만 떨어뜨리고
+일정한 Throughput을 유지시키는 것이 혼잡제어의 목표가 되겠다
 
 
+혼잡 윈도우 (Congestion window) : cwnd
+- 실제 송신 윈도우 크기 = min (rwnd, cwnd)
 
+혼잡 제어 원칙
+- 느린 시작(Slow start): 지수증가(Exponential Increase)
+	- cwnd = 1 MSS (Maximum Segment Size)부터 시작 	cf. MSS는 연결설정 시 결정 (옵션 이용)
+		- 각각의 ACK 수신마다 1MSS 만큼 증가 -> 지수적으로 증가 (1,2,4,---)
+			cf. 지연-Ack (Delay Ack) 정책일 경우 2의 승수로 증가하지 않는다
+			     (ex. 2개 Segment당 1개 Ack -> 승수 ~1.5)
+	- ssthresh (Slow start threshole) 설정 : 이전 윈도우 크기의 반 (초기값: 65535)
+		-> 확인응답이 도착하면 ssthresh에 도달할 때까지 지수적으로 cwnd 증가
 
+- 혼잡 회피 (Congestion avoidance) : 가산증가(Additive Increase)
+	- ssthresh에 도달한 경우 -> 전체 윈도우 크기만큼의 세그먼트에 대한 확인응답이 도착하면
+					    cwnd 값을 1 MSS 만큼 증가
 
+- 혼잡 감지(Congestion detection) : 지수 감소(Multiplicative Decrease)
+	- 시간-초과 발생 시 : ssthresh = cwnd/2, cwnd=1 -> Slow start 수행
+	- 3개의 중복 ACK 수신 시 : ssthresh = cwnd/2, cwnd = ssthresh -> 새로운 혼잡 회피 단계 시작
 
 
+Slow start : exponential incresase
+cwnd =  1MSS
+MSS에 해당하는 바이트 수가 첫 번쨰 cwnd 값이 되는것
+한 개의 MSS 사이즈만큼 보내고 그리고 정상적이라면 이것에 대한 Ack가 도착한다
+그러니 cwnd값이 2
+2개를 또 보내고 Ack 를 받으면 cwnd가 4
+4개를 또 보내고 Ack 를 받으면 cwnd가 8
+이 과정이 바로 슬로우 스타트다
+1에서 시작하고 지수적으로 증가
 
 
+Congestion avoidance : additive increase
+Slow start로 시작해서 Slow start threshold 값에 도달하게 되면 
+1MSS 만큼 들어나는 Congestion avoidance 단계에 진입
 
+cwnd 값이 4다 Slow start threshold 가 4라고 가정하면
+그 다음부터 8이 되는게 아니라 1씩 증가하는 것
+4개를 보내면 4개에 대한 Ack 받고
+5개를 보내면 5개에 대한 Ack 받고
+6개를 보내면 6개에 대한 Ack를 받는다
 
 
+TCP congestion policy summary
+처음에는 송수신간의 연결이 확립되면 Slow start로 시작한다
+1 MSS 사이즈만큼 보내다가 지수 증가를 하게 되는것
+현재의 cwnd값이 Slow start threshold 에 도달하게 되면
+Congestion acoidance 단계로 들어가게 된다
+1 MSS만큼만 증가시키는 과정에 들어간다
+이렇다해도 언젠가는 혼잡이 발생한다
+두 가지의 경우가 있는데
 
+1. Retransmission TimeOut에 걸리면 cwnd값이 다시 Slow start 로 들어가게 된다
+그러면 cwnd 값이 1MSS로 설정이 된다 새로운 Slow start threshold 값은
+타임아웃이 발생할때의 cwnd값 그떄의 윈도우 값의 1/2에 해당하는 값이 새로운 Slow start threshold 값이 된다
 
+2. 3개의 중복된 Ack 수신한경우에는 Congestion avoidance 단계로 시작한다
+Slow start threshold 값은 현재의 cwnd 값의 1/2가 되고 cwnd값은 새롭게 설정된 threshold 값에서 
+Congestion avoidance 단계가 진입된다
 
+혼잡은 Slow start 단계에서도 혼잡은 발생할수있다
+1, 2번 둘다 해당된다
 
 
+Congestion example @@@ 3-32분
+실제 cwnd 값은 바이트
 
+수평축은 RTT - Round trip time  쉽게 생각하면 전송 횟수라고 생각하면 된다 (왔다갔다 1번)
+number of transmission
 
+TCP-Tahoe = Slow start + Congestion avoidance + Fast retransmit
+TCP-Reno = TCP-Tahoe + Fast Recovey
 
 
+TCP 타이머 종류
+Timers
+1. Retansmission
+2. Persistence
+3. Keepalive
+4. TIME-WAIT
 
 
+재전송 타이머(retransmisson timer)
+- RTO(Retransmission time-out) : 세그먼트 전송 후 확인응답을 기다리는 시간
+- 재전송 타이머 규칙
+	- 송신 버퍼의 맨 앞에 있는 세그먼트 전송 시 타이머 구동
+	- 타임-아웃 발생하면 버퍼의 첫 번째 세그먼트 재전송 -> 타이머 다시 구동
+	- 누적 확인 응답된 세그먼트들은 버퍼에서 삭제
+	- 버퍼가 빈 경우 타이머 정지
+- 긴 재전송 시간 vs 짧은 재전송 시간
+길 경우에는 그만큼 재전송 될 확률이 줄기 때문에 재전송으로 인한 오버헤드는 줄일 수 있다
+만약 패킷이 lose 되는것이 확실하다면 불필요하게 재전송 타임아웃을 길게 잡으면
+오히려 재전송하게 되는 그 시간이 길어지므로 전체적인 성능이 오히려 떨어진다
+적절한 값을 결정하는 것이 중요하다
 
+- 왕복시간(RTT : Round Trip Time) 계산
+	- 측정된 RTT (Measured RTT) : RTTm
+		- 하나의 Segment 전송 후 ACK 수신할 떄까지의 시간
+		- 어느 한 순간에는 오직 하나의 RTT 측정만이 진행된다
+	- 매끄러운 RTT (Smoothed RTT) : RTTs
+		- 첫 번쨰 측정 이후 : RTTs = RTTm
+		- 그 이후의 측정 이후 = RTTs=(1-a)RTTs + aRTTm   	, where a = 1/8
+	- RTT 편차 (RTT Deviation) : RTTd
+		- 첫 번쨰 측정 이후 : RTTd = RTTm/2
+		- 그 이후의 측정 이후 : RTTd = (1-b)RTTd + b * |RTTs-RTTm|  		, where b = 1/4
 
+- 재전송 타임-아웃 (Retransmission Timeout : RTO)
+	- 처음 : 초기값 (보통 6.00초)
+	- 그 이후의 측정 이후 : RTO = RTTs + 4*RTTd
 
 
+EXample 15.3
 
 
+Karn 알고리즘
+- 전송된 세그먼트에 대해 확인 응답이 되지 않아 재전송된 경우
+- 이전 세그먼트에 대한 확인응답인지 재전송에 대한 확인응답 인지 여부 판단이 애매하다
+- RTT 값은 재전송 없이 확인응답 수신 전까지 변동이 없음
+	- 새로운 RTO의 계산에 재전송 세그먼트의 RTT는 고려하지 않음
 
+지수 백오프 (Exponential Backoff)
+- 세그먼트가 재전송될 때마다 RTO 값은 두 배가 된다.
 
 
+Example 15.4
 
 
+영속 타이머(persistence timer)
+- 윈도우 크기가 0인 경우를 처리하기 위한 타이머
+- 수신 TCP가 윈도우 크기 0을 통보한 후, 다시 0이 아닌 윈도우 크기를 아릴는 확인 응답을
+  보냈지만 송신 TCP가 이를 수신하지 못함.
+- 양쪽 TCP가 서로 기대되는 교착상태(deadlock) 해결
+- 송신 TCP가 0의 윈도우 크기를 가진 확인을 수신하면, 영속 타이머를 구동
+	-> timeout 발생 시 probe segment 전송
+- TIme-out 값 : RTO 값 (초기값) -> 두 배씩 증가 -> 최대 60초 (매 60초마다 probe 전송)
+					     -------------
+					 probe 세그먼트 미 응답 시마다
 
+Keepalive 타이머
+- 두 TCP 간에 설정된 연결이 오랫동안 휴지(idle) 상태에 있는 것을 방지하기 위한 타이머
+- 서버에 구현 : 클라이언트로부터 세그먼트를 받을 때마다 타이머 초기화 (시간-종료 . 2시간)
+- 2시간이 지나도록 세그먼트를 수신하지 못하면 75초 간격으로 10개의 프로브(probe) 세그먼트 전송
+- 응답이 없으면 다운으로 간주하고 연결 종료
 
+시간-대기 타이머(Time-wait timer)
+- 연결 종료 동안에 사용
+- 시간-대기(2MSL) 시간 동안 연결 유지		Why? (15.5절 참고)
 
 
+15.11 옵션(option)
+- 최대 40바이트
 
+Options - Single-byte - End of option list
+			     - No operation
+	    - Multiple-byte - Maximum segment size
+				- Window scale factor
+				- Timestamp
+				- SACK-permitted		
+				- SACK
 
 
+15.12 TCP 패키지
 
-
-
-
-
-
-
-
-
-
-
-
-
+- 전송 제어 블록 (TCB : Transmission COntrol Block)
+- 타이머 (Timer)
+- 메인 모듈 (Main Module)
+- 입력 프로세스 모듈 (Input Process Module)
+- 출력 프로세스 모듈 (Output Process Module)
 
 
 
