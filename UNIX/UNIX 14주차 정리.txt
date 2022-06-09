@@ -1,0 +1,161 @@
+UNIX 14주차 정리
+
+기호모드, 2진모드 많이나옴
+
+
+wc
+
+-c - 바이트 수
+-l - 라인 수
+
+
+sort (정렬)
+
+test_sort1
+아스키코드 기준
+
+sort -k 2 test_sort2
+2번째 필드 기준 내림차순으로 정렬
+
+sort -k 2 test_sort2
+4번째 필드 기준 내림차순으로 정렬
+점수에 100점이 있는데 49점보다 상위에있는 이유는 49보다 1이 더 작게 인식하기 떄문
+
+sort -n -k 4 test_sort2
+4번쨰 필드 기준 100점이 맨 밑으로 감
+
+sort -n -k 4 -o sort.out test_sort2
+-o = 원래 파일을 정렬의 결과를 따로 저장하는것
+
+-k 2 = +1 같은 의미
+-n = 숫자의 크기로 정렬
+
+-f
+-k
+-r 
+-o
+-n
+알아두기
+
+2차 정렬x
+
+sort -t : /etc/passwd | more
+필드 구분자를 : 로 지정 
+패스워드를 구분하는 파일
+
+
+split [ 옵션 ] [ 파일명 ] @@
+큰 파일을 일정한 크기의 여러 개 작은 파일로 분할
+-b n : 크기가 n 바이트인 파일로 분할
+-n : n줄씩 분할
+옵션을 지정하지 않으면 1000줄씩 분할
+
+cp etc/services test_split
+test_split으로 복사
+
+split -30 test_split @@
+30줄씩 잘라서 저장
+큰 파일을 줄로 자르는것
+
+wc -l x*
+x로 시작한 모든 파일을 보여주기
+
+split -b 512 test_split
+test_split 파일을 512바이트씩 잘라서 저장
+
+
+uniq (중복 삭제)
+파일 또는 표준입력으로 입력된 내용 중 중복된 내용의 줄이 연속으로 있으면 하나만 남기고 삭제
+
+
+uniq test_uniq
+중복되는 내용은 하나를 없애고 하나만 나옴
+2개중 1개 / 중복 삭제
+
+-u : 중복되지 않는 행만 출력
+-c : 각 행의 처음에 중복 횟수를 출력
+-d : 중복된 행 중 한 행만 출력, 원래 유일한 행은 출력 안 함
+
+sort test_uniq | uniq @@@
+정렬을 한뒤에 중복 삭제
+sort test_uniq 의 결과값이 오른쪽에 있는것에 입력값을 주는것 - 파이프
+
+uniq -u test_uniq - 중복없는 행 보기
+aaaaa
+ccc 이렇게 나옴
+
+uniq -d test_uniq - 중복된 것만 보기
+
+
+cut
+파일의 각 열에서 선택된 필드를 잘라냄
+
+-c 리스트 : 각 열에서 잘라낼 문자 위치 지정
+-f 필드번호 : 지정한 필드 잘라냄
+-d 문자 : 필드 구분자 (델리미터)
+
+
+cut -c 5-8 test_cut
+5-8 - 왼쪽부터 5~8비트를 오려내는것
+
+cut -f 2,3 test_cut
+2,3번째 열 필드 출력
+
+cut -d: -f1 /etc/passwd | more
+
+cut -d' ' -f 2 test_cut
+2번째 필드 ' '로 구분하는것
+
+
+paste
+지정한 파일의 내용을 붙임
+
+-s : 파일 수평 붙이기
+-d문자 : 필드 구분자
+
+
+paste test_paste1 test_paste2
+paste1 과 paste2 를 붙이는것
+반대로도 가능
+
+paste -s test_paste1
+수평으로 바뀜
+
+paste -d: test_paste1 test_paste2
+붙일때 : 가 중간에 붙음
+
+
+dd는 시험범위 아님x
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
