@@ -433,11 +433,11 @@ find ~ -perm 644
 
 
 find ~ -perm 755 -a -type d
-커미션이 755고 타입은 디렉토리고 -a는 엔드 조건이다
+커미션이 755고 타입은 디렉토리고 -a는  조건이다
 a- = and  a이면서 b
 
 find ~ -perm 755 -o -type d
-커미션이 755고 타입은 디렉토리고 -o는 엔드 조건이다
+커미션이 755고 타입은 디렉토리고 -o는 OR 조건이다
 -o = or  a또는b
 
 find ~ -perm 755 -o -mtime 1
