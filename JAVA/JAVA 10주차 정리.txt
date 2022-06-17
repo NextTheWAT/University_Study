@@ -33,7 +33,7 @@ if, else if, else 로
 instanceof 연산자의 활용
 메소드 오버라이딩으로 만드는것 과제@@@!
 public static void warpBox(Box box)
-이 줄밑에 지우고 오버라이딩으로 만들기
+이 줄밑에 지우고 오버라이딩으로 만들기    
 
 
 16-1. 상속이 도움이 되는 상황의 소개
