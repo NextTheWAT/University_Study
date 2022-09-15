@@ -1,0 +1,209 @@
+JAVA실무 3주차
+
+
+클래스 : 객체 지향 언어에서 프로그램을 개발하는 단위
+메서드 : 수행할 작업을 나열한 코드의 모임
+실행문 : 작업을 지시하는 변수 선언, 값 저장, 메서드 호출 등의 코드
+주석문
+행 주석 : //
+범위 주석:  /* */
+문서 주석: /** */
+
+식별자 규칙
+문자, 언더바 _ , $로 시작해야 한다, 한글도 가능하며, 영문자는 대소문자를 구분한다.
++ - 등 연산자를 포함하면 안 된다.
+자바 키워드를 사용하면 안 된다.
+길이에 제한이 없다.
+
+잘못된 식별자 : %5, a+b, 1b
+올바른 식별자 : radius, $s, _int
+
+데이터 타입 : byte, char, short, int, long, float, double, boolean
+접근 지정자 : private, protected, public
+제어문 : if, else, for, while, do, break, continue, switch, case
+클래스와 객체 : class, interface, enum, extends, implements, new, this, super, instanceof, nulll
+예외 처리 : try, catch, finally, throw, throws
+기타 : abstract, assert, const, default, false, final, import, native, package, return, static
+	, strictfp, synchronized, transient, ture, void, volatile
+
+식별자 관례
+- 변수와 메서드는 모두 소문자로 표기. 단, 복합 단어일 때는 두 번째 단어부터 단어의 첫
+자만 대문자로 표기
+- 클래스와 인터페이스는 첫 자만 대문자로 표기하고 나머지는 소문자로 표기. 단, 복합
+단어일때는 두 번째 단어부터 단어의 첫 자만 대문자로 표기
+- 상수는 전체를 대문자로 표기. 단, 복합 단어일 때는 단어를 언더바 _ 로 연결
+
+
+데이터 타입
+의미 - 값과 값을 다룰 수 있는 연산의 집합을 의미
+종류
+
+기초 타입
+정수타입 : byte, short, int, long
+문자 타입 : char
+실수 타입 : float, double
+논리 타입 : boolean
+
+참조 타입
+배열타입
+열거 타입
+클래스 타입
+인터페이스 타입
+
+8bit - 1byte
+
+정수
+byte : 1byte
+short : 2byte
+int : 4byte
+long : 8byte
+
+문자
+char : 2byte
+
+실수
+float : 4byte
+double : 8byte
+
+논리
+boolean : 1byte
+
+
+보수
+컴퓨터에서 +-를 표현하기위해 만들어진것
+
+
+변수
+의미
+- 프로그램은 기억 공간에 데이터를 보관하고, 각 기억 공간을 변수로 구분
+- 변수는 데이터를 담는 상자와 같은 것으로 종류가 다양한데, 이를 구분하려고 데이터 타입을 사용
+
+리터럴
+- 프로그램 내부에서 값을 정의해 변수를 초기화할 수 있는데, 그 값을 리터럴
+
+
+var 예악어
+- 자바 10부터 지원
+- 초깃값을 통하여 데이터 타입 추론 가능
+- 식별자로 사용 가능
+
+var number = 100; //var는 정수를 나타낼 수 있는 int 타입으로 추론한다.
+var korean = "한국"; //var는 문자열을 나타낼 수 있는 String 타입으로 추론한다.
+var oops; //오류
+
+상수
+- 프로그램 실행 중 변경할 수 없는 데이터를 담는 변수
+- 예를 들어 원주율 값이나 빛의 속도 등
+- 상수 이름은 변수와 구분하려고 모두 대문자로 표기
+- 반드시 final 키워드로 지정
+
+
+int a
+double b
+double c
+
+a = 7/4  // 1
+b = 7/4 // 1.0
+c = 7/4.0 // 1.75
+
+
+기본 입출력
+= 화면에 데이터 출력
+- println() : 내용을 출력한 후 행을 바꾼다.
+- print() : 내용을 출력만 하고 행은 바꾸지 않는다.
+- printf() : 포맷을 지정해서 출력한다.
+
+printf 형식
+System.out.printf("x = %d and pi = %f\n", x, pi);
+이런식으로 
+
+
+05          int i = 97;
+06          String s = "Java";
+07          double f = 3.14f;
+08          System.out.printf("%d\n", i);	//97
+09          System.out.printf("%o\n", i);	//141
+10          System.out.printf("%x\n", i);		//61
+11          System.out.printf("%c\n", i);		//a
+12          System.out.printf("%5d\n", i);	//   97
+13          System.out.printf("%05d\n", i);	//00097
+14          System.out.printf("%s\n", s);	//Java
+15          System.out.printf("%5s\n", s);	// Java
+16          System.out.printf("%-5s\n", s);	//Java
+17          System.out.printf("%f\n", f);		//3.140000
+18          System.out.printf("%e\n", f);	//3.140000e+00
+19          System.out.printf("%4.1f\n", f);	// 3.1
+20          System.out.printf("%04.1f\n", f);	//03.1
+21          System.out.printf("%-4.1f\n", f);	//3.1	  // 앞에서부터 찍어라
+
+시험문제@
+
+
+기본 입출력
+키보드로 데이터 입력
+- 프로그램의 첫 행에 다음을 추가해 Scanner 클래스의 경로 이름을 컴파일러에 알린다.
+import java.util.Scanner
+- 키보드로 데이터를 입력 받기 위해 System.in 객체와 연결된 Scanner 객체를 생성한다.
+Scanner in = new Scanner(System.in)
+- Scanner 클래스가 제공하는 다양한 메서드를 이용해 키보드로 데이터를 입력 받는다.
+int x = in.nextInt(); // 정수를 읽어 변수 x에 대입한다.
+
+Scanner 클래스가 제공하는 데이터 입력 메서드
+next() - String
+nextByte() - byte
+nextShort() - short
+nextInt() - int
+nextLong() - long
+nextFloat() - float
+nextDouble() - double
+nextLine() - String
+
+
+연산자와 연산식의 의미
+
+x + y
+x - 피연산자
+
+x + u * z
+* - 연산자
+x - 피연산자
+
+
+산술 연산자
+- 피연산자의 데이터 타입에 따라 결과 값이 다른데, 연산할 두 피연산자의 데이터 타입이 다르면 큰 범위의 
+타입으로 일치시킨 후 연산 수행
+- 논리 타입을 제외한 기초 타입을 피연산자로 사용. 단, % 연산자는 정수 타입만 사용
+- 덧셈 연산자는 문자열을 연결하는 데도 사용. 문자열과 덧셈을 하는 데이터는 먼저 문자열로 변환한 후 서로 연결
+
+비교 연산자
+- 비교 연산자는 논리 타입을 제외한 기초 타입에만 사용할 수 있지만 ==와 =!은 모든 기초 타입에 사용
+
+논리 연산자
+- 논리 연산자는 피연산자의 조건을 결합해서 ture 와 false를 조사하여, 논리 타입에만 사용
+
+&& - 둘다 ture일때만 ture
+|| - 둘중 하나라도 ture 라면 ture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
