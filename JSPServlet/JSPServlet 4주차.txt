@@ -1,0 +1,192 @@
+JSPServlet 4주차
+7장
+
+내장객체 내부객체 ex)
+A a = new A();
+B b = new B();
+C c = new C();
+a,b,c를 가르키는것 - 변수 선언
+
+내부객체란?
+ JSP 페이지를 작성할 때 특별한 기능을 제공하는 JSP 컨테이너가 제
+공하는 특별한 객체
+ JSP에서 선언하지 않고 사용할 수 있는 객체
+ 스크립트 요소에서 내부 객체와 동일한 변수명으로 선언할 수 없다.
+ 사용되는 범주에 따라 4가지 형태로 분류
+- JSP 페이지 입출력 관련 내부 객체 - 제일 많이 사용 response나 request@ request를 많이 사용
+- JSP 페이지 외부 환경 정보 제공 내부 객체
+- JSP 페이지 서블릿 관련 내부 객체
+- JSP 페이지 예외 관련 기본객체
+
+내부객체 9가지 종류
+request		- 파라미터를 포함한 요청을 담고 있는 객체
+response		- 
+out
+session
+application
+pageContext
+page
+config
+exception
+중
+request랑 response를 많이 사용
+session까지는 사용
+
+
+내부객체의 공통 메소드
+setAttribute (key, value)@	- 주어진 key(이름 등)에 속성값을 연결한다.
+getAttribute(key)@			- 주어진 ket에 연결된 속성값을 얻어낸다.
+두 개를 많이 사용		
+getAttributeNames()			- 모든 속성의 이름을 얻어낸다.
+removeAttribute(key)		- 주어진 key에 연결된 속성값을 제거합니다.
+이 메소스들은 해당 클래스에 정의되어있다
+멤버 메소드의 정의?
+
+
+request 내부객체@@
+ex)
+request.getParameter
+request는 주소값을 가지고있고 그 주소값은 인스턴스를 가르킨다
+대표적인게 getParameter 메소드등
+다른 메소드들이 정의되어있다
+
+7-8
+@String getParameter(name)		- namep에 할당된 값을 반환하며 지정된 파라미터 값이 없으면 null 값을 반환합니다
+String[] getParameterValues(name)	- name의 모든 값을 String 배열로 반환합니다.
+Enumeration getPatameterNames()	- 요청에 사용된 모든 파라미터 이름을 java.util.Enumeration 타입으로 변환합니다.
+등 다른 메소드들도 있다
+
+<from method="post" action="request1.jsp">
+
+성명 : <input name="name">
+성명 : <input type="text" name="name">
+이처럼 type="text" 가 디폴트 값으로 들어가서 안써도 무방하다
+
+
+7-11
+response 내부객체@@
+ response 내부객체는 요청을 시도한 클라이언트로 전송할 응답을 나타내는 데이터의 묶음입니다.
+페이지를 업데이트하거나 리다이렉트 사용을해서 다른 페이지로 넘기는것
+response1 페이지를 들어갈려했는데 response1_1 페이지로 response를 하면 response1_1페이지로 넘어간다
+ex)
+response.sendRedirect("response1_1.jsp");
+
+
+7-13
+out 내부객체
+ out 내부객체는 JSP페이지의 결과를 클라이언트에 전송해 주는
+출력 스트림을 나타내며 JSP페이지가 클라이언트에게 보내는 모
+든 정보는 out 객체를 통해서 전달됩니다.
+out은 많이 사용하지 않는다
+
+reques, session을 많이 사용@
+
+
+7-15
+session 내부객체@
+ session 내부객체는 클라이언트 요청에 대한 context 정보의 세
+션과 관련된 정보(데이터)를 저장하고 관리하는 객체입니다.
+
+세션이 아이디를 부여해서 해당되는 클라이언트의 아이디를 확인?
+
+ 
+getAttribute () 의 반환형은
+Object.getAttribute 이다 
+ex)
+(String)session.getAttribute(); @@ 형변환 중요 오브젝트이기때문
+
+7-17
+application 내부객체
+ application 내부객체는 서블릿 또는 어플리케이션 외부 환경 정
+보(Context)를 나타내는 객체입니다. 서버의 정보와 자원 그리
+고 이벤트 로그 같은 정보를 제공합니다.
+
+
+7-19
+pageContext 내부객체
+ pageContext 내부객체는 현재 JSP 페이지의 Context를 나타
+내며 pageContext 객체를 통해서 다른 내부 객체에 접근할 수
+가 있습니다.
+ex) 
+String pageinfo = this.getSetvletInfo();
+여기서 this는 페이지 자기 자신을 가르키는것
+
+
+7-21 별로 중요x
+config 내부객체
+ config 내부객체에는 javax.servlet.ServletConfig 클래스 타입
+이고 Servlet이 초기화 될 때 참조 해야 할 다른 여러 정보를 가
+지고 있습니다.
+
+
+7-22
+exeception 내부객체@
+ execption 내부객체는 개발자가 JSP 페이지에서 발생한 예외를 처리하는 페이지를 지정한 경우 
+에러 페이지에 전달되는 예외객체입니다.
+ page 지시자의 isErrorPage 속성을 true로 지정한 JSP 페이지만 사용 가능한 객체이고 
+예외처리를 설정한 JSP 페이지에는 errorPage 속성에 예외처리 페이지를 설정해야 합니다.
+- 나름 많이 사용
+
+exeception은 에러페이지 내부 안에서 사용할수 있는것
+ex)
+exeception.getMes
+
+
+
+
+8장
+
+서블릿이란?
+ JSP 이전에 동적인 웹페이지 콘텐츠를 생성하는 기술로 제공
+ 서블릿의 자바의 많은 장점 사용가능
+ HTML, CSS 및 자바스크립트 그리고 웹디자인과 연동하기에는 많은 단점
+ 단점이 많지만 서블릿의 존재 이유
+- JSP에는 없는 서버 측 프로그램의 기능
+- 대규모 프로젝트에 사용되는 프레임워크의 기술을 사용
+
+
+8-6
+서블릿의 주요 클래스
+ HttpServlet : 서블릿을 만들기 위해 반드시 상속해야 할 필수 클래스
+ HttpServletRequest : 클라이언트가 데이터를 입력하거나 또는 정보
+에 대한 요청 값을 가지고 있는 클래스
+ HttpServletResponse : 클라이언트가 요청한 정보를 처리하고 다시
+응답하기 위한 정보를 담고 있는 클래스
+ HttpSession : 클라이언트가 세션을 정보를 저장하고 세션 기능을 유
+지 하지 위해서 제공되는 클래스
+
+
+9-13
+서블릿의 라이프 사이클
+클라이언트 서블릿 요청 -> init(최초 한번 호출) ->service, doGet, doPost(반복적 호출)
+-> destroy(마지막 한번 호출)
+
+- init() - 서블릿이 처음으로 요청이 되어 객체가 생성 될 때 호출되는 메소드
+- service() - 클라이언트가 요청이 있을 때 마다 호출되는 메소드
+- destrioy() - 서블릿 서비스의 종료 및 재시작 그리고 서블릿 코드가 수정이 될 때 호출되는 메소드
+- doGet() - 클라이언트 요청 할 때 form의 method가 get 방식일 때 호출되는 메소드
+- doPost() - 클라이언트 요청 할 때 form method가 post 방식일 때 호출되는 메소드
+
+get방식은 url에 정보가 노출되어서 잘 사용하지 않는다
+post방식을 많이 사용
+
+
+8-11
+서블릿의 요청 방식 - get
+ get 방식 : 일반적으로 검색이나 조건을 다른 페이지로 전
+송할 때 사용하는 방식
+
+8-12
+서블릿의 요청 방식 - post
+ post 방식 : 게시판에 글을 입력하거나 또는 회원가입을
+하는 기능으로 다른 페이지로 전송할 때 사용하는 방식
+
+8-13
+서블릿의 세션
+ 세션(session) : 클라이언트(브라우저)와 서버(톰켓)와
+통신의 연속성을 유지하기 위해 사용 되는 기술
+
+
+
+
+
