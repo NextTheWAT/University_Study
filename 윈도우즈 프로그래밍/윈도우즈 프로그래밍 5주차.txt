@@ -1,0 +1,73 @@
+윈도우즈 프로그래밍 5주차
+
+클래스를 사용하는 권한 - 접근 한정자
+private - 자기 자신만 사용
+protected - 클래스 내에서
+public - 어디서든
+
+public 멤버는 공개 데이터 맴버로 클래스 내부 및 외부에서도 객체를 통해 접근이 가능합니다.
+private 멤버는 비공개 데이터 멤버로 클래스 내부에서만 접근이 가능합니다.
+protected 멤버는 보호된 데이터 멤버로 상속된 클래스 한정 접근 가능합니다.
+
+
+class Animal{
+	private:
+		char name[10];
+	public :
+		void Print_Name();
+}; 
+Anumal Dog, Cat, Pig;   - Animal 클래스 유형의 객체 Dog, Cat, Pig 선언
+
+클래스 자체를 사용하는게 아니라 클래스 내에 있는 객체를 사용
+
+
+
+int count =0;
+
+class Aniaml {				//Animal 클래스 정의 
+	char Name[10];
+	public : 
+	void Set_Name();
+	void Print_Name();
+};
+void Animal::Set_Name() {			//멤버 함수 Set_Name() 정의 
+	cout << "좋아하는 동물 " << ++count << " : ";
+	cin >> Name; 		//사용자로부터 Name 데이터를 입력 받음 
+}
+void Animal::Print_Name(){				//멤버 함수 Print_Name() 정의 
+	cout << count << " : " << Name << endl;
+}
+int main(){
+	
+	Animal Dog, Cat;
+	
+	Dog.Set_Name();
+	Dog.Print_Name();
+	
+	Cat.Set_Name();
+	Cat.Print_Name();
+	
+	return 0;
+} 
+1. 클래스 객체
+2. 자리교환 삽입정렬
+3. 위치 삽입정렬
+4. 데이터 각도 변환
+	1 2	3 1	4 3	2 4		1 2	3 1	4 3	2 4			1 2	3 1
+	3 4	4 2	2 1	1 3		3 4	4 2	2 1	1 3			3 4	4 2
+
+	0 1	2 0	3 2	1 3		0 1	2 0	3 2	1 3			0 1	2 0
+	2 3	3 1	1 0	0 2		2 3	3 1	1 0	0 2			2 3	3 1	
+													
+	+2 -1  +1 +2  -2 +1	 -1 -2/   +2 -1  +1 +2  -2 +1   	-1 -2     +2 -1	
+	+1 -2  -2 -1  -1 +2    +2 +1/   +1 -2  -2 -1  -1 +2      +2 +1    +1 -2
+
+00 01		10 00		11 10		01 11
+10 11		11 01		01 00		00 10
+
+5. 선택정렬 
+5 3 2 1
+1 2 3 5
+
+
+
