@@ -1,0 +1,33 @@
+create database myDBb collate utf8_general_ci; //테이블 생성하고 한글 사용할 수 있도록 진행하는 쿼리문
+
+use mydbb;
+not null ==필수 입력사항
+
+create table 'tblregister' ('id' varchar(20) not null, 'pwd' varchar(20) not null, 
+'name' char(6) null default null, 'num1' char(6) null default null, 'num2' char(7) null default null,
+'email' varchar(30) null default null, 'phone' varchar(3) null default null, 'zipcode' char(5) null default null,
+'address' varchar(60) null default null, 'job' varchar(30) null default null);
+('' 다 빼고 작성하자)
+
+show tables; //테이블이 뭐가있는지!
+
+desc tblregister; //속성값 확인가능!
+
+alter table tblregister add primary key(id); //테이블의 속성을 바꿀때 사용된다!
+
+select * from tblregister; //안에있는 내용들 전부 출력
+
+insert into tblregister(id,pwd) values ('kkk','1234'); //kkk,1234를 넣는다. 
+
+insert into tblregister (id,pwd,name,num1,num2,email,phone,zipcode,address,job)
+values ('kkk2','1234','김광기','111111','1111111','aaa@naver.com', '0100000000', '31172','천안시 서북구 쌍용 2동', '교수');
+
+delete from tblregister where id='kkk4'; //id가 kkk4인 속성을 지워라 
+
+select * from tblregister where id='kkk3' //조건을 걸어서 검색하기
+
+select id,pwd from tblregister where id='kkk3'; //아이디가 kkk3인사람의 아이디와 비밀번호를 검색해라
+
+update tblregister set phone='01012345678' where id='kkk3'; //id가 kkk3인 사람의 폰번호를 업데이트해라
+
+drop table if exists tblregister //테이블이름이 tbl~이라면 없애버려라!
