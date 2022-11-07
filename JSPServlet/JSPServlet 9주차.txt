@@ -88,7 +88,7 @@ session.invalidata();
 
 
 
-
+prepardstatment 중요함 꼭 알아두기@@@
 
 
 
