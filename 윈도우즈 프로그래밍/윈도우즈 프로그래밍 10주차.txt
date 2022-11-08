@@ -1,0 +1,40 @@
+윈도우즈 프로그래밍 10주차
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void CallsumDlg::OnClickedButton1()
+{
+	UpdateData(true);	//컨트롤 값을 변수로 전송
+
+	int d=0;		//시작값부터 끝값까지 더한 값을 받을 정수형 변수
+
+	CString temp;	//temp를 CString형으로 선언
+
+	for (int i = a; i <= b; i++) {		//a부터 b까지 for문 반복
+		d = d + i;						//d값에 i값을 계속 더해줌
+	}
+
+	temp.Format(_T("%d"), d);			//Format을 이용해 자료형을 조합된 문자열로 생성
+	c = temp + _T(" = 총합.");			//c값 d와 총합 출력문
+
+	UpdateData(false);		//변수의 값을 컨트롤로 전송
+}
+
+
+
+
+
+
+
