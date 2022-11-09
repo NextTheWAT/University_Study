@@ -1,0 +1,99 @@
+JSPServlet 10주차
+
+session을 사용할때는 항상 형변환을 해주자
+ex) String id = (String)session.getAttribute("idkey");
+
+seqssion.invalidate - 세션끊기
+
+
+ch13
+파일 업로드
+
+파일 업로드의 기본적인 폼
+- 파일을 전송해서 업로드 하기 위해서 필요한 fome 태그와 input 태그
+
+form 태그
+<form name = "frmName" method = "post" enctype="mutipart/form-data">
+input 태그
+<input type = "file" name = "selectFile">
+
+input 태그 페이지 구성
+<html>
+<body>
+<form name="frmName" method="post" 
+enctype="multipart/form-data">
+<input type="text" name="title">
+<input type="file" name="selectFile">
+<input type="submit" name="OK">
+</form>
+</body>
+</html>
+
+
+MultipartRequest의 생성자
+public MultipartRequest(javax.servlet.http.HttpServletRequest request,
+java.lang.String saveDirectory,
+int maxPostSize, - 사이즈
+java.lang.String encoding, FileRenamePolicy policy) - 같은 파일이름일때 다르게 지정해주는것
+
+
+MultipartRequest의 대표 메소드
+
+java.lang.String
+getContentType(java.lang.String name) - 업로드 된 파일의 컨텐트
+타입을 반환하고 업로드된 파일이 없으면 null을 반환합니다.
+
+java.io.File
+getFile(java.lang.String name) - 서버 상에 업로드된 파일의 객체를
+반환하고 업로드 된 파일 없으면 null을 반환합니다. - 실제로 파일을 가져오는것
+
+java.util.Enumeration
+getFileNames() - 폼 요소 중 input 태그 속성이 file로 된 파라미터의
+이름들을 반환하고 업로드된 파일이 없으면 비어있는 Enumeration
+객체를 반환합니다. - 인풋 태그중에 태그 이름이 파일인 놈들
+
+java.lang.String
+getFilesystemName(java.lang.String name) - 사용자가 지정해서 서
+버에 실제로 업로드된 파일명을 반환합니다 - 실제 파일 이름을 가져오는것
+같은 이름의 변경된 파일 이름도 알아서 가져온다 - 실제 서버에 저장된 파일
+이름을 가져올때
+
+java.lang.String
+getOriginalFileName(java.lang.String name) - 사용자가 지정해서 서
+버에 업로드된 파일명을 반환하고 이때의 파일명은 파일 중복을 고려
+한 파일명 변경 전의 이름을 반환합니다. - 이름이 바꼈으면 원래이름, 안바꼈다면 그대로 가져온다
+
+java.lang.String
+getParameter(java.lang.String name) - 스트링으로 주어진 이름에 대
+한 값을 반환하고 값 없이 파라미터가 전송되었거나 해당되는 이름의
+파라미터가 전송이 안 되었을 경우 null 값을 반환합니다.
+requestgetparameter랑 같은것
+
+java.util.Enumeration
+getParameterNames() - 모든 파라미터의 이름을 Enumeration 객체
+로 반환합니다.
+
+java.lang.String[]
+getParameterValues(java.lang.String name) - 주어진 이름에 대한 값
+을 스트링 배열로 반환하고 파라미터가 전송되지 않았을 때는 null 값
+을 반환합니다
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
