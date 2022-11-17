@@ -1,0 +1,121 @@
+JSPServlet 11주차
+
+form 태그도 이름을 붙일수있다 그래서 각각 구분 가능
+스크립트릿은 JSPService 메소드에 있는것 이기 때문에 페이지가 사용되면서 안에있는것들은 무조건 사용
+선언문에 있는것은 호출할때만 사용되기때문에 안사용할수도있음
+
+fileSelectPage의 코드중
+<td><input type="text" name="user" onkeyup="inputValue(this.form,user,frmName2,0)" value="<%=getParam(request, "user")%>"></td>
+이 코드에서 
+value="<%=getParam(request, "user")%>
+자기자신을 다시 호출? 값을 다시 위에서 내려오면서
+값을 그대로 다시 가져옴
+
+
+15번째줄 
+	int filecounter = 0;
+	if(request.getParameter("addcnt")!=null){
+		filecounter = Integer.parseInt(request.getParameter("addcnt"));
+	}
+
+onkeyup - 키를 눌렀다 땔때 (키보드의 입력을 받으면 바로 사용되는?)
+
+
+64번째줄
+    <td><input type="text" name="user" onkeyup="inputValue(this.form,user,frmName2,0)" value="<%=getParam(request, "user")%>"></td>
+코드중 
+"inputValue(this.form,user,frmName2,0)" 
+자기자신의 form태그, 왼쪽에 있는 user, 값을 frmName2 값의 인덱스번호 0 으로 설정
+
+23번째줄의 이 코드를 보면 알수있다
+function inputValue(form1, param, form2, idx){
+
+
+
+31번쨰줄
+		formName.addcnt.focus();						 
+값을 입력하지 않았을때 focus 가 입력되지 않은 addcnt 칸에 깜빡깜빡 거리고있음
+
+
+92번째 줄
+	<%	for(int i=0; i<filecounter; i++){%>
+	<input type="File" size="50" name="selectFile<%=i%>"><br/>	 	
+	<%	}%>
+3을 선택했다면
+파라미터 이름이 selectFile0~2가 되는거다
+
+
+39번째 줄
+   for(idx=0; idx<formName.elements.length; idx++){
+파일 갯수가 3개면
+저거의 값은 6이다
+인덱스 0,1,2는 이미 들어가있고 3을 입력했으니까
+
+
+
+
+fileInfoView 코드중
+
+13번째줄
+ArrayList saveFiles = new ArrayList();
+같은 이름의 파일들이 들어온다면 다른 이름으로 바꿔서 저장
+
+14번째 줄
+ArrayList origFiles = new ArrayList();
+원래 이름의 파일들
+
+
+29번쨰 줄
+	   String name = (String)files.nextElement();
+오브젝트 이기때문에 스트링으로 형변환
+
+
+
+14장
+
+create table tblmember(
+	id char(20) not null,
+	pwd char(20) not null,
+	name char(20) not null,
+	gender char(1) not null,
+	birthday char(6) not null,
+	email char(30) not null,
+	zipcode char(5) not null,
+	address char(50) not null,
+	hobby char(5) not null,
+	job char(20) not null,
+	primary key (id)
+);
+
+
+drop table if exists tblzipcode;
+create table tlbzipcode(
+area1 char(10) default null,
+area2 char(20) default null,
+area3 char(30) default null
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
