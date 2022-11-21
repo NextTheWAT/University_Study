@@ -1,0 +1,155 @@
+DB 12주차
+
+
+3장
+DB, 관계, SQL@
+
+테이블 실습 테스트 시험@ 종이에 쓰던지 복사해오던지
+
+SELECT publisher, price
+FROM Book
+WHERE bookname LIKE '축구의 역사';
+이런식으로 사용 잘 외워두자
+
+
+SQL 기능에 따른 분류 @@@
+- 데이터 정의어(DDL)
+  - 테이블이나 관계의 구조를 생성하는 데 사용
+  - CREATE, ALTER,  DROP 문 등이 있음. 
+
+- 데이터 조작어(DML) 
+  - 테이블에 데이터를 검색, 삽입, 수정, 삭제하는 데 사용
+  - SELECT, INSERT, DELETE, UPDATE 문 등이 있음. 
+    - SELECT 문은 특별히 질의어(query)라고 함.
+
+- 데이터 제어어(DCL) 
+  - 데이터의 사용 권한을 관리하는 데 사용
+  - GRANT, REVOKE 문 등이 있음.
+
+
+63p
+
+CREATE TABLE문
+- 테이블을 구성하고, 속성과 속성에 관한 제약을 정의하며, 기본키 및 외래키를 정의하는 명령
+- PRIMARY KEY는 기본키를 정할 때 사용하고 FOREIGN KEY는 외래키를 지정할 때 사용하며, 
+	ON UPDATE와 ON DELETE는 외래키 속성의 수정과 투플 삭제 시 동작을 나타냄.
+
+질의 3-34   다음과 같은 속성을 가진 NewBook 테이블을 생성하시오, 
+               정수형은 NUMBER를, 문자형은 가변형 문자타입인 VARCHAR2를 사용
+	
+	 bookid(도서번호) – NUMBER
+	 bookname(도서이름) – VARCHAR2(20)
+	 publisher(출판사) – VARCHAR2(20)
+	 price(가격) – NUMBER
+
+- 외래키 제약조건을 명시할 때는 반드시 참조되는 테이블(부모 릴레이션)이 존재해야 함
+- 참조되는 테이블의 기본키여야 함
+- 외래키 지정 시 ON DELETE 또는 ON UPDATE 옵션은 참조되는 테이블의 튜플이 삭제되거나 수정될 때 취할 수 있는 동작을 지정
+- NO ACTION은 어떠한 동작도 취하지 않음.
+
+UNIQUE - 유일해야함
+
+질의 3-35   다음과 같은 속성을 가진 NewCustomer 테이블을 생성하시오
+
+ 	 custid(고객번호) 	- NUMBER, 기본키
+	 name(이름) 	– VARCHAR2(40)
+	 address(주소) 	– VARCHAR2(40)
+	 phone(전화번호) 	– VARCHAR2(30)
+
+
+ALTER TABLE 문
+
+- ALTER 문은 생성된 테이블의 속성과 속성에 관한 제약을 변경하며, 기본키 및 외래키를 변경함
+- ADD, DROP은 속성을 추가하거나 제거할 때 사용 -
+- MODIFY는 속성의 기본값을 설정하거나 삭제할 때 사용 - 
+- ADD <제약이름>, DROP <제약이름>은 제약사항을 추가하거나 삭제할 때 사용
+
+@
+질의 3-37   NewBook 테이블에 VARCHAR2(13)의 자료형을 가진 isbn 속성을 추가하시오
+
+질의 3-38   NewBook 테이블의 isbn 속성의 데이터 타입을 NUMBER형으로 변경하시오
+
+질의 3-39   NewBook 테이블의 isbn 속성을 삭제하시오
+
+질의 3-40   NewBook 테이블의 bookid 속성에 NOT NULL 제약조건을 적용하시오
+
+질의 3-41   NewBook 테이블의 bookid 속성을 기본키로 변경하시오
+
+
+DROP TABLE 문
+
+DROP 문
+- DROP 문은 테이블을 삭제하는 명령
+- DROP 문은 테이블의 구조와 데이터를 모두 삭제하므로 사용에 주의해야 함
+  - (데이터만 삭제하려면 DELETE 문을 사용)
+
+
+25p
+
+SELECT 문 예제
+
+질의 3-1   모든 도서의 이름과 가격을 검색하시오
+SELECT bookname, price
+FROM Book;
+
+질의 3-1 변형  모든 도서의 가격과 이름을 검색하시오
+SELECT price, bookname
+FROM Book;
+
+질의 3-2   모든 도서의 도서번호,  도서이름, 출판사, 가격을 검색하시오.
+SELECT booid, bookname, publicher, price
+FROM Book;
+ = 둘다 같은 의미
+SELECT *
+FROM Book;
+
+* = ALL (asterisk)
+
+질의 3-3   도서 테이블에 있는 모든 출판사를 검색하시오.
+SELECT publisher
+FROM Book;
+
+@ 중복을 제거하고 싶으면 DISTINCT 키워드를 사용
+SELECT DISTINCT publisher
+FROM Book;
+
+
+WHERE 절에 조건으로 사용할 수 있는 술어
+
+술어		연산자					사용 예
+비교		=, < > , <, <=, >, >=		price < 20000
+범위		BETWEEN					price BETWEEN 10000 AND 20000
+집합		IN, NOT IN				price IN (10000, 20000, 30000)
+패턴		LIKE						bookname LIKE '축구의 역사'	
+NULL	IS NULL, IS NOT NULL		price IS NULL
+복합조건	AND, OR, NOT				(price < 20000) AND (bookname LIKE '축구의 역사')
+
+BTWEEN 에 문자, 숫자 한글도 다 가능하다
+
+질의 3-4   가격이 20,000원 미만인 도서를 검색하시오.
+SELECT *
+FROM Book
+WHERE price < 20000;
+
+질의 3-5   가격이 10,000원 이상 20,000 이하인 도서를 검색하시오.
+SELECT *
+FROM Book
+WHERE price BETWEEN 10000 AND 20000;
+=
+SELET *
+FROM Book
+WHERE price >= 10000 AND price <= 20000;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
