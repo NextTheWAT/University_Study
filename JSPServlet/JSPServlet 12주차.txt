@@ -1,0 +1,34 @@
+JSPServlet 12주차
+
+
+회원가입에서
+칸을 입력하지않거나 비밀번호가 달랐을때 체크해주는게
+input 체크이다@
+
+
+PreparedStatement - DB랑 연동할때 값이 어떤게 들어올지 몰라서 prepared로 사용
+Statement
+차이
+
+<td><input type="text" name="zipcode" size="7" readonly>
+여기서 readonly는 읽기 전용이다 쓰기는 불가
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
