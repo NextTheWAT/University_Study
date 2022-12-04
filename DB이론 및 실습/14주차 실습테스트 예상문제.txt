@@ -1,0 +1,69 @@
+14주차 실습테스트 예상문제
+
+❶ 고객의 이름과 고객이 주문한 도서의 판매가격을 검색하시오.(Join) 
+SELECT name, saleprice
+FROM customer, orders
+WHERE customer.custid=orders.custid;
+
+❷ 고객별로 주문한 모든 도서의 총 판매액을 구하고, 고객별로 정렬하시오. 
+SELECT name, SUM(saleprice)
+FROM custmer, orders
+WHERE customer.custid=orders.custid
+GROUP BY customer.name
+ORDER BY customer.name;
+
+❸ 고객의 이름과 고객이 주문한 도서의 이름을 구하시오.(3중 조인) 
+SELECT customer.name, book.bookname
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid
+
+❹ 가격이 20,000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오. 
+SELECT customer.name, book.bookname
+FROM cistopmer, orders, book
+WHERE customer.custod=orders.custid AND orders.bookid=book.bookid AND book.price=20000;
+
+❺ 도서를 구매하지 않은 고객을 포함하여 고객 의 이름과 고객이 주문한 도서의 판매가격을 구 하시오.(Left outer join) 
+SELECT customer.name, saleprice
+FROM customer LEFT OUTER JOIN orders ON customer.custid=orders.custid;
+
+❻ 가장 비싼 도서의 이름을 보이시오.(부속질의, 부질의) 
+SELECT bookname
+FROM book
+WHERE price=(SELECT MAX(price)FROM book);
+
+❼ 도서를 구매한 적이 있는 고객의 이름을 검 색하시오.(부질의,in) 
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid FROM orders);
+
+❽ 대한미디어에서 출판한 도서를 구매한 고객의 이름을 보이시오. 
+SELECT name
+FROM customer
+WHERE custid IN(SELECT custid
+			FROM orders
+			WHERE bookid IN(SELECT bookid
+						FROM book
+						WHERE publisher='대한미디어'));
+
+❾ 출판사별로 출판사의 평균 도서 가격보다 비 싼 도서를 구하시오.(상관부속질의) 
+SELECT b1.bookname
+FROM book b1
+WHERE b1.price > (SELECT avg(b2.price)
+			FROM book b2
+			WHERE b2.publisher=b1.publisher);
+
+❿ 도서를 주문하지 않은 고객의 이름을 보이시 오.(MINUS) 
+SELECT name
+FROM customer
+MINUS
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid 
+			FROM orders);
+
+⓫ 주문이 있는 고객의 이름과 주소를 보이시 오.(EXISTS)
+SELECT name, address
+FROM customer cs
+WHERE EXISTS (SELECT * 
+			FROM orsers od
+			WHERE cs.custid=od.custid);
