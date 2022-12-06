@@ -1,0 +1,155 @@
+DB 14주차
+
+조인 시험에 많이 나옴
+관계대수식 SQL로 꼭 쓰지말것 3개나옴
+
+질의 3-21   고객과 고객의 주문에 관한 데이터를 모두 보이시오.
+SELECT *
+FROM customer, orders
+WHERE customer.custid=orders.custid;
+
+질의 3-22   고객과 고객의 주문에 관한 데이터를 고객번호 순으로 정렬하여 보이시오.
+SELECT *
+FROM customer, orders
+WHERE customer.custid=orders.custid
+ORDER BY customer.custid;
+동등조인
+
+질의 3-23   고객의 이름과 고객이 주문한 도서의 판매가격을 검색하시오.
+SELECT name, saleprice
+FROM customer, orders
+WHERE customer.custid=orders.custid;
+			기본키		외래키
+		조인조건절
+
+SELECT c.name, o.saleprice  --별칭
+FROM customer c, orders o
+WHERE c.custid=o.custid;
+
+SELECT c.name as 이름, o.saleprice
+FROM customer c, orders o
+WHERE c.custid=o.custid;
+다 같은것
+
+이너조인 
+SELECT *
+FROM customer INNER JOIN orders
+ON orders.custid=customer.custid;
+
+SELECT *
+FROM customer JOIN orders  -- INNER은 디폴트값이라 안써도됨
+ON orders.custid=customer.custid;
+
+모든 고객과 주문내역 모두 조인검색(내추럴 조인)
+SELECT *
+FROM customer NATURAL JOIN orders  -- 자연조인 더 깔끔해짐(중복 없애기)
+ON orders.custid=customer.custid;	-- 자연조인일때는 별칭 불가
+
+
+질의 3-24   고객별로 주문한 모든 도서의 총 판매액을 구하고, 고객별로 정렬하시오.
+SELECT name, SUM(saleprice)		--OO별로 하면 GROUP BY 써야함@@
+FROM customer, orders
+WHERE customer.custid=orders.custid
+GROUP BY customer.name
+ORDER BY customer.name;
+
+질의 3-25   고객의 이름과 고객이 주문한 도서의 이름을 구하시오.
+SELECT customer.name, book.bookname
+FROM customer, orders, book
+WHERE
+
+질의 3-25   고객의 이름과 고객이 주문한 도서의 이름을 구하시오.
+SELECT customer.name, book.book.name
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid;
+
+SELECT c.name, b.book.name
+FROM customer c, orders o , book b
+WHERE c.custid=o.custid AND o.bookid=b.bookid;
+이렇게 변환가능 별칭@(얼라이어스)
+
+질의 3-26   가격이 20,000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오.
+SELECT customer.name, book.bookname
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid
+				AND book.price=20000;
+
+질의 3-27  도서를 구매하지 않은 고객을 포함하여 고객의 이름과 고객이 주문한 도서의 
+               판매가격을 구하시오.@
+SELECT customer.name, saleprice
+FROM customer LEFT OUTER JOIN orders -- OUTER JOIN 구매하지 않아도 나오는
+			ON customer.custid=orders.custid;
+
+
+부속질의
+
+질의 3-28  가장 비싼 도서의 이름을 보이시오.
+SELECT bookname
+FROM book
+WHERE price=(SELECT MAX(price)
+			FROM book;)
+
+책들의 평균가격보다 비싼 책들의 이름을 검색하시오. 시험@
+SELECT bookname
+FROM book
+WHERE price>=(SELECT AVG(price)
+			FROM book);
+
+질의 3-29   도서를 구매한 적이 있는 고객의 이름을 검색하시오.
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid
+			FROM orders);
+
+질의 3-30   대한미디어에서 출판한 도서를 구매한 고객의 이름을 보이시오.
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid
+			FROM orders
+			WHERE bookid IN (SELECT bookid
+						FROM book
+						WHERE publisher='대한미디어'));
+부속질의 3개
+
+
+상관 부속질의
+
+질의 3-31   출판사별로 출판사의 평균 도서 가격보다 비싼 도서를 구하시오.
+SELECT b1.bookname
+FROM book b1
+WHERE b1.price > (SELECT AVG(b2.price)
+			FROM book b2
+			WHERE b2.publisher=b1.publisher);
+
+질의 3-32   도서를 주문하지 않은 고객의 이름을 보이시오.
+SELECT name
+FROM customer
+MINUS
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid 
+			FROM orders);
+도서를 주문하지 않은 고객 = 모든 고객 - 도서를 주문한 고객
+
+
+EXISTS 나온다면 33번대로 나온다 어려워서
+
+질의 3-33  주문이 있는 고객의 이름과 주소를 보이시오.
+SELECT name, address
+FROM custimer cs
+WHERE EXISTS (SELECT *
+			FROM orders od
+			WHERE cs.custid=od.custid);
+
+
+
+
+
+
+
+
+
+
+
+
+
