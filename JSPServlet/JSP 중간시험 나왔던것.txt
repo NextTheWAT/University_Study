@@ -1,0 +1,70 @@
+1.jsp작동과정
+2.내장객체 관련
+3.서블릿의 생명주기
+4.java문법(접근제어지시자관련)
+5.exception,errorpage 관련 연습문제
+6.스크립트릿, 선언문 관련
+7.getAttribute의 반환형
+8.include 지시자 vs include 액션태그
+9.빈즈?
+10.빈즈 연습문제
+
+
+JSP 파일의 동작단계@@@
+1. JSP 페이지 요청
+2. JSP 컨테이너로 전송
+3. JSP 파일 파싱
+4. 서블릿으로 변환
+5. 클래스 파일 생성
+6. 메모리에 적재되어 실행됨
+7. HTML 전송
+8. HTML 표시(실행)
+
+접근한정자 관련
+
+< Servlet 생명주기 메서드를 서술하시오 >
+- init(): 처리에 필요한 초기화 작업
+- destory(): 자원 해제후 서블릿 종료
+- service(): 요청에 대한 처리 작업 (호출될때 doGet, doPost중 하나만 호출)
+   - doGet(): 클라이언트가 요청할 때 form태그의 method속성이 get일 때 호출되는 메소드 
+   - doPost(): 클라이언트가 요청할 때 form 태그의 method 속성이 post일 때 호출되는 메소드
+
+<%> 스크립트릿에 쓰여진 변수 team은 jsp_service() 메소드의 지역변수로 들어가서 메소드내에서만 사용가능하다
+근데 선언문에서 선언된 name은 서블릿클래스의 멤버변수로 들어가고 거기서 선언된 team+"Fighting !!" 에서
+team은 호출이 될수가 없다 team 변수는 지역변수로 선언되어있기에 멤버변수에서 선언되어 출력하는것은 에러가 발생한다
+
+
+file page
+
+페이지지시자에서 내부객체인 page를 동일한이름으로 변수를 생성하는것은 불가능하다.
+내부객체 9가지로있는 이름들로 변수로 선언할수가 없다.
+< 내부 객체의 종류 >
+- request
+- response
+- out
+- session
+- pageContext
+- page
+- config
+- exception
+- aplication
+
+isErrorpage = "true", exception
+
+getAttribute()는 내부객체의 공통메소드이며 반환형이 object이다 따라서 Object타입이 String 타입으로 들어가지 못하기에
+앞에서 명시적 형변환을 해주어야한다
+따라서 코드를 수정하면 String id = (String)session.getAttribute("idkey")로 바꿔줘야한다
+
+
+
+
+
+
+
+
+
+
+
+
+
+
