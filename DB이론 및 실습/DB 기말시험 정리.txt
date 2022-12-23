@@ -1,0 +1,777 @@
+DB 기말시험 정리
+
+성영이형 시험본것
+
+Db 정의
+관계
+SQL
+릴레이션 스키마
+기본키
+후보키
+외래키
+관계대수식 3문제
+릴레이션의 특징 6개
+무결성 제약조건 4개
+참조 무결성 제약조건 유지 
+나머지 다 sql 질의문
+
+
+릴레이션 스키마
+- 속성(attribute) : 릴레이션 스키마의 열
+- 도메인(domain) : 속성이 가질 수 있는 값의 집합
+- 차수(degree) : 속성의 개수
+
+릴레이션의 특징
+속성은 단일 값을 가진다
+- 각 속성의 값은 도메인에 정의된 값만을 가지며 그 값은 모두 단일 값이여야 함.
+
+속성은 서로 다른 이름을 가진다
+- 속성은 한 릴레이션에서 서로 다른 이름을 가져야만 함.
+
+한 속성의 값은 모두 같은 도메인 값을 가진다
+- 한 속성에 속한 열은 모두 그 속성에서 정의한 도메인 값만 가질 수 있음.
+
+속성의 순서는 상관없다
+- 속성의 순서가 달라도 릴레이션 스키마는 같음.
+   예) 릴레이션 스키마에서 (이름, 주소) 순으로 속성을 표시하거나 (주소, 이름) 순으로 표시하여도 상관없음.
+
+릴레이션 내의 중복된 투플은 허용하지 않는다
+- 하나의 릴레이션 인스턴스 내에서는 서로 중복된 값을 가질 수 없음. 즉 모든 투플은 서로 값이 달라야 함.
+
+투플의 순서는 상관없다
+- 투플의 순서가 달라도 같은 릴레이션임. 관계 데이터 모델의 투플은 실제적인 값을 가지고 있으며 이 값은 
+   시간이 지남에 따라 데이터의 삭제, 수정, 삽입에 따라 순서가 바뀔 수 있음.
+
+도메인 - 속성이 나타낼수있는 값의 집합
+
+
+키 기말고사 중요@@ 종류도@@@
+키
+- 특정 투플을 식별할 때 사용하는 속성 혹은 속성의 집합
+- 릴레이션은 중복된 투플을 허용하지 않기 때문에 각각의 투플에 포함된 속성들 중 어느 하나(혹은 하나 이상)는 값이 달라야 함. 
+	즉 키가 되는 속성(혹은 속성의 집합)은 반드시 값이 달라서 투플들을 서로 구별할 수 있어야 함
+- 키는 릴레이션 간의 관계를 맺는 데도 사용
+
+
+기본키
+- 여러 후보키 중 하나를 선정하여 대표로 삼는 키
+- 후보키가 하나뿐이라면 그 후보키를 기본키로 사용하면 되고 여러 개라면 릴레이션의 특성을 반영하여 하나를 선택하면 됨. 
+- 기본키 선정 시 고려사항
+  - 릴레이션 내 투플을 식별할 수 있는 고유한 값을 가져야 함.@
+  - NULL 값은 허용하지 않음.@
+  - 키 값의 변동이 일어나지 않아야 함.@
+  - 최대한 적은 수의 속성을 가진 것이라야 함.@ (하나 혹은 두개)
+  - 향후 키를 사용하는 데 있어서 문제 발생 소지가 없어야 함.
+  - 릴레이션 스키마를 표현할 때 기본키는 밑줄을 그어 표시함
+	  릴레이션 이름(속성1, 속성2, …. 속성N)
+	  EX) 고객(고객번호, 이름, 주민번호, 주소, 핸드폰)
+              도서(도서번호, 도서이름, 출판사, 가격)
+
+
+슈퍼키
+투플을 유일하게 식별할 수 있는 하나의 속성 혹은 속성의 집합
+- 투플을 유일하게 식별할 수 있는 값이면 모두 슈퍼키가 될 수 있음 
+
+(고객 릴레이션 예) 
+- 고객번호 : 고객별로 유일한 값이 부여되어 있기 때문에 투플을 식별할 수 있음.
+- 이름 : 동명이인이 있을 경우 투플을 유일하게 식별할 수 없음.
+- 주민번호 : 개인별로 유일한 값이 부여되어 있기 때문에 투플을 식별할 수 있음.
+- 주소 : 가족끼리는 같은 정보를 사용하므로 투플을 식별할 수 없음.
+- 핸드폰 : 한 사람이 여러 개의 핸드폰을 사용할 수 있고 반대로 핸드폰을 사용하지 
+              않는 사람이 있을 수 있기 때문에 투플을 식별할 수 없음.
+ 
+고객 릴레이션은 고객번호와 주민번호를 포함한 모든 속성의 집합이 슈퍼키가 됨. @
+	EX) (주민번호), (주민번호, 이름), (주민번호, 이름, 주소), (주민번호, 이름, 핸드폰),
+	      (고객번호), (고객번호, 이름, 주소), (고객번호, 이름, 주민번호, 주소, 핸드폰) 등
+
+
+후보키@
+투플을 유일하게 식별할 수 있는 속성의 최소 집합
+ (주문 릴레이션 예) 
+- 고객번호 : 한 명의 고객이 여러 권의 도서를 구입할 수 있으므로 후보키가 될 수 없음. 고객번호가 1인 박지
+	성 고객은 세 번의 주문 기록이 있으므로 투플을 유일하게 식별할 수 없음.  
+- 도서번호 : 도서번호가 2인 ‘축구아는 여자’는 두 번의 주문 기록이 있으므로 투플을 유일하게 식별할 수 없음.
+
+- 주문 릴레이션의 후보키는 2개의 속성을 합한 (고객번호, 도서번호)가 됨. @
+  참고로 이렇게 2개 이상의 속성으로 이루어진 키를 복합키(composite key)라고 함@@
+
+
+대리키
+- 기본키가 보안을 요하거나, 여러 개의 속성으로 구성되어 복잡하거나, 마땅한 기본키가 없을 때는 일련번호 같은 
+  가상의 속성을 만들어 기본키로 삼는 경우가 있음. 이러한 키를 대리키(surrogate key) 혹은 인조키(artificial key)라고 함. 
+- 대리키는 DBMS나 관련 소프트웨어에서 임의로 생성하는 값으로 사용자가 직관적으로 그 값의 의미를 알 수 없음.
+키라고 설명하기 어렵다
+
+
+대체키
+- 대체키(alternate key)는 기본키로 선정되지 않은 후보키를 말함. 
+- 고객 릴레이션의 경우 고객번호와 주민번호 중 고객번호를 기본키로 정하면 주민번호가 대체키가 됨.
+
+
+왜래키
+- 다른 릴레이션의 기본키를 참조하는 속성을 말함. 다른 릴레이션의 기본키를 참조하여 관계 데이터 
+   모델의 특징인 릴레이션 간의 관계(relationship)를 표현함.
+
+외래키의 특징
+- 관계 데이터 모델의 릴레이션 간의 관계를 표현함.
+- 다른 릴레이션의 기본키를 참조하는 속성임.
+- 참조하고(외래키) 참조되는(기본키) 양쪽 릴레이션의 도메인은 서로 같아야 함.
+- 참조되는(기본키) 값이 변경되면 참조하는(외래키) 값도 변경됨.
+- NULL 값과 중복 값 등이 허용됨.
+- 자기 자신의 기본키를 참조하는 외래키도 가능함.
+- 외래키가 기본키의 일부가 될 수 있음.
+
+
+키 - 내용 요약
+슈퍼키 - 릴레이션 내 투플을 식별할 수 있는 속성의 집합
+기본키 - 후보키 중 선정된 키
+대체키 - 기본키로 선정되지 않은 후보키
+후보키 - 투플을 식별할 수 있는 속성의 최소 집합
+외래키 - 다른 릴레이션에서 기본키를 참조해서 사용하는것
+	    - 외래키 사용 시 참조하는 릴레이션과 참조되는 릴레이션이 꼭 다른 릴레이션일 필요는 없음. 
+		즉 자기 자신의 기본키를 참조할 수도 있음.
+기본키, 외래키@@
+
+무결성 제약조건@@@
+
+데이터 무결성(integrity, 無缺性)
+- 데이터베이스에 저장된 데이터의 일관성과 정확성을 지키는 것을 말함.
+
+도메인 무결성 제약조건
+- 도메인 제약(domain constraint)이라고도 하며, 릴레이션 내의 투플들이 각 속성의 도메인에 지정된 값만을 가져야 한다는 조건
+- SQL 문에서 데이터 형식(type), 널(null/not null), 기본 값(default), 체크(check) 등을 사용하여 지정할 수 있음.
+
+개체 무결성 제약조건
+- 기본키 제약(primary key constraint)이라고도 함. 
+- 릴레이션은 기본키를 지정하고 그에 따른 무결성 원칙 즉, 기본키는 NULL 값을 가져서는 안 되며 릴레이션 내에 오직 하나의 값만 존재해야 한다는 조건임.
+
+참조 무결성 제약조건
+- 외래키 제약(foreign key constraint)이라고도 하며, 릴레이션 간의 참조 관계를 선언하는 제약조건
+- 자식 릴레이션의 외래키는 부모 릴레이션의 기본키와 도메인이 동일해야 하며, 자식 릴레이션의 값이 변경될 때 부모 릴레이션의 제약을 받는다는 것
+   기본키를 참조하고있는 다른 릴레이션에서 외래키로 사용중이면 그 기본키를 지울수없다
+	두개 테이블이 서로 참조하고있는 키가 있으면 테이블을 지울수없다 그게 참조 무결성 제약조건@
+
+
+참조 무결성 제약조건의 옵션@@@
+RESTRICTED(제한) - 자식 릴레이션에서 참조하고 있으면 부모 릴레이션의 삭제 작업을 거부함
+			예 - 학과 릴레이션의 투플 삭제 거부
+CASCADE(강제) - 자식 릴레이션의 관련 투플을 같이 삭제함
+			예 - 학생 릴레이션의 관련 투플을 삭제
+DEFAULT(기본값) - 자식 릴레이션의 관련 투플을 미리 설정해 둔 값으로 변경ㅎ마
+			예 - 학생 릴레이션의 학과가 다른 학과로 자동 배정
+NULL(널값) - 자식 릴레이션의 관련 투플을 NULL 값으로 설정함(NULL 값을 허가한 경우)
+			예 - 학생 릴레이션의 학과가 NULL 값으로 변경
+
+
+셀렉션@
+- 릴레이션의 투플을 추출하기 위한 연산임. 하나의 릴레이션을 대상으로 하는 단항 연산자며, 
+	찾고자 하는 투플의 조건(predicate)을 명시하고 그 조건에 만족하는 투플을 반환함. 
+- 형식 : σ<조건> (R)   (R은 릴레이션, σ 는 그리스 문자이며 대문자는 Σ )
+질의 2-1 마당서점에서 판매하는 도서 중 8000원 이하인 도서를 검색하시오.
+	답 : 가격 <= 8000(도서)@@@
+
+프로젝션@
+- 릴레이션의 속성을 추출하기 위한 연산으로 단항 연산자임.
+- 형식 : π<속성리스트> (R)  (R은 릴레이션, π 는 그리스 문자이며 대문자는 Π )
+
+질의 2-2 신간도서 안내를 위해 고객의(이름, 주소, 핸드폰)이 적힌 카탈로그 주소록을 만드시오
+π 이름, 주소, 핸드폰 (고객)@@@
+
+카티전 프로덕트
+- 두 릴레이션을 연결시켜 하나로 합칠 때 사용함. 결과 릴레이션은 첫 번째 릴레이션의 
+  오른쪽에 두 번째 릴레이션의 모든 투플을 순서대로 배열하여 반환함. 결과 릴레이션의 차수는 두 릴레이션의 차수의 합이며, 
+  카디날리티는 두 릴레이션의 카디날리티의 곱임.
+카티전 프로덕트 때문에 성능이 저하될수있다 데이터가 배가 되기때문에
+- 양이 너무 많아지는 단점이 있다.
+	(메모리가 버벅거림)
+
+
+조인
+- 릴레이션의 공통 속성을 기준으로 속성 값이 같은 투플을 수평으로 결합하는 연산임. 
+	조인을 수행하기 위해서는 두 릴레이션의 조인에 참여하는 속성이 서로 동일한 도메인으로 구성되어야 함. 
+	조인 연산의 결과는 공통 속성의 속성 값이 동일한 투플만을 반환함.
+
+세타조인(theta join, θ)
+- 조인에 참여하는 두 릴레이션의 속성 값을 비교하여 조건을 만족하는 투플만 반환함. 
+- 세타조인의 조건은 {=, ≠, ≤, ≥, ＜, ＞} 중 하나가 됨.
+- 형식 : R      (r 조건 s) S (R과 S는 릴레이션이며 r은 R의 속성, s는 S의 속성)
+
+
+동등조인(equi join)@@
+- 세타조인에서 = 연산자를 사용한 조인을 말함. 보통 조인 연산이라고 하면 동등조인을 지칭함.
+- 형식 : R      (r = s) S
+	- 고객과 고객의 주문 사항을 모두 보이시오 @@@
+		- 고객       고객.고객번호=주문.고객번호 주문 
+
+
+자연조인(natural join)@@
+- 동등조인에서 조인에 참여한 속성이 두 번 나오지 않도록 두 번째 속성을 제거한 결과를 반환함.
+- 형식 : R     N(r, s) S
+		- 고객과 고객의 주문 사항을 모두 보여주되 같은 속성은 한 번만 표시하시오
+			- 고객       N(고객.고객번호,주문.고객번호) 주문
+
+
+외부조인(outer join) (특별한 경우에만 사용)
+- 자연조인 시 조인에 실패한 투플을 모두 보여주되 값이 없는 대응 속성에는 NULL 값을 채워서 반환
+- 모든 속성을 보여주는 기준 릴레이션 위치에 따라 왼쪽(left) 외부조인, 오른쪽(right) 외부조인, 
+	완전(full) 외부조인으로 나뉨.
+
+
+세미조인(semi join)@ (고객중 주문 내역이 있는 사람만 보여주는것)
+- 자연조인을 한 후 두 릴레이션 중 한쪽 릴레이션의 결과만 반환하며, 
+  기호에서 닫힌 쪽 릴레이션의 투플만 반환함.
+
+디비전
+- 릴레이션의 속성 값의 집합으로 연산을 수행함
+- 형식 : R % S
+	우리가 알고있는 나누기가 아니라 그 값에 걸리는 데이터를 뽑아낸다?
+
+
+SQL 기능에 따른 분류 @@@
+- 데이터 정의어(DDL)
+  - 테이블이나 관계의 구조를 생성하는 데 사용
+  - CREATE, ALTER,  DROP 문 등이 있음. 
+
+- 데이터 조작어(DML) 
+  - 테이블에 데이터를 검색, 삽입, 수정, 삭제하는 데 사용
+  - SELECT, INSERT, DELETE, UPDATE 문 등이 있음. 
+    - SELECT 문은 특별히 질의어(query)라고 함.
+
+- 데이터 제어어(DCL) 
+  - 데이터의 사용 권한을 관리하는 데 사용
+  - GRANT, REVOKE 문 등이 있음.
+
+
+CREATE TABLE문
+- 테이블을 구성하고, 속성과 속성에 관한 제약을 정의하며, 기본키 및 외래키를 정의하는 명령
+- PRIMARY KEY는 기본키를 정할 때 사용하고 FOREIGN KEY는 외래키를 지정할 때 사용하며, 
+	ON UPDATE와 ON DELETE는 외래키 속성의 수정과 투플 삭제 시 동작을 나타냄.
+
+질의 3-34   다음과 같은 속성을 가진 NewBook 테이블을 생성하시오, 
+               정수형은 NUMBER를, 문자형은 가변형 문자타입인 VARCHAR2를 사용
+
+- 외래키 제약조건을 명시할 때는 반드시 참조되는 테이블(부모 릴레이션)이 존재해야 함
+- 참조되는 테이블의 기본키여야 함
+- 외래키 지정 시 ON DELETE 또는 ON UPDATE 옵션은 참조되는 테이블의 튜플이 삭제되거나 수정될 때 취할 수 있는 동작을 지정
+- NO ACTION은 어떠한 동작도 취하지 않음.
+
+UNIQUE - 유일해야함
+
+질의 3-35   다음과 같은 속성을 가진 NewCustomer 테이블을 생성하시오
+
+ 	 custid(고객번호) 	- NUMBER, 기본키
+	 name(이름) 	– VARCHAR2(40)
+	 address(주소) 	– VARCHAR2(40)
+	 phone(전화번호) 	– VARCHAR2(30)
+
+
+ALTER TABLE 문
+
+- ALTER 문은 생성된 테이블의 속성과 속성에 관한 제약을 변경하며, 기본키 및 외래키를 변경함
+- ADD, DROP은 속성을 추가하거나 제거할 때 사용 -
+- MODIFY는 속성의 기본값을 설정하거나 삭제할 때 사용 - 
+- ADD <제약이름>, DROP <제약이름>은 제약사항을 추가하거나 삭제할 때 사용
+
+@
+질의 3-37   NewBook 테이블에 VARCHAR2(13)의 자료형을 가진 isbn 속성을 추가하시오
+
+질의 3-38   NewBook 테이블의 isbn 속성의 데이터 타입을 NUMBER형으로 변경하시오
+
+질의 3-39   NewBook 테이블의 isbn 속성을 삭제하시오
+
+질의 3-40   NewBook 테이블의 bookid 속성에 NOT NULL 제약조건을 적용하시오
+
+질의 3-41   NewBook 테이블의 bookid 속성을 기본키로 변경하시오
+
+
+DROP TABLE 문
+
+DROP 문
+- DROP 문은 테이블을 삭제하는 명령
+- DROP 문은 테이블의 구조와 데이터를 모두 삭제하므로 사용에 주의해야 함
+  - (데이터만 삭제하려면 DELETE 문을 사용)
+
+
+질의 3-1   모든 도서의 이름과 가격을 검색하시오
+SELECT bookname, price
+FROM Book;
+
+질의 3-1 변형  모든 도서의 가격과 이름을 검색하시오
+SELECT price, bookname
+FROM Book;
+
+질의 3-2   모든 도서의 도서번호,  도서이름, 출판사, 가격을 검색하시오.
+SELECT booid, bookname, publicher, price
+FROM Book;
+ = 둘다 같은 의미
+SELECT *
+FROM Book;
+
+* = ALL (asterisk)
+
+질의 3-3   도서 테이블에 있는 모든 출판사를 검색하시오.
+SELECT publisher
+FROM Book;
+
+@ 중복을 제거하고 싶으면 DISTINCT 키워드를 사용
+SELECT DISTINCT publisher
+FROM Book;
+
+
+WHERE 절에 조건으로 사용할 수 있는 술어
+
+술어		연산자					사용 예
+비교		=, < > , <, <=, >, >=		price < 20000
+범위		BETWEEN					price BETWEEN 10000 AND 20000
+집합		IN, NOT IN				price IN (10000, 20000, 30000)
+패턴		LIKE						bookname LIKE '축구의 역사'	
+NULL	IS NULL, IS NOT NULL		price IS NULL
+복합조건	AND, OR, NOT				(price < 20000) AND (bookname LIKE '축구의 역사')
+
+BTWEEN 에 문자, 숫자 한글도 다 가능하다
+
+질의 3-4   가격이 20,000원 미만인 도서를 검색하시오.
+SELECT *
+FROM Book
+WHERE price < 20000;
+
+질의 3-5   가격이 10,000원 이상 20,000 이하인 도서를 검색하시오.
+SELECT *
+FROM Book
+WHERE price BETWEEN 10000 AND 20000;
+=
+SELET *
+FROM Book
+WHERE price >= 10000 AND price <= 20000;
+
+
+질의 3-3   도서 테이블에 있는 모든 출판사를 검색하시오.
+select publisher
+from Book;
+※ 중복을 제거하고 싶으면 DISTINCT 키워드를 사용@@@
+select distinct publisher
+from book;
+
+질의 3-4   가격이 20,000원 미만인 도서를 검색하시오.
+select *
+from book
+where price < 20000;
+
+비교
+질의 3-5   가격이 10,000원 이상 20,000 이하인 도서를 검색하시오.
+select *
+from book
+where price between 10000 and 20000;
+
+select *
+from book
+where price >= 10000 and price <=20000;
+둘다 같은것
+
+집합
+질의 3-6   출판사가 ‘굿스포츠’ 혹은 ‘대한미디어’인 도서를 검색하시오.
+select *
+from book
+where publisher in ('굿스포츠', '대한미디어');
+
+출판사가 ‘굿스포츠’ 혹은 ‘대한미디어’가 아닌 도서를 검색
+select *
+from book
+where publisher not in ('굿스포츠', '대한미디어');
+
+패턴
+질의 3-7   ‘축구의 역사’를 출간한 출판사를 검색하시오.
+select bookname, publisher
+form book
+where bookname LIKE '축구의 역사';
+
+질의 3-8   도서이름에 ‘축구’가 포함된 출판사를 검색하시오.
+select bookname, publisher
+form book
+where booknmae LIKE '%축구%';
+
+질의 3-9   도서이름의 왼쪽 두 번째 위치에 ‘구’라는 문자열을 갖는 도서를 검색하시오.
+select *
+from book
+where bookname LIKE '_구%';
+
+복합조건
+질의 3-10   축구에 관한 도서 중 가격이 20,000원 이상인 도서를 검색하시오.
+select *
+form book
+where bookname LIKE '%축구%' AND price >=20000;
+
+질의 3-11   출판사가 ‘굿스포츠’ 혹은 ‘대한미디어’인 도서를 검색하시오.
+select *
+from book
+where publisher='굿스포츠' OR publisher='대한미디어';
+
+검색 결과의 정렬_ORDER BY
+질의 3-12   도서를 이름순으로 검색하시오.
+select *
+from book
+ORDER BY bookname;
+
+질의 3-13   도서를 가격순으로 검색하고, 가격이 같으면 이름순으로 검색하시오.
+select *
+from book
+ORDER BY price, bookname;
+
+질의 3-14   도서를 가격의 내림차순으로 검색하시오. 만약 가격이 같다면 출판사의 오름차순으로 검색하시오 
+select *
+from book
+ORDER BY price DSEC, publisher ASC;
+
+
+집계 함수
+질의 3-15   고객이 주문한 도서의 총 판매액을 구하시오.
+select SUM(saleprice)
+from Orders;
+
+의미 있는 열 이름을 출력하고 싶으면 속성이름의 별칭을 지칭하는 AS 키워드를 사용하여 
+열 이름을 부여
+SELECT SUM(saleprice) AS 총매출	//AS 써도되고 안써도됨
+FROM Orders;
+
+질의 3-16   2번 김연아 고객이 주문한 도서의 총 판매액을 구하시오.
+SELECT SUM(saleprice) AS 총매출
+FROM Orders
+WHERE custid=2;
+
+질의 3-17   고객이 주문한 도서의 총 판매액, 평균값, 최저가, 최고가를 구하시오.
+SELECT SUM(saleprice) AS Total,
+		AVG(saleprice) AS Average,
+		MIN(saleprice) AS Minimum,
+		MAX(salepirce) AS Maximum
+FROM Orders;
+
+질의 3-18   마당서점의 도서 판매 건수를 구하시오.
+SELECT COUNT(*)
+FROM Orders;
+
+GROUP BY 검색
+질의 3-19   고객별로 주문한 도서의 총 수량과 총 판매액을 구하시오.
+SELECT custid, COUNT(*) AS 도서수량, SUM(saleprice)AS 총액
+FROM Orders
+GROUP BY custid;
+
+
+	SELECT COUNT(*), COUNT(phone)
+	FROM cusomer;
+	고객의 이름 카운트와, 폰번호 카운트 @@@
+
+39p
+집계함수
+SUM
+AVG
+COUNT
+MAX
+MIN
+
+HAVING 절
+질의 3-20   가격이 8,000원 이상인 도서를 구매한 고객에 대하여 고객별 주문 도서의 
+                총 수량을 구하시오.  단, 두 권 이상 구매한 고객만 구한다.
+SELECT 	custid, COUNT(*) AS 도서수량
+FROM 	Orders
+WHERE	saleprice >=8000
+GROUP BY	custid
+HAVING	COUNT(*) >=2;
+
+
+42p
+GROUP BY와 HAVING 절의 문법과 주의사항
+
+연습문제
+1. 마당서점의 고객이 요구하는 다음 질문에 대해 SQL 문을 작성하시오.
+  (1) 도서번호가 1인 도서의 이름
+  (2) 가격이 20,000원 이상인 도서의 이름
+  (3) 박지성의 총 구매액(박지성의 고객번호는 1번으로 놓고 작성)
+  (4) 박지성이 구매한 도서의 수(박지성의 고객번호는 1번으로 놓고 작성)
+
+2. 마당서점의 운영자와 경영자가 요구하는 다음 질문에 대해 SQL 문을 작성하시오.
+(1) 마당서점 도서의 총 개수
+(2) 마당서점에 도서를 출고하는 출판사의 총 개수
+(3) 모든 고객의 이름, 주소
+(4) 2014년 7월 4일~7월 7일 사이에 주문 받은 도서의 주문번호
+(5) 2014년 7월 4일~7월 7일 사이에 주문 받은 도서를 제외한 도서의 주문번호
+(6) 성이 ‘김’ 씨인 고객의 이름과 주소
+(7) 성이 ‘김’ 씨이고 이름이 ‘아’로 끝나는 고객의 이름과 주소
+
+
+44p
+Customer 테이블을 Orders 테이블과 조건 없이 연결
+Customer와 Orders 테이블의 합체 결과 투플의 개수는 고객이 다섯 명이고 주문이 열 개이므로 5×10 해서 50이 됨
+SELECT	*
+FROM	Customer, Orders;
+
+
+질의 3-21   고객과 고객의 주문에 관한 데이터를 모두 보이시오.
+SELECT *
+FROM customer, orders
+WHERE customer.custid=orders.custid;
+
+질의 3-22   고객과 고객의 주문에 관한 데이터를 고객번호 순으로 정렬하여 보이시오.
+SELECT *
+FROM customer, orders
+WHERE customer.custid=orders.custid
+ORDER BY customer.custid;
+동등조인
+
+질의 3-23   고객의 이름과 고객이 주문한 도서의 판매가격을 검색하시오.
+SELECT name, saleprice
+FROM customer, orders
+WHERE customer.custid=orders.custid;
+			기본키		외래키
+		조인조건절
+
+SELECT c.name, o.saleprice  --별칭
+FROM customer c, orders o
+WHERE c.custid=o.custid;
+
+SELECT c.name as 이름, o.saleprice
+FROM customer c, orders o
+WHERE c.custid=o.custid;
+다 같은것
+
+이너조인 
+SELECT *
+FROM customer INNER JOIN orders
+ON orders.custid=customer.custid;
+
+SELECT *
+FROM customer JOIN orders  -- INNER은 디폴트값이라 안써도됨
+ON orders.custid=customer.custid;
+
+모든 고객과 주문내역 모두 조인검색(내추럴 조인)
+SELECT *
+FROM customer NATURAL JOIN orders  -- 자연조인 더 깔끔해짐(중복 없애기)
+ON orders.custid=customer.custid;	-- 자연조인일때는 별칭 불가
+
+
+질의 3-24   고객별로 주문한 모든 도서의 총 판매액을 구하고, 고객별로 정렬하시오.
+SELECT name, SUM(saleprice)		--OO별로 하면 GROUP BY 써야함@@
+FROM customer, orders
+WHERE customer.custid=orders.custid
+GROUP BY customer.name
+ORDER BY customer.name;
+
+질의 3-25   고객의 이름과 고객이 주문한 도서의 이름을 구하시오.
+SELECT customer.name, book.bookname
+FROM customer, orders, book
+WHERE
+
+질의 3-25   고객의 이름과 고객이 주문한 도서의 이름을 구하시오.
+SELECT customer.name, book.book.name
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid;
+
+SELECT c.name, b.book.name
+FROM customer c, orders o , book b
+WHERE c.custid=o.custid AND o.bookid=b.bookid;
+이렇게 변환가능 별칭@(얼라이어스)
+
+질의 3-26   가격이 20,000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오.
+SELECT customer.name, book.bookname
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid
+				AND book.price=20000;
+
+질의 3-27  도서를 구매하지 않은 고객을 포함하여 고객의 이름과 고객이 주문한 도서의 
+               판매가격을 구하시오.@
+SELECT customer.name, saleprice
+FROM customer LEFT OUTER JOIN orders -- OUTER JOIN 구매하지 않아도 나오는
+			ON customer.custid=orders.custid;
+
+
+부속질의
+
+질의 3-28  가장 비싼 도서의 이름을 보이시오.
+SELECT bookname
+FROM book
+WHERE price=(SELECT MAX(price)
+			FROM book;)
+
+책들의 평균가격보다 비싼 책들의 이름을 검색하시오. 시험@
+SELECT bookname
+FROM book
+WHERE price>=(SELECT AVG(price)
+			FROM book);
+
+질의 3-29   도서를 구매한 적이 있는 고객의 이름을 검색하시오.
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid
+			FROM orders);
+
+질의 3-30   대한미디어에서 출판한 도서를 구매한 고객의 이름을 보이시오.
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid
+			FROM orders
+			WHERE bookid IN (SELECT bookid
+						FROM book
+						WHERE publisher='대한미디어'));
+부속질의 3개
+
+
+상관 부속질의
+
+질의 3-31   출판사별로 출판사의 평균 도서 가격보다 비싼 도서를 구하시오.
+SELECT b1.bookname
+FROM book b1
+WHERE b1.price > (SELECT AVG(b2.price)
+			FROM book b2
+			WHERE b2.publisher=b1.publisher);
+
+질의 3-32   도서를 주문하지 않은 고객의 이름을 보이시오.
+SELECT name
+FROM customer
+MINUS
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid 
+			FROM orders);
+도서를 주문하지 않은 고객 = 모든 고객 - 도서를 주문한 고객
+
+
+EXISTS 나온다면 33번대로 나온다 어려워서
+
+질의 3-33  주문이 있는 고객의 이름과 주소를 보이시오.
+SELECT name, address
+FROM custimer cs
+WHERE EXISTS (SELECT *
+			FROM orders od
+			WHERE cs.custid=od.custid);
+
+3-44  Book 테이블에 새로운 도서 ‘스포츠 의학’을 삽입하시오. 스포츠 의학은 
+                한솔의학서적에서 출간했으며 가격은 90,000원이다.
+SELECT INTO book(bookid, bookname, publisher, price) VALUES(11, '스포츠의학', '한솔의학서적', 90000);
+
+ 3-45   Book 테이블에 새로운 도서 ‘스포츠 의학’을 삽입하시오. 스포츠 의학은 
+                한솔의학서적에서 출간했으며 가격은 미정이다.
+INSERT INTO book(bookid, bookname, publisher) VALUES(14,'스포츠의학','한솔의학서적');
+
+3-46   수입도서 목록(Imported_book)을 Book 테이블에 모두 삽입하시오.
+INSERT INTO bok(bookid, bookname, price, pulbisher)
+		SELECT bookid, bookname, price, publisher
+		FROM Imported_book;
+
+질의 3-47   Customer 테이블에서 고객번호가 5인 고객의 주소를 ‘대한민국 부산’으로 변경하시오.
+UPDATE customer
+SET address='대한민국 부산'
+WHERE custid=5;
+
+질의 3-48   Customer 테이블에서 박세리 고객의 주소를 김연아 고객의 주소로 변경하시오.
+UPSATE customer
+SET address=(SELECT address
+			FROM customer
+			WHERE name='김연아')
+WHERE name='박세리';
+
+질의 3-49   Customer 테이블에서 고객번호가 5인 고객을 삭제하시오.
+DELETE FROM customer; (틀린것)
+
+질의 3-50   모든 고객을 삭제하시오.
+DELETE FROM customer
+WHERE custid=5;
+
+SELECT * FROM customer;
+
+
+
+
+
+14주차 실습테스트
+
+❶ 고객의 이름과 고객이 주문한 도서의 판매가격을 검색하시오.(Join) 
+SELECT name, saleprice
+FROM customer, orders
+WHERE customer.custid=orders.custid;
+
+❷ 고객별로 주문한 모든 도서의 총 판매액을 구하고, 고객별로 정렬하시오. 
+SELECT name, SUM(saleprice)
+FROM custmer, orders
+WHERE customer.custid=orders.custid
+GROUP BY customer.name
+ORDER BY customer.name;
+
+❸ 고객의 이름과 고객이 주문한 도서의 이름을 구하시오.(3중 조인) 
+SELECT customer.name, book.bookname
+FROM customer, orders, book
+WHERE customer.custid=orders.custid AND orders.bookid=book.bookid
+
+❹ 가격이 20,000원인 도서를 주문한 고객의 이름과 도서의 이름을 구하시오. 
+SELECT customer.name, book.bookname
+FROM cistopmer, orders, book
+WHERE customer.custod=orders.custid AND orders.bookid=book.bookid AND book.price=20000;
+
+❺ 도서를 구매하지 않은 고객을 포함하여 고객 의 이름과 고객이 주문한 도서의 판매가격을 구 하시오.(Left outer join) 
+SELECT customer.name, saleprice
+FROM customer LEFT OUTER JOIN orders ON customer.custid=orders.custid;
+
+❻ 가장 비싼 도서의 이름을 보이시오.(부속질의, 부질의) 
+SELECT bookname
+FROM book
+WHERE price=(SELECT MAX(price)FROM book);
+
+❼ 도서를 구매한 적이 있는 고객의 이름을 검 색하시오.(부질의,in) 
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid FROM orders);
+
+❽ 대한미디어에서 출판한 도서를 구매한 고객의 이름을 보이시오. 
+SELECT name
+FROM customer
+WHERE custid IN(SELECT custid
+			FROM orders
+			WHERE bookid IN(SELECT bookid
+						FROM book
+						WHERE publisher='대한미디어'));
+
+❾ 출판사별로 출판사의 평균 도서 가격보다 비 싼 도서를 구하시오.(상관부속질의) 
+SELECT b1.bookname
+FROM book b1
+WHERE b1.price > (SELECT avg(b2.price)
+			FROM book b2
+			WHERE b2.publisher=b1.publisher);
+
+❿ 도서를 주문하지 않은 고객의 이름을 보이시 오.(MINUS) 
+SELECT name
+FROM customer
+MINUS
+SELECT name
+FROM customer
+WHERE custid IN (SELECT custid 
+			FROM orders);
+
+⓫ 주문이 있는 고객의 이름과 주소를 보이시 오.(EXISTS)
+SELECT name, address
+FROM customer cs
+WHERE EXISTS (SELECT * 
+			FROM orsers od
+			WHERE cs.custid=od.custid);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
