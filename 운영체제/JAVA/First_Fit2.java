@@ -1,4 +1,4 @@
-
+package test2;
 
 import java.util.Scanner;//Scanner를 사용하기위해 import를 통해 외부 클래스를 호출
 //Scanner는 java.util 패키지에 포함되어있다.

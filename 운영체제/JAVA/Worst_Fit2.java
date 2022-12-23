@@ -3,7 +3,7 @@ package test2;
 import java.util.Scanner;//Scanner를 사용하기위해 import를 통해 외부 클래스를 호출
 //Scanner는 java.util 패키지에 포함되어있다.
 
-public class Best_Fit2 { // Best_Fit2 라는 객체를 생성
+public class Worst_Fit2 { // Worst_Fit2 라는 객체를 생성
 	public static void main(String[] args) {// 접근 한정자를 public으로 설정(어디서든지 사용가능)
 		// static으로 메모리를 미리 할당
 		// void는 함수가 끝날 때 리턴값이 없다.
@@ -16,8 +16,8 @@ public class Best_Fit2 { // Best_Fit2 라는 객체를 생성
 		int count = 0; // 정수형 변수 count 값을 0으로 초기화 - mem의 배열 인자값으로 사용할 변수
 		int temp = 0; // 정수형 변수 temp값을 0으로 초기화
 
-		System.out.println("IT융합학부 1971070 2학년 이재은 입력 데이터 - 최적적합"); // 학부, 학번, 학년, 이름, 과제명 출력문, 줄바꿈
-		System.out.println(); // 줄띄우기
+		System.out.println("IT융합학부 1971070 2학년 이재은 입력 데이터 - 최악적합"); // 학부, 학번, 학년, 이름, 과제명 출력문, 줄바꿈
+		System.out.println(); // 줄 띄우기
 
 		System.out.print("메모리 입력 : "); // 메모리 입력 - 출력문
 		for (int i = 0; i < 5; i++) { // i 는 0~4까지
@@ -33,13 +33,14 @@ public class Best_Fit2 { // Best_Fit2 라는 객체를 생성
 
 		for (int j = 0; j < 4; j++) { // 0~4까지 1씩 증가//조건식이 트루일때만 실행 그리고 문장을 갔다가 증감식을가고 다시 조건식
 			for (int i = 0; i < 4; i++) { // 0~3까지 1씩 증가 //조건식이 트루일때만 실행 그리고 문장을 갔다가 증감식을가고 다시 조건식
-				if (mem[i] > mem[i + 1]) { // mem[i]가 mem[i+1]보다 클때 실행
+				if (mem[i] < mem[i + 1]) { // mem[i]가 mem[i+1]보다 클때 실행
 					temp = mem[i]; // temp, mem[i] 을 템프로 교환
 					mem[i] = mem[i + 1]; // mem[i] 와 mem[i+1]를 교환
 					mem[i + 1] = temp; // mem[i+1]을 temp와 교환
 				}
 			}
 		}
+
 		for (int i = 0; i < 5; i++) { // i는 0~4까지
 			if (ps[i] <= mem[count]) { // ps[i]값이 mem[count]값보다 작거나 같다면 조건문 실행
 				System.out.print("p" + count + " - 사용된 메모리 공간 : " + mem[count]); // 사용된 메모리 공간 출력문

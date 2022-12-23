@@ -1,3 +1,4 @@
+package test2;
 
 public class First_Fit { // First_Fit 이라는 객체를 생성
 	public static void main(String[] args) { // 접근 한정자를 public으로 설정(어디서든지 사용가능)
