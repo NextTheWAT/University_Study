@@ -1,0 +1,7 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\bin\Debug\FirstProjectStudy.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\bin\Debug\FirstProjectStudy.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\bin\Debug\FirstProjectStudy.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\obj\Debug\FirstProjectStudy.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\obj\Debug\FirstProjectStudy.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\obj\Debug\FirstProjectStudy.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\FirstProjectStudy\FirstProjectStudy\obj\Debug\FirstProjectStudy.pdb
