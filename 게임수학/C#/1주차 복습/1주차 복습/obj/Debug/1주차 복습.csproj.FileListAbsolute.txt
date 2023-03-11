@@ -1,0 +1,7 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\bin\Debug\1주차 복습.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\bin\Debug\1주차 복습.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\bin\Debug\1주차 복습.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\obj\Debug\1주차 복습.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\obj\Debug\1주차 복습.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\obj\Debug\1주차 복습.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임수학\C#\1주차 복습\1주차 복습\obj\Debug\1주차 복습.pdb
