@@ -1,0 +1,7 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\bin\Debug\FirstProject.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\bin\Debug\FirstProject.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\bin\Debug\FirstProject.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\obj\Debug\FirstProject.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\obj\Debug\FirstProject.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\obj\Debug\FirstProject.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FirstProject\FirstProject\obj\Debug\FirstProject.pdb

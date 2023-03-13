@@ -1,0 +1,38 @@
+게임엔진 2주차
+
+객체.객체.(메소드) 이런식으로 호출 . . . 을 많이 사용
+
+unmanagement - 생성과 소멸 둘다 신경써야함 C
+management - C#, java 생성만 
+
+namespace를 잘 알아야지만 클래스를 잘 알수있다.
+
+Type - int 4byte , float 4byte , double 8byte , char 1byte , string 무한byte - 내장된 타입(시스템에서)
+ex) int i = 5;
+메모리에 전체적인 값에서 4바이트를 사용
+Zerg라는 클래스도 맞지만 타입을 만들었다고도 함
+
+enum, strut, class - 사용자 정의 타입
+
+
+오버로딩 - 상속과 관련없고 같은 레벨에서 사용
+		생성자의 이름이 같지만 다르게 사용
+ 
+오버라이딩 - 기본적으로 상속이 되어있어야 사용가능
+
+
+               //var는 타입을 찾아준다? int로 
+               //모든 타입을 var로 사용 가능
+               //int로 문자열을 바꿔준다 생각
+               //Object 는 타입 캐스팅이 이루어진다
+               //타입을 바꿔버림 @@ 
+
+
+
+
+Windows 프로그래밍
+TextBox
+Label
+listBox
+
+

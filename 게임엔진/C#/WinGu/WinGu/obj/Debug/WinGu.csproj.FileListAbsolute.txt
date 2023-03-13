@@ -1,0 +1,10 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\bin\Debug\WinGu.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\bin\Debug\WinGu.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\bin\Debug\WinGu.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.Form1.resources
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.Properties.Resources.resources
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.csproj.GenerateResource.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\WinGu\WinGu\obj\Debug\WinGu.pdb
