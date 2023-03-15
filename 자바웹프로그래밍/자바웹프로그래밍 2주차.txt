@@ -1,0 +1,61 @@
+자바웹프로그래밍 2주차
+
+이클립스, VScode
+
+
+<!doctype html>
+<html>
+	<title> 타이틀 테스트</title>
+	<body>
+		hello world! 방갑습니다.
+	</body>
+</html>
+
+
+<!DOCTYPE html>
+<!--이 부분은 주석문입니다. 웹 브라우저는 주석을 화면에 출력하지 않습니다.-->
+<html>
+	<head><title> 타이틀 테스트</title>
+		문서제목, 자바스크립트 코드, CSS 스타일 정의, 메타데이터정의
+	</head>
+	<body>
+		문서의 본문 텍스트, 이미지, 테이블, 자바스크립트 코드, 동영상 등
+	</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<!--이 부분은 주석문입니다. 웹 브라우저는 주석을 화면에 출력하지 않습니다.-->
+<html>
+	<head>
+		<font size="2em" color="green">문서제목, 자바스크립트 코드, CSS 스타일 정의, 메타데이터정의</font>
+		<br> <! br은 줄 바꿈입니다.>
+	</head>
+	<body>
+		문서의 본문 텍스트, 이미지, 테이블, 자바스크립트 코드, 동영상 등
+	</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<!--이 부분은 주석문입니다. 웹 브라우저는 주석을 화면에 출력하지 않습니다.-->
+<html>
+	<head>
+		<p style="text-align:left;"><font size="2em" color="green">문서제목, 자바스크립트 코드, CSS 스타일 정의, 메타데이터정의</font></p>
+		<br> <! br은 줄 바꿈입니다.>
+	</head>
+	<body>
+		<p style="text-align:right;"><font size="3em" color="red">문서의 본문 텍스트, 이미지, 테이블, 자바스크립트 코드, 동영상 등</font></p>
+		<br> <! br은 줄 바꿈입니다.>
+	</body>
+</html>
+
+
+
+
+
+
+
+
