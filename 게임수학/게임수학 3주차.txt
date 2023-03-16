@@ -1,0 +1,30 @@
+게임수학 3주차
+
+
+객체를 만들고 - class
+arrayList를 가지고 객체들을 이용해서 foreach구문을 통해
+출력, 객체를 활용하는것을 해본다.
+
+foreach는 for문의 또 다른 형태
+ArrayList와 foreach문은 찰떡궁합이다
+
+ex)
+           foreach(object num in al)
+            {
+                Console.WriteLine(num);
+            }
+
+윈도우로 구구단, Roll-Die게임
+
+foreach (int i in al)
+	   타입, 변수, in , 배열형
+
+DLL파일 만들어서 참조 한 뒤 using 사용
+
+
+
+
+
+
+
+
