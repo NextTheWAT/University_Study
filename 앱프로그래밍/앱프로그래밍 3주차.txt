@@ -1,0 +1,17 @@
+앱프로그래밍 3주차
+
+
+sudo chmod -R 777 html
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCb7vGaaJnsVuZG2/u/oZy/moWp+50bHly5Phz71XjtqCrzh4Lsn2m6/o3iBRLtq5hsPoMwu/WA30u3DKSe5aOXD3ZukW99VyPf1Y5VX1N2wQh2fXeGp4iNY6oyytVYeYFPieoLOSpDetytwNch231we7JF/OlckIVkteNyddRys5021x4krMj6gIiFxskaDOScusZDz+kDKrjwQsRGcxMqfYNONRytIzIn0tYT1ohMwfSFWuLd+vfkn+1wj0guhWfUYha0r+WKT72Zq4RZSlx7uC09UGMY8DOnaHxm6o0vKcHarLquflNWdCGsEErFPnNgRh7TUMHsLPX1F3Yk6Bd9 rsa-key-20230321
+
+
+ssh-rsa 2048 SHA256:0wByA/HjRDFtCwd/NCMXvxqBmtU2GTH+bC1DDTQ+22o
+
+rsa-key-20230321
+
+
+
+
+
+
