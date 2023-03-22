@@ -1,0 +1,94 @@
+컴퓨터그래픽스 3주차
+
+
+그래픽 시스템
+• 입력 장치, 메인 컴퓨터, 그래픽 컨트롤러, 출력장치
+그래픽 컨트롤러(그래픽카드)
+• 그래픽 프로세서
+• 그래픽메모리
+
+
+CRT(Cathode ray tube) 기본원리
+- 필라멘트 (전자총, elector gun)) : 전류가 흐르면 가열되어 전자가 방출됨
+- 제어그물 (Control Grid) : 전자 흐름의 양 조절
+- 집속양극 (Focusing Anode) : 정확히 가운데로 향하지 않는 전자빔을 차단
+- 수직편양판 (Vertical Deflection Plates), 수평 편향판 (Horizontal Deflection Plates) :
+전자빔의 방향을 각각 상하, 좌우로 휘는데 사용됨
+
+
+인터레이싱
+주사선(Scan Line)
+인터레이싱(Interlacing) 홀수번째 스캔 후, 짝수를 스캔한다->부드럽
+게 보임
+넌인터레이싱(non-Interleaving : 재생속도가느림->깜박임)
+NTSC TV 표준: 60 Half Frame/Sec, 525 Scan Line, 4:3 Aspect Ratio
+
+
+래스터 그래픽 디스플레이
+래스터 = 화소
+화소단위 컬러링
+계단현상 = Jaggies = Alias - 울퉁불퉁한것 선을 따라서 꾸불꾸불
+래스터 화(Rasterization) = 스캔 변환(Scan Conversion)
+• 물체 좌표에서 화면 좌표로
+• 부동소수 좌표에서 정수 좌표로 [(0.3, 4.5), (6.5, 0.3)]
+
+
+교차점 계사넹 의한 변환@
+void LineDraw(int x1, int y1, int x2, int y2){ 
+	float y, m; 
+	int dx, dy; 
+	dx = x2 - x1; dy = y2 - y1; 
+	m = dy / dx;
+	for (x = x1; x <= x2; x++) {
+	y = m*(x - x1) + y1;
+	DrawPixel(x, round(y));
+	} 
+} 
+
+Example 1 : x1=0, y1=0; x2=6, y2=2; 일 때,
+왼쪽 코드를 추적해서 선분을 그리시오.
+
+
+DDA(Digital Differential Analyzer)
+	void LineDraw(int x1, int y1, int x2, int y2) { 
+	float m, y; int dx, dy; 
+	dx = x2 - x1; dy = y2 - y1; 
+	m = dy / dx;
+	y = y1;
+	for (int x = x1; x <= x2; x++) { 
+	DrawPixel(x, round(y));
+	y += m;
+	} 
+}
+
+기울기(m) = (y2 - y1) / (x2 - x1)
+
+2) 위 함수를 수행한 후, 최종적인 y값을 구하시오 
+y = 7/3
+
+3) 앞의 코드와 비교해 볼 때, 연산의 성능은?
+곱셈보다는 덧셈을 사용해서 더 빠르다(컴퓨터가 좋아하기 때문)
+
+
+프레임 버퍼
+Frame Buffer = Color Buffer = Video Memory
+DA 변환기 (digital analog converter)
+• 프레임 버퍼(디지털 정보) -> 아날로그 전압
+• 거의 동시(매우 빠름)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
