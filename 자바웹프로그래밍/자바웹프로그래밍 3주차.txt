@@ -1,0 +1,141 @@
+자바웹프로그래밍 3주차
+
+
+<!DOCTYPE html>
+<!--이 부분은 주석문입니다. 웹 브라우저는 주석을 화면에 출력하지 않습니다.-->
+<html>
+	<title>구글 메인화면 예제</title>
+	<head>
+		<p style="text-align:left;"><b><font size=“4em" color="green">문서제목, 자바스크립트 코드, CSS 스타일 정의, 메타데이터정의</font></b></p>
+		<br> <! br은 줄 바꿈입니다.>
+	<hr> <! hr은 밑줄을 그려줍니다.>
+	</head>
+	<body>
+		<p style="text-align:center"><img src="img/googlelogo_color_272x92dp.png" alt="구글이미지"></p>
+		<! img 태그는 이미지를 삽입합니다. src=경로, 이미지 깨지면 alt 출력>
+		<br><! br은 줄 바꿈입니다.>
+		<p style="text-align:center">검색 : <input type="text" name="search" size="55" value=""><button type="button" onclick="alert('검색을 수행합니다!')">검색</button><br></p><br><br><br><br><br><br> <! 간격을 위해 줄바꿈을 여러번 추가 해줍니다.>
+	<hr> <! hr은 밑줄을 그려줍니다.>
+		<p style="text-align:right;"><font size="3em" color="red">문서의 본문 텍스트, 이미지, 테이블, 자바스크립트 코드, 동영상 등</font></p>
+	<br> <! br은 줄 바꿈입니다.>
+	</body>
+</html>
+
+
+웹 프레임 워크란?
+웹 표준을 준수, 빠르게 개발하고 싶다.
+프론트 + 백엔드 = 풀스택 개발자
+프론트는 디자이너가? 옛말
+
+기존 라이브러리와 차이점 – 자동화
+대부분 구조적 생성 지원
+검증된 디자인 패턴 등 지원
+프레임 워크 수준 제어
+제어의 어려움 패스
+사용자 정의 코드가 현저히 감소
+
+생산성 +유지보수의 효율성 증대
+초기 개발 < 유지보수(비용이 더 듭니다)
+
+
+대표 웹 프레임워크 4대장 소개
+프론트
+ANGULAR, REACT, VUE, Bootstrap 등
+
+백엔드(기존)
+DJANGO, LARAVEL, SPRING 등
+
+국내 웹 시장 대세 : 자바 + 스프링(부트)
+전자 정부 프레임워크라고 합니다.
+
+프론트 쪽은? 부트스트랩(오늘 일부 적용)
+자바스크립트 기반 UI, 모바일 최적화
+
+
+웹 서버의 기본 동작과정
+http 프로토콜 사용
+
+서버 측에 요청/응답
+
+웹 브라우저의 역할
+HTML 코드 해석
+
+화면 데이터 출력
+
+현재 웹2.0 표준 기술상 대부분 웹서버에 의존적
+개인, 기업, 국가 모두 
+
+
+(안나올듯)
+문서 시작
+타이틀 제목 <title>
+문서 몸체 - <Body>
+문장 정렬 - 
+문장 크기 - <p>
+검색 창 - <input type = text>
+밑줄 - <hr>
+개행 - <br>
+
+
+메타 데이터(또는 메타태그)? 
+머리 <head> 내부에 삽입된다. ~~~
+페이지 로딩에 필요한 표준 데이터 로딩
+외부에 노출할 페이지의 전역 정보(검색 엔진 등)
+메타 - 전역변수로 생각하면됨(어디서든지 사용 가능한 값)
+
+일반적으로 사용 하는 태그
+<base>,<title>, <link>, <meta>, <script>, <style>
+title :  문서의 전역 타이틀 정보
+meta : 저자 정보, 설명, 인코딩 방식 등
+link : 기존 링크와 동일하지만 외부 자원을 추가할 때 사용
+script : 데이터 입력 및 이벤트 처리를 위하 자바 스크립트
+base : 웹 페이지의 기본 url 지정
+
+하이퍼링크?
+Html의 내부 문서들은 모두 링크를 통해 연결된다.
+Link : 마우스 클릭 시 이동할 주소(경로 포함) 지정
+
+메타 데이터의 링크와 차이점?
+하이퍼 링크는 <body> 태그에서 주로 사용된다. ~~~
+
+
+
+메인 index.html 코드를 수정하자.
+기존 <head> 사이에 있던 코드는 <body> 안으로 이동시킨다.
+상단 내용을 아래로 이동 - 그림 참조
+
+메타데이터 입력하기.
+<head>안에 코드 추가
+<meta name=“author” content=“학번” 
+<meta charset="utf-8"> 
+<meta name=“keywords” content=“computer”>
+
+저장 후 웹 페이지 실행
+상단 서버 실행 후 하단 주소 클릭
+
+메타데이터는 다른 페이지에서도 데이터가 유지된다@@
+모든 페이지마다 다 들어가있음
+파일로 만들어서 메타 정보를 저장하는 경우도 있음@
+
+
+링크는 일반적으로 4가지 속성이 존재한다.
+target 속성 4가지 
+_blank : 새로운 윈도우, 탭
+_self : 기본값(현제 창)
+_parent : 이전 부모 창
+_top : 현재 윈도우 전체
+
+
+<table style="margin-left: auto; margin-right: auto;" border="1" width="500"> <! 테이블을 정의합니다.>
+	<caption>인기 검색어</caption> <! 테이블 제목.>
+	<tbody>
+	<tr><td bgcolor="green" width="50"><b>영화</b></td><td width="80" bgcolor="blue">아저씨</td><td width="80" bgcolor="blue">아저씨</td><td width="100">어머니</td><td width="100">헬머니</td><td>할부지</td></tr> <! 1행 추가.>
+	<tr bgcolor="red"><td width="50">음악</td><td>KPOP</td><td>JPOP</td><td>ROCK1</td><td>ROCK2</td><td rowspan="2">EUROBEAT</td></tr> <! 2행 추가.>
+	<tr bgcolor="red"><td colspan="2" width="50">게임</td><td>LOL</td><td>WOW</td><td>SUDDEN</td></tr> <! 3행 추가.>
+	</tbody>
+</table> 
+
+rowspan - 위아래 합병
+colspan - 옆으로 합병
+
+과제 3주차 26p
