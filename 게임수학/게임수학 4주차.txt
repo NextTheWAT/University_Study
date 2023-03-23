@@ -1,0 +1,89 @@
+게임수학 4주차
+
+회전은 z축 기준으로 된다
+
+
+//오른쪽 왼쪽
+public class Forever_MoveH : MonoBehaviour
+{
+    public float speed = 1.0f;
+
+    public void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Translate(speed / 20, 0, 0);
+        }
+        else if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(-speed / 20, 0, 0);
+        }
+    }
+
+}
+
+
+//위 아래
+public class Forever_MoveV : MonoBehaviour
+{
+    public float speed = 1.0f;
+
+    public void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(0, speed/20, 0);
+        }
+        else if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(0, -speed / 20, 0);
+        }
+    }
+}
+
+
+//각도 변환
+public class Forever_Rotate : MonoBehaviour
+{
+    public float angle = 90;
+    
+    void FixedUpdate()
+    {
+        transform.Rotate(0, 0, angle / 50);  //x, y, z 이다
+    }
+}
+
+
+
+public class Sometime_Turn : MonoBehaviour
+{
+    #region 멤버변수
+    public float angle = 90;
+    public int maxCount = 50;
+    private int count = 0;
+    #endregion
+
+    void FixedUpdate()  //멤버 함수
+    {
+        count = count + 1;
+        if(count >= maxCount)
+        {
+            transform.Rotate(0, 0, angle);
+            count = 0;
+        }
+    }
+}
+
+
+FPS (Frame Per Seconds)
+초당 30프레임 이상이여야
+사람 눈으로 정상적으로 보인다
+
+transform. Translate
+   변환,       이동
+
+Translate(0,0,0)	이동
+Rotate(0,0,0)		각도
+Sale(0,0,0)		크기
+
+
