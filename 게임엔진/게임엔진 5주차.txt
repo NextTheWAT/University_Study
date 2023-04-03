@@ -1,0 +1,12 @@
+게임엔진 5주차
+
+충돌함수는 6개가 필요하다
+on trigger
+on collision
+두개 충돌함수 잘 사용하기
+
+
+Add Component 에 
+Nav Mesh Agent 를 생성하면 일정 간격을 두고 따라가기를 할 수 있다.
+그 전에 Floor에 inspecter에서 navigation static을 선택해야 사용가능하다.
+
