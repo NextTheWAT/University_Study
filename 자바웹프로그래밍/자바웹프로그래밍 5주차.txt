@@ -1,0 +1,80 @@
+자바웹프로그래밍 5주차
+
+<table style="margin-left: auto; margin-right: auto;" border="1" width="500"> <! 테이블을 정의합니다.>
+   <caption align ="top">인기 검색어</caption> <! 테이블 제목.>
+   <tbody>
+   <tr><td bgcolor="green" width="50"><b>영화</b></td><td width="80" bgcolor="blue">아저씨</td><td width="80" bgcolor="blue">아저씨</td><td width="100">어머니</td><td width="100">헬머니</td><td>할부지</td></tr> <! 1행 추가.>
+   <tr bgcolor="red"><td width="50">음악</td><td>KPOP</td><td>JPOP</td><td>ROCK1</td><td>ROCK2</td><td rowspan="2">EUROBEAT</td></tr> <! 2행 추가.>
+   <tr bgcolor="red"><td colspan="2" width="50">게임</td><td>LOL</td><td>WOW</td><td>SUDDEN</td></tr> <! 3행 추가.>
+      <tr bgcolor="white"><td colspan="6" width="50"><b>외부 사이트 링크</b></tr> <! 4행 추가.>
+         <tr bgcolor="white"><td colspan="2" width="50">네이버</td><td bgcolor="yellow" colspan="2" width="50">다음</td>
+         <td bgcolor="purple" style="color:white;" colspan="2" width="50">네이트</td></tr> <! 4행 추가.>
+   </tbody>
+</table> 
+
+
+<div class="w-auto p-3" style="background-color: #;">	뒤에 레이아웃을 잡아주고 테이블을 덮어 씌운것 - w-auto p-3
+<tbody class="table-group-divider"> - 분리선
+	
+<tr bgcolor="red">		- 색상 레드
+<td class="table-secondary" width="50"><b>음악</b></td>	- 2번째 테이블
+
+<tr bgcolor="blue">	- 색상 블루
+<td class="table-success" width="50"><b>게임</b></td>		- 3번째 테이블
+
+
+form 태그에 대한 이해 중요!
+사용자의 입력 정보를 서버로 전송
+action : 전송 서버 url, method : 전송 방식
+<form action="https://www.google.co.kr/search" method="GET" target="_blank">
+
+
+전송방식 : get(현재) / post
+get : 링크에 중요 정보가 없는 경우	@@
+post : id/passwd 등 중요 정보가 있는 경우	@@
+
+
+let number = 5;
+let str = ‘문자열 입력’; // “ “도 묶음 가능
+let prime = 1.5123;
+let is_ok = true; // 참
+let is_not = false; // 거짓
+let undefi; // 변수 이름만, 초기화 x
+let empty = null; // 비어 있음
+
+console.log(number);
+
+
+
+var jb = 'hi'; // 변수 선언 후 주석 가능
+var a = 1;
+var b;
+b = 5;
+
+if(true){
+	let c = 'let 접근';
+	var c_1 = 'var 접근';
+}
+
+console.log(c); //Error?
+console.log(c_1);
+
+let d = 5;
+let d = '값 재할당'; // Error?	//에러 발생
+console.log(d);
+
+const e = '상수1 접근';	//가능
+e = 5;				//불가능
+const f // Error?	//상수는 선언과 동시에 초기화 시켜줘야한다
+			//선언을 해놓고 초기화를 해줄수없다.
+console.log(e);
+
+
+
+let - 문자열 ' ' 해도되고 " " 로 해도된다 (let은 지역변수로 사용가능하다)
+var - 숫자(var을 사용하면 항상 전역변수로 사용된다)
+const - 상수
+
+
+
+
