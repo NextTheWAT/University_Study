@@ -1,0 +1,31 @@
+게임수학 6주차
+
+벽에 부딪힐 오브젝트 - Rigidbody 2D, BoxCollirder
+벽 - Boxcollider
+시험에 잘 나옴
+
+함수를 작성하는게 중요함@
+
+
+SetActive(false)	- 모습을 없애줌	(선택정보)
+			- true 면 모습을 보여줌
+
+Sorting Layer을 만들어서 레이어 관리하는것도 중요하다 앞에나와있게, 뒤로 보내기 @
+이름으로 Sorting을 하는것
+3D로 봤을때는 차이가 없다 단지 레이어로만 구분해주는 방법이다.
+어떤 z값을 하던 Sorting Layer에 대한 개념이다
+
+Order in Layer - 같은 레이어 였을때 숫자가 클수록 앞으로 나온다
+
+만약 Order in Layer도 같았을때 - Z값을 가지고 순서를 정할 수 있다.
+
+@@@
+1번째	- Sorting Layer로 Layer 바꾸기
+2번째	- Order in Layer로 값 바꾸기
+3번째	- Z값 바꾸기
+
+마지막 장치 그림책 만들기@ 과제
+
+
+
+
