@@ -1,0 +1,544 @@
+컴퓨터그래픽스 6주차
+
+
+Section 01 그래픽 입력장치 - 물리적 입력장치
+대화형 그래픽(Interactive graphics)와 입력장치
+- 사용자가 입력을주면 즉각적으로 반응하는 시스템
+
+마우스, 조이스틱, 트랙볼, 스페이스 볼
+- 상대입력(마우스,조이스틱,트랙볼)과 절대입력(태블릿)
+	- 상대입력 - 상대적인 좌표에서 사용
+	- 절대입력 - 절대적인 좌표에서 사용하는 것
+
+타블렛 (절대입력장치), 스타일러스 펜
+- 크로스 헤어 커서(퍽, 십자형 커서)
+- 디지타이징 (디지털로 바꾸는 일)
+
+터치 패널
+- 광학 패널(빛으로 감지)
+- 전기 패널
+(내피의 압력으로 전기발생)
+
+
+Leapmotion
+작동원리
+- 빛을 계속 쏴서 손가락 모양을 따는 것
+- 위치 추적
+
+
+물리적 입력장치
+3D 스캐너
+- 물체 표면의 X,Y,Z 좌표 인식
+- 레이저
+- 촬상소자(CCD)
+
+버튼 박스와 디이얼 (SGI)
+- 버튼 박스 : 매크로 기능
+- 다이얼 : 
+	- 물체에 대한 기하변환
+	  (회전, 이동, 크기조절, 확대)
+	- 아날로그 방식
+
+
+Section 02 입력 모드 - 논리적 입력장치
+입력을 논리적으로 취급
+- Scanf("%d", &x); 키보드? 버튼박스?
+- 물리적 입력장치가 바뀌어도 프로그램은 동일
+
+좌표 입력기(Locator)(마우스 같은거)
+- 절대좌표 또는 상대좌표, 마우스, 키보드의 화살표 키 , 트랙 볼
+
+연속좌표 입력기(Stroke) 
+- 일련의 연속 좌표. 마우스, 태블릿 커서. 
+- 문자열. 키보드. 문자열 입력기(String) 
+
+스칼라 입력기(Valuator) 
+- 회전각, 크기조절 비율 등 스칼라 값. 키보드, 마우스, 다이얼
+
+메뉴선택 입력기(Choice) 
+- 메뉴, 서브메뉴, 메뉴옵션 선택. 마우스, 키보드, 터치 패널, 음성
+
+물체선택 입력기(Pick) 
+- 물체를 선택. 마우스나 터치 패널
+
+
+입력 모드
+메저와 트리거
+- 메저(Measure) : 응용프로그램에게 전달되는 입력 값
+- 트리거(Trigger) : 전달하라는 신호
+
+Ex) 아래 예에서 메저와 트리거를 구분하시오.
+- DIR<ENTER>
+DIR - 메저, ENTER - 트리거
+
+- 마우스 좌표와 클릭
+메저
+
+- 선택된 메뉴 아이디와 클릭
+메저?
+
+
+리퀘스트 모드
+프로그램이 실행 중 메저를 요구
+- 트리거가 일어날 때까지 대기상태
+- Request_Locator(Device_ID, &Measure);
+- Device_ID 필드에 의해 물리적 입력장비 제어
+- 타동사 + 목적어 (예: Play + the guitar)
+
+
+샘플 모드
+직접모드
+- 사용자 트리거가 불필요
+- sample_Locator(Device_ID, &Measure);
+- 이미 필요한 메저가 준비된상태
+- 목적어 + 타동사(Ex: The guitar + play)
+
+
+이벤트 모드
+이벤트 모드
+- 사용자가 입력 선택. cf 리퀘스트/샘플 모드: 프로그램이 주도권
+
+이벤트 레코드 : 이벤트 타입, 장치 아이디 메저
+
+응용 프로그램은 주기적으로 이벤트 큐를 검사
+- 드라이버에게 이벤트 리퀘스트. 드라이버가 큐 프런트 레코드를 전달
+- 큐가 비어있으면 응용 프로그램은 다른 일을 수행
+
+
+콜백함수
+응용 프로그램 구조
+Initialize Input Devices; 
+do 
+	{ if (There Is an Event on the Event Queue) 
+		switch (Event Type) 
+		{ case Keyboard Event: 
+			Get Event Record, Run Keyboard Callback
+				case Mouse Event: 
+			Get Event Record, Run Mouse Callback 
+			... 
+	} 
+	else Do Background Process 
+} 
+while (User Does Not Request Escape); 
+
+리퀘스트가 없으면 무한 루프를 돈다
+
+
+Section 03 지엘 프로그램 예 - 지엘의 콜백
+
+이벤트 타입		콜백함수 명
+DISPLAY 		MyDisplay()
+RESHAPE		MyReshape()
+KEYBOARD		MyKeyboard()
+MOUSE		MyMouse()
+IDLE			MyIdle()
+
+
+지엘의 콜백
+아이들 콜백
+- 큐에 이벤트가 ㅇ벗을 때 실행
+- 정의되어 있지 않으면 운영체제는 다른 일을 수행
+- 드라이버를 통해 주기적으로 이벤트 검사
+
+
+Section 04 윈도우와 뷰포트-윈도우와 뷰포트@
+정규좌표와 화면좌표계
+- 파이프라인 변환 프로세스를 따라가면서 기준좌표계에 따라 정점좌표가 바뀜
+- 모델좌표계 - 전역좌표계 - 시점좌표계 - 절단좌표계 - 정규좌표계 - 화면좌표계
+- 정규좌표계 vs 화면좌표계 (그림 5-22)
+
+로컬좌표계 = 모델좌표계
+월드좌표계 = 세계좌표계 = 전역좌표계 = 글로벌좌표계 다 같은 뜻@@
+
+시점좌표계 - 눈이 카메라(쳐다보는것)
+
+절단좌표계 - 필드오브뷰 시야각 180도(가시부피 눈으로 보이는 각)
+		안보이는 각은 잘라내는 것
+
+정규좌표계 - 0~255를 0~1로 한것처럼
+		View의 값을 정규화 한 것
+		그림의 값에 X,Y,Z 값을 넣는다
+		Ex) 한변의 길이가 2이고 원점을 중심으로 정육면체 등
+	여기서 값이 정규화 되지 않는것이 가시부피다
+
+Ex) 정규좌표 (0.5, 0.5) 를 1024*768인 화면좌표계로 나타내시오. 
+     (HD, 1280*720) 정규좌표의 중심이 원점이고 폭,높이의 크기가 2인 경우.
+
+Sol) x = 1023 * 0.75 (=3/4) = 767.25 ≒ 767
+	y = 767 * 0.25 (=1/4) = 191.75 ≒ 192
+
+x - 1023인 이유는 0부터 시작이니까
+전체에 대한 비율 1.5/2 (3/4)
+y - 767 x 0.5/2 (1/4)
+
+Ex) 정규좌표 (-0.4, 0.2)를 화면좌표로 계산하시오 ?
+x - 1023 x 0.6/2
+y - 767 x 0.8/2
+
+
+뷰포트 - 이미지에서 보이는 4칸중에 한 칸
+- 윈도우 내부에 설정한 작은 창
+
+윈도우를 분할
+- 그리기가 뷰포트 내부로 제한됨
+
+왜곡
+- 뷰표트 미 설정시 기본값으로 윈도우 = 뷰포트
+- 윈도우 크기조절에 따라 뷰포트 내부 그림도 자동으로 크기조절
+- 별도 뷰포트 설정에 의해 왜곡 방지 (b), (c) vs (d)
+
+
+GULT 윈도우 제어
+
+GL의 뷰포트 설정@
+glViewport(100, 80, 160, 100)
+원점에서 (100, 80) 크기를 가지고 끝점에
+(160, 100) 을 가진 사각형
+
+Ex) GLUT 좌표계 (x,y)를 GL 좌표계로 변환 하시오 (x', y')
+	단. 윈도우 크기는 M(폭) * N(높이) 이다.
+
+Sol)  	GL 좌표계 x 좌표 = (GLUT 좌표계 x 좌표) / M * 2 - 1
+	GL 좌표계 y 좌표 = (GLUT 좌표계 y 좌표) / N * 2 - 1
+
+	x' = x
+	y' = n-y
+
+Ex) GLUT (100, 30) ->gl( )
+	윈도우 크기는 (200, 150)
+
+Sol) 	GL( 100, 150-30)
+	GL(100, 120)
+
+마우스 클릭 - glut 좌표
+그림은 - gl 좌표
+x좌표는 똑같으 쓰되 y만 고쳐쓴다@
+
+
+glViewport(0, 0, 300, 300) - 300,300 전체를 쓰겠다 glviewport (0,0,300,300)
+
+glViewport(0, 0, 150, 150), 그림 5-28 (0,0, 150,150) 을 쓰겠다
+
+glViewport(0,0, 300, 150)     (0,0, 300, 150)을 쓰겠다. 
+
+
+4개의 뷰포트를 만들어보자
+GLViewport(  ,  ,  ,  )	4개를 사용, 윈도우 크기가 300, 300일때
+
+A - GLViewport (0, 0, 150, 150)
+B - GLViewport (150, 0 , 150, 150)
+C - GLViewport (0, 150, 150, 150)
+D - GLViewport(150, 150, 150, 150)
+
+
+GLUT 모델링
+• glutSolidCube(Gldouble size)
+• glutWireCube(Gldouble size)
+• glutSolidSphere(Gldouble radius, Glint slices, Glint stacks) ; 그림 5-34
+• glutWireSphere(Gldouble radius, Glint slices, Glint stacks) ; 그림 5-31
+• glutSolidTorus(Gldouble innerRadius, Gldouble outerRadius, Glint 
+nsides, Glint rings) ; 그림 5-35, 그림 5-36
+• glutWireTorus(Gldouble innerRadius, Gldouble outerRadius, Glint 
+nsides, Glint rings) ; 그림 5-32
+• …..
+
+
+Section 05 콜백 프로그래밍-GL의 화면좌표, GLUT 화면좌표
+
+리세이프 골백(Reshape callback), 다음 세가지 경우 호출
+- 처음윈도우를 그릴 때
+- 위도우 위치를 옮길 때
+- 윈도우 크기를 조절할 때
+
+- glutReshapeFunc(void(*func) (int width, int height)) ;
+- EX) 만약 MyReshape란 이름으로 정의된 경우
+glutReshapeFunc(MyReshape) ;로 사용
+
+- glOrtho(left, right, bottom, top, near, far) ; 가시부피를 정의함@@@ 굉장히 중요하다
+		l, r, b, t, n, f @@ GL얼쏘
+	x의 왼쪽 l, 오른쪽 r	   @@
+	y의 왼쪽 b, 오른쪽 t   @@
+		정육면체의 좌표@
+- 가시부피의 비율과 뷰포트의 비율이 다르면 왜곡발생
+- P. 188, 그림 5-39, 5-40 책으로 설명
+- P. 189 코드 5-5 리세이프 콜백의 예
+- 그림 5-41, 5-42, 5-43 ,
+
+
+Reshape 콜백
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+void MyDisplay( ){
+	glClear(GL_COLOR_BUFFER_BIT); //컬러버퍼에 초기화 색을 가함
+	glColor3f(0.5, 0.5, 0.5); //회색
+	glBegin(GL_POLYGON); //사각형
+		glVertex3f(-0.5, -0.5, 0.0); //좌하단 좌표
+		glVertex3f(0.5, -0.5, 0.0); //좌하단 좌표
+		glVertex3f(0.5, 0.5, 0.0); //우상단 좌표
+		glVertex3f(-0.5, 0.5, 0.0); //좌상단 좌표
+	glEnd( );
+	glFlush( ); 
+}
+패쓰
+
+void MyReshape(int NewWidth, int NewHeight){
+	glViewport(0, 0, NewWidth, NewHeight);
+	GLfloat WidthFactor = (GLfloat)NewWidth / (GLfloat) 
+	300;
+//비율을 구하는것 새로운것을 가져와서 원래의 크기에 대해 비율 구하기
+	GLfloat HeightFactor = (GLfloat)NewHeight / (GLfloat) 
+	300;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.0 * WidthFactor, 1.0 * WidthFactor, 
+		-1.0 * HeightFactor, 1.0 * HeightFactor, -1.0, 1.0);
+	//비율만큼 곱해주기 새롭게 구한 값으로
+}
+
+int main(int argc, char** argv) {
+	glutInit(&argc,argv); 
+	glutInitDisplayMode(GLUT_RGB); 
+	glutInitWindowSize(300, 300); 
+	glutInitWindowPosition(0, 0); 
+	glutCreateWindow("OpenGL Example Drawing");
+	glClearColor (1.0, 1.0, 1.0, 1.0);//초기화 색은 백색
+	glutDisplayFunc(MyDisplay); 
+	glutReshapeFunc(MyReshape);
+	glutMainLoop( );		//메인 루프로
+	return 0;
+}
+GLOrtho 함수로 계속 크기를 업데이트해 주는것
+
+
+그림 39,40은 각각 코드 5-4의 glOrtho()를
+glOrtho(-0.5, 1.5, -0.5, 1.5, -1.0, 1.0),	//각 변의 길이가 2인 정사각형이다(윈도우)
+						//그리고 (0.0)을 중심으로한 크기 각 변의 길이가 1인 정사각형이 있다.
+glortho(-2.0, 2.0, -1.0, 1.0, -1.0, 1.0)	//세로 변의 길이가 4고, 가로 변의 길이가 2인 정사각형(윈도우)
+						//그리고 (0,0)을 중심으로한 크기 각 변의 길이가 1인 정사각형
+     1.0
+-2.0	2.0
+    -1.0
+비율의 차이다 같은 길이 1이여도 눈으로 봤을때의 길이가 다르다 직사각형이 됨
+
+
+
+#include <GL/glut.h>
+GLfloat Delta = 0.0;
+GLfloat s = 0.0;
+
+// 한변의 길이가 0.2인 정사각형이 오른쪽으로 움직이도록
+void MyDisplay() {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POLYGON);
+	glColor3f(0.0, 0.5, 0.8);
+	glVertex3f(-1.0 + Delta, -0.1, 0.0); 
+	glVertex3f(-0.8 + Delta, -0.1, 0.0);
+	glVertex3f(-0.8 + Delta, 0.1, 0.0);
+	glVertex3f(-1.0 + Delta, 0.1, 0.0);
+	glEnd();
+	glutSwapBuffers();
+}
+
+void MyIdle() {
+	Delta += 0.0001;
+	glutPostRedisplay();
+}
+
+int main(int argc, char ** argv) {
+	glutInit(&argc, argv); 
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+	glutInitWindowSize(1000, 1000);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("OpenGL Drawing Example");
+	glClearColor(1.0, 1.0, 1.0, 1.0); 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();d
+	glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
+	glutDisplayFunc(MyDisplay);
+	glutIdleFunc(MyIdle);
+	glutMainLoop();
+	return 0;
+}
+
+
+Q1) Sierpinsky Gaskey, n=1 일때 세 개의 삼각형이 그려질 때 각 삼각형의 정점(Vertax)의 순서를 쓰시오
+
+#include <GL/glut.h>
+    //initial triangle 한변의 길이가 2이고 원점이 중심인 삼각형으로 시작
+GLfloat v[3][2] = { {-1.0, -0.58}, {1.0, -0.58}, {0.0, 1.15} };
+int n = 1; // number of cuts (an input parameter)
+void triangle(GLfloat* a, GLfloat* b, GLfloat* c)
+{
+    glVertex2fv(a);
+    glVertex2fv(b);
+    glVertex2fv(c);
+}
+void myinit()
+{
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-2.0, 2.0, -2.0, 2.0);
+    glMatrixMode(GL_MODELVIEW);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glColor3f(0.0, 1.0, 0.0);
+}
+void divide_triangle(GLfloat* a, GLfloat* b, GLfloat* c, int m)
+{
+    GLfloat v0[2], v1[2], v2[2];
+    int j;
+    if (m > 0)
+    {
+        for (j = 0; j < 2; j++) v0[j] = (a[j] + b[j]) / 2;
+        for (j = 0; j < 2; j++) v1[j] = (a[j] + c[j]) / 2;
+        for (j = 0; j < 2; j++) v2[j] = (b[j] + c[j]) / 2;
+        divide_triangle(a, v0, v1, m - 1);
+        divide_triangle(c, v1, v2, m - 1);
+        divide_triangle(b, v2, v0, m - 1);
+    }
+    else triangle(a, b, c); 
+}
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_TRIANGLES);
+    divide_triangle(v[0], v[1], v[2], n);
+    glEnd();
+    glFlush();
+}
+void main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_SINGLE | GLUT_RGBA);
+    glutInitWindowPosition(100, 100);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("Sierpinski Gasket");
+    glutDisplayFunc(display);
+    myinit();
+    glutMainLoop();
+}
+
+	A1 = (-1.00, -0.58), (0.00, 1.15), (0.00, -0.58)
+	A2 = (1.00, -0.58), (0.00, 1.15), (0.00, -0.58)
+	A3 = (-1.00, -0.58), (1.00, -0.58), (0.00, -0.58)
+
+Q2) Sierpinsky Gaskey, n=2일때 삼각형이 그려지는 순서대로 삼각형의 번호를 각각 쓰시오
+
+Q3) glutdleFunc()를 이용하여 한 변의 길이가 0.2인 정사각형이 왼쪽벽면에서 출발하여 오른쪽 수평방향으로 움직이도록 프로그래밍 하시오.
+
+#include <GL/glut.h>
+GLfloat Delta = 0.0;
+GLfloat s = 0.0;
+
+// 한변의 길이가 0.2인 정사각형이 오른쪽으로 움직이도록
+void MyDisplay() {
+   glClear(GL_COLOR_BUFFER_BIT); 
+   glBegin(GL_POLYGON);
+   glColor3f(0.0, 0.5, 0.8);
+   glVertex3f(-1.0 + Delta, -0.1, 0.0); 
+   glVertex3f(-0.8 + Delta, -0.1, 0.0);
+   glVertex3f(-0.8 + Delta, 0.1, 0.0);
+   glVertex3f(-1.0 + Delta, 0.1, 0.0);
+   glEnd();
+   glutSwapBuffers();
+}
+
+void MyIdle() {
+   Delta += 0.0001;
+   glutPostRedisplay();
+}
+
+int main(int argc, char ** argv) {
+   glutInit(&argc, argv); // 오타 수정: glutlnit -> glutInit
+   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE); 
+   glutInitWindowSize(1000, 1000);
+   glutInitWindowPosition(0, 0);
+   glutCreateWindow("OpenGL Drawing Example");
+   glClearColor(1.0, 1.0, 1.0, 1.0); 
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
+   glutDisplayFunc(MyDisplay);
+   glutIdleFunc(MyIdle);
+   glutMainLoop();
+   return 0;
+}
+
+
+
+Q4) glutdleFunc()를 이용하여 한 변의 길이가 0.2인 정사각형이 왼쪽벽면에서 출발하여 오른쪽으로 수평방향으로 움직이다가
+	오른쪽 벽에 부딪히면 왼쪽으로 이동을 반복하는 프로그래밍을 하시오.(무한반복)
+
+#include <GL/glut.h>
+
+GLfloat Delta = 0.0;
+GLfloat s = 0.001;
+
+// 한변의 길이가 0.2인 정사각형이 양쪽으로 무한반복
+void MyDisplay() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glBegin(GL_POLYGON);
+    glColor3f(0.0, 0.5, 0.8);
+    glVertex3f(-1.0 + Delta, -0.1, 0.0);
+    glVertex3f(-0.8 + Delta, -0.1, 0.0);
+    glVertex3f(-0.8 + Delta, 0.1, 0.0);
+    glVertex3f(-1.0 + Delta, 0.1, 0.0);
+    glEnd();
+    glutSwapBuffers();
+}
+
+void MyIdle() {
+    Delta += s;
+    if (Delta >= 1.8 || Delta <= 0.0) {
+        s = -s;
+    }
+    glutPostRedisplay();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv); // 오타 수정: glutlnit -> glutInit
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
+    glutInitWindowSize(1000, 1000);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("OpenGL Drawing Example");
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, 1.0, -1.0);
+    glutDisplayFunc(MyDisplay);
+    glutIdleFunc(MyIdle);
+    glutMainLoop();
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
