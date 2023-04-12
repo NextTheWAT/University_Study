@@ -1,0 +1,42 @@
+자바웹프로그래밍 6주차
+
+
+
+자바스크립트 문법 - 데이터 타입
+
+let number = 5;
+let str = ‘문자열 입력’; // “ “도 묶음 가능
+let prime = 1.5123;
+let is_ok = true; // 참
+let is_not = false; // 거짓
+@let undefi; // 변수 이름만, 초기화 x
+- indefi 타입이다 (초기화를 안한상태의 타입)
+@let empty = null; // 비어 있음
+- 빈칸을 할때는 null값이 좋다 " " 나 0 이나 등등 다른것은 좋지 않음
+
+console.log(undefi, empty); // 여러 개 출력
+
+대표 : 정수/소수, 문자열, bool 타입
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
