@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIFO", "FIFO\FIFO.csproj", "{86118DCF-DE91-4337-BD67-F2C8355F58EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86118DCF-DE91-4337-BD67-F2C8355F58EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86118DCF-DE91-4337-BD67-F2C8355F58EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86118DCF-DE91-4337-BD67-F2C8355F58EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86118DCF-DE91-4337-BD67-F2C8355F58EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {644EC385-B175-428F-B05C-78ADA7EB8F3E}
+	EndGlobalSection
+EndGlobal

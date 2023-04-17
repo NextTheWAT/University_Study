@@ -1,0 +1,7 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\obj\Debug\FItstProjectStudy.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\obj\Debug\FItstProjectStudy.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\bin\Debug\FItstProjectStudy.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\bin\Debug\FItstProjectStudy.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\bin\Debug\FItstProjectStudy.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\obj\Debug\FItstProjectStudy.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FItstProjectStudy\FItstProjectStudy\obj\Debug\FItstProjectStudy.pdb

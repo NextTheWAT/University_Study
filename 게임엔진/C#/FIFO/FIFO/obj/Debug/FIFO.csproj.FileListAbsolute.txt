@@ -1,0 +1,13 @@
+C:\Users\Jean\source\repos\FIFO\FIFO\bin\Debug\FIFO.exe.config
+C:\Users\Jean\source\repos\FIFO\FIFO\bin\Debug\FIFO.exe
+C:\Users\Jean\source\repos\FIFO\FIFO\bin\Debug\FIFO.pdb
+C:\Users\Jean\source\repos\FIFO\FIFO\obj\Debug\FIFO.csproj.CoreCompileInputs.cache
+C:\Users\Jean\source\repos\FIFO\FIFO\obj\Debug\FIFO.exe
+C:\Users\Jean\source\repos\FIFO\FIFO\obj\Debug\FIFO.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\bin\Debug\FIFO.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\bin\Debug\FIFO.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\bin\Debug\FIFO.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\obj\Debug\FIFO.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\obj\Debug\FIFO.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\obj\Debug\FIFO.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\FIFO\FIFO\obj\Debug\FIFO.pdb

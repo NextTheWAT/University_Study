@@ -1,0 +1,10 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\bin\Debug\StarCraftGame.exe.config
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\bin\Debug\StarCraftGame.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\bin\Debug\StarCraftGame.pdb
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.Form1.resources
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.Properties.Resources.resources
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.csproj.GenerateResource.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.csproj.CoreCompileInputs.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.exe
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\StarCraftGame\StarCraftGame\obj\Debug\StarCraftGame.pdb

@@ -1,0 +1,2 @@
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\3주차\3주차\obj\Debug\3주차.csproj.AssemblyReference.cache
+C:\Users\Jean\Desktop\3학년 1학기\게임엔진\C#\3주차\3주차\obj\Debug\3주차.csproj.CoreCompileInputs.cache
