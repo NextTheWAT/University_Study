@@ -1,0 +1,57 @@
+앱프로그래밍 7주차
+
+
+다음주 시험 - 중간고사
+
+빔으로 문제 풀기
+
+10시에 시험 시작 - 11시 끝
+20점짜리 2개
+
+코딩문제 2개 - 20점 
+주관식 단답, 서술 6개 - 10점
+
+1주차부터 했던 수업들
+
+
+
+mysql –u jh4161126–p
+1234
+
+select * from data;
+
+CREATE TABLE data2 (
+  `a1` int primary key auto_increment,
+  `a2` varchar(100) DEFAULT NULL,
+  `a3` varchar(100) DEFAULT NULL,
+`a4` varchar(100) DEFAULT NULL,
+`a5` varchar(100) DEFAULT NULL,
+`a6` varchar(100) DEFAULT NULL,
+`a7` varchar(100) DEFAULT NULL,
+`a8` varchar(100) DEFAULT NULL,
+`a9` varchar(100) DEFAULT NULL,
+`a10` varchar(100) DEFAULT NULL,
+`a11` varchar(100) DEFAULT NULL,
+`a12` varchar(100) DEFAULT NULL,
+`a13` varchar(100) DEFAULT NULL,
+`a14` varchar(100) DEFAULT NULL,
+`a15` varchar(100) DEFAULT NULL,
+`a16` varchar(100) DEFAULT NULL,
+`a17` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
