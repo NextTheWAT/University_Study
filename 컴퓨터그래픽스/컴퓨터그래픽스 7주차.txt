@@ -1,0 +1,127 @@
+컴퓨터그래픽스 7주차
+
+
+
+---6주차---
+삼각형은 시계방향 @
+Vertax는 반시계방향 @
+
+
+---7주차---
+
+
+Section 05 콜백 프로그래밍-GL의 화면좌표, GLUT 화면좌표
+
+- glOrtho(left, right, bottom, top, near, far) ; 가시부피를 정의함 @@@
+	- 얘가 직육면체를 만든다 @
+
+
+Section 05 콜백 프로그래밍-GL의 화면좌표, GLUT 화면좌표
+
+GLUT 화면좌표계
+
+GL 화면좌표계
+2개의 꼭짓점만 알면 사각형을 만들 수 있다.
+
+
+
+키보드 콜백 - 
+- glutKeyboardPunc() 는 문자 및 숫자 키에 대한 콜백함수를 등록하기 위한 것.
+- 키보드를 눌렀을때 화면이 꺼지는것
+
+
+마우스 콜백
+- GLUT는 button 파라미터에 GLUT_LEFT_BUTTON,,, 3개
+- GLUT_DOWN, GLUT_UP 등 해당 버튼이 눌러진 상태인지 아닌지를 의미하는 상수가 전달된다.
+
+glutMotoinFunc() 는 버튼을 누른 상태에서 마우스를 움직일 때 호출되는 콜백함수.
+
+glutpassiveMotionFunc() 은 아무런 버튼도 누르지 않은 상태에서 마우스를 움직이는  수직적 동작이라 한다.
+
+
+GLint TopLeftX, TopLeftY, BottomRightX, BottomRightY;
+클릭을 2번 했을때 Top (x,y) 와 Bottom(x,y)를 알아낸다?구한다?
+
+glBegin(GL_POLYGON); /* Normalize into the range 0 to 1
+glVertex3f(TopLeftX/300.0, (300-TopLeftY)/300.0, 0.0); 
+glVertex3f(TopLeftX/300.0, (300-BottomRightY)/300.0, 0.0);
+glVertex3f(BottomRightX/300.0, (300-BottomRightY)/300.0, 0.0); 
+glVertex3f(BottomRightX/300.0, (300-TopLeftY)/300.0, 0.0);
+300,300으로 이루어진 사각형 만들기 폴리건.
+
+glViewport(0, 0, 300, 300);	//(0,0) (300,300)
+glClear(GL_COLOR_BUFFER_BIT);	//화면 클리어
+
+
+glVertex3f(TopLeftX/300.0, (300-TopLeftY)/300.0, 0.0); 
+glVertex3f(TopLeftX/300.0, (300-BottomRightY)/300.0, 0.0);
+glVertex3f(BottomRightX/300.0, (300-BottomRightY)/300.0, 0.0); 
+glVertex3f(BottomRightX/300.0, (300-TopLeftY)/300.0, 0.0);
+
+300으로 나누는 이유는 정규화 때문이다. 가장 큰 값이 300
+0~1 사이의 값 아마?
+
+두 점을 찍어서 사각형을 만드는 코드
+
+
+
+메뉴 콜백
+glutCreateMenu 등등
+함수들 보기
+
+glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0); 
+GLint MyMainMenuID = glutCreateMenu(MyMainMenu); - MyMainMenu에 가서 만들기
+
+glutAddMenuEntry("Draw Sphere", 1);	- 스피어 그리기
+glutAddMenuEntry("Draw Torus", 2);	- 토러스 그리기
+glutAddMenuEntry("Exit", 3);		- 3번은 빠지기
+
+
+if (IsSphere)
+glutWireSphere(0.2, 15, 15);	- 구 만들기
+else glutWireTorus(0.1, 0.3, 40, 20);	- 아니면 토러스 만들기
+glFlush( ); 
+
+
+아이들 콜백
+- 무한 이벤트 루프?
+
+
+타이머 콜백
+- 일정한 시간 간격으로 타이머 클럭 함수를 호출하는 것
+
+glutTimeFunc(40, MyTimer, 1); 0.04초 간격으로 MyTimer 호출해주기
+
+
+Normalrized - 정규화? 0~1 사이의 값으로
+
+
+정점 배열
+
+- 정점은 8개
+- 면은 6개
+- 정점 4개가 면 1개
+
+GLubyte MyVertexList[24]={0,3,2,1, 2,3,7,6, 0,4,7,3, 1,2,6,5, 4,5,6,7, 0,1,5,4};
+4개씩 끊으면 된다 1면에 4개의 정점
+번호를 매겨서 면을 측정
+
+glFrontFace(GL_CCW);  - 그래픽의 앞면
+
+glRotatef(30.0, 1.0, 1.0, 1.0); 30도 꺾어줌
+
+glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_BYTE, &MyVertexList[4*i]);
+i는 0일때는 0
+i - 1일때는 4
+i - 2 일때는 8 ----
+이렇게 i값이 올라갈때 색 칠해주기
+
+
+
+
+
+
+
+
+
+
