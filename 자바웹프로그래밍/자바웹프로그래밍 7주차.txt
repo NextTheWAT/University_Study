@@ -1,0 +1,104 @@
+자바웹프로그래밍 7주차
+
+
+close, setTimeout, clearTimeout 등은 JS 내장 함수이다.
+
+
+JS의 주요 자료 구조
+- 내부 엔진 : 스택과 큐, 일반적으로 배열(리스트)
+
+배열이란? (다수 데이터)
+- 순차 리스트, 인덱스 번호로 구분
+	- 0번 부터 시작한다.
+- 객체(object) = 즉 참조 복사
+	- new array(); 사용 가능
+	//배열 사용할때
+
+let fruits = ["바나나"] // 리터럴 방식 선호	@
+	//이렇게도 사용 가능하다	메모리구조에서도 이 방식이 더 빠르게 동작함
+let arr = fruits; // 참조를 복사함(두 변수가 같은 객체를 참조) 	@
+alert( arr === fruits ); // true	@
+
+
+let empty = [ ]; 		// 빈 배열 //빈 배열 사용가능
+let empty2 = [, , ,]; 		// 쉼표 개수 = 크기
+let all = [1, ‘test’, 3.14]; 	// 다른 데이터 타입 사용 가능 
+let coffe = [“americano”, “latte”]; 	// 이름, 괄호
+const cars = ["Saab", "Volvo", "BMW"]; 	// 상수 배열
+cars[0] = “Jaab”; 				// 0번 인덱스 값 수정
+	//const cars = new Array("Saab", "Volvo", "BMW");
+let car = cars[2]; 			// 변수에 배열 값 초기화
+cars[1] = Date.now(); 		// 값에 객체 삽입 가능
+
+console.log(cars); 		// 배열 출력
+console.log(typeof cars); 	// 배열 타입 : 객체
+
+
+각 속성값의 역할과 차이점
+- id : 객체의 고유 이름, 단일, 중복 x
+	- JS 처리가 필요한 화면의 특정 객체에 id 추가
+- name : 객체에 다수 값, 중복 o, 배열 처리
+	- 예) 체크박스, 콤보박스 등
+- class : css 처리 이름, 중복 o
+	예) 부트스트랩
+
+
+다양한 메서드(내장 함수) 제공
+배열 변환, 길이
+toString(), length() 
+
+배열 값 추가/수정 및 삭제
+뒤 : push(), pop(), 앞 : shift(), unshift()
+
+배열 정렬
+순서 : sort(), 역정렬 : reverse()
+
+
+var arr = ['a', 'b', 'c']; 
+var arr2 = [1, 'b', 3.5151231231]; 
+// arr = ['a', 'b', 'c', 'e'];
+arr[arr.length] = 'e'; 
+// 배열의 끝에 요소를 추가 
+arr = ['a', 'b', 'c'];
+arr.length = arr.length - 1; 
+// 배열의 크기 1개 x
+arr[5] = 'g'; // index 5 에 요소를 추가
+arr.pop(); // 값 삭제(뒤)
+arr2.push("pushed"); // 값 추가(뒤)
+arr.shift(); // 값 삭제(앞)
+arr2.unshift("pushed2"); // 값 추가(앞)
+
+console.log(arr); // 배열 출력
+console.log(typeof arr2[0]); // 배열 출력
+console.log(arr2.toString()); // 문자열로 변환 출력
+console.log(typeof arr[3]); // empty 값?
+
+
+
+시험 9시
+ppt2주차 ~7주차
+객관식 10개 (4지선다), 주관식 5문제 (단답형) - 총 30점
+
+주요 정리 및 힌트
+
+- HTML 코드 및 자바스크립트
+- 각 태그의 역할 정도는 이해하자.
+- 메타, 링크, 문자, 이미지, 테이블 등 다양
+- 기본 속성들 파악하기
+
+- 기본 문법부터 배열까지 숙지
+- 기본 변수, 변수의 SCOPE, 반복, 배열, 전용 함수 등
+- 다른 프로그래밍 언어와 JS의 특징, 차이점
+
+- 잠깐!  표기된 부분
+- 필수로 살펴본다. 이론/실습 관련
+
+- 꾸글.COM 문제 풀기
+- 몇 개 안되지만 풀어보자.
+
+- 기타
+- 그룸 IDE 및 깃 허브 문제 및 해결법
+
+
+
+
