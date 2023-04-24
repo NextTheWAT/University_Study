@@ -1,0 +1,271 @@
+게임엔진 중간고사 개인정리
+
+1. enum, switch, case / Object 와  var 의 차이
+
+1-1
+enum
+- enum은 관련된 상수 값을 그룹화하는 데 사용되는 열거형 데이터 형식.
+Ex)
+	enum UNIT { Protoss, Zerg, Terran }
+	// 여기서의 Protoss, Zerg, Terran 은 0, 1, 2로
+	//UNIT은 enum 타입으로 선언되었으며 UNIT자체의 새로운 타입을 생성한 것 이다.
+
+switch, case
+- swtich 문과 case는 항상 같이 쓰여야한다 그렇지 않으면 사용 불가능
+- switch 문은 평가하려는 값과 일치하는 case 문을 찾아 그 코드 블록을 실행합니다. 
+	만약 일치하는 case 문이 없으면, default 문이 실행됩니다.
+
+1-2
+
+Object
+- 타입캐스팅(형변환)이 되어야 사용가능 그냥 값을 넣을때는 어떤 값을 넣어도 상관없다.
+- 예를 들어, a 변수를 int 타입으로 사용하려면 a 변수를 int 타입으 로 캐스팅해야합니다. 
+	마찬가지로 a 변수를 문자열로 사용하려면 a 변수를 문자열 타입으로 캐스팅해야합니다.
+	 Ex)  object a = 1;
+               Console.WriteLine(a);		//1ㅈ
+                a = (int) a + 1;	
+            	a = "아아" + a;
+
+               Console.WriteLine(a);	 //아아2
+var
+- Ex) var a = 1; 이라면
+	- 오른쪽의 값이 어떤 타입인지 찾아서 타입을 지정해준다. (모든 타입을 var로 사용 가능)
+	- 대신 하나의 타입으로만 사용 가능하다. 
+	- 위에서아 a  = 1이라면 var가 int로 형식을 지정해줬기 때문.
+
+2개의 차이점 var 는 타입을 할당된 값에 따라 지정해주고
+		 Object 는 그냥 Object 타입.
+var 또는 Object는 타입의 원래 특성을 유지할 수 있냐 없냐의 차이.
+
+----------------------------------------------------------------------------------------------------------------------
+
+2. foreach 와 ArrayList의 관계
+
+foreach
+- 배열과 컬렉션등의 요소에 대한 반복 작업을 쉽게 수행할 수 있도록 제공되는 구문.
+- foreach 문은 배열(Array)에 있는 항목들을 반복적으로 열거하는 데 사용됩니다.
+- foreach문을 사용하면 가독성이 높아지며 코드가 간결해진다.
+
+장점
+- 배열의 각 요소를 순회하며 for문처럼 인덱스값을 직접 지정하지 않아도 알아서 사용된다.
+
+단점
+- for문과 달리 읽기 전용으로만 사용 가능하다.(for문은 배열의 값 수정 가능)
+
+요약
+- 가독성 증가, 코드 간결, 인덱스값 지정x, 읽기전용
+
+AarrayList
+- 동적 배열 클래스 중 하나로, 요소를 추가, 제거 및 정렬 가능하다.
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+3. 탱크 이동처리 방법 Circle
+
+        //전진 후진
+        move = moveSpeed * Time.deltaTime;  
+	// 이동 = 이동속도 * 프레임당Time
+
+        moveVertical = Input.GetAxis("Vertical");
+	// 수직이동 = 키입력을 받는다 Vertical로
+
+        transform.Translate(Vector3.forward * move * moveVertical);
+	// 변환. 이동에대한 ( Vector3.전방 * 이동 * 수직이동)
+
+Vector3.forward
+- 벡터 좌표계에서의 z축의 양의 방향을 나타낸다. (0, 0, 1) 과같다.
+
+
+        //좌우 이동
+        rotate = rotSpeed * Time.deltaTime;	
+	//회전 = 회전속도 * 1프레임 당 시간
+
+        rotHorizon = Input.GetAxis("Horizontal");
+	// 회전수평 = 키입력을 받는다 Horizontal로
+
+        transform.Rotate(new Vector3(0.0f, rotate * rotHorizon, 0.0f));
+	//변환. 회전에대한 (Vector3 (0.0f, 회전 * 회전수평 , 0.0f)
+
+
+transform.Rotate.Around,와 transform.Rotate의 차이
+
+trasnform.Rotate
+- 현재 오브젝트의 로컬 축을 기준으로 회전을 수행한다, 주어진 각도만큼 회전.
+
+transform.RotateAround
+- 지정된 축을 기준으로 주어진 각도만큼 회전한다.
+
+요약
+transform.Rotate는 로컬 축을 기준으로 회전하며, 
+transform.RotateAround는 공전하며 회전합니다.
+
+
+Vector3.zero : 모든 요소 값이 0인 벡터를 나타냅니다.
+Vector3.one : 모든 요소 값이 1인 벡터를 나타냅니다.
+Vector3.forward : z 축 양의 방향을 나타내는 단위 벡터를 나타냅니다.
+Vector3.back : z 축 음의 방향을 나타내는 단위 벡터를 나타냅니다.
+Vector3.right : x 축 양의 방향을 나타내는 단위 벡터를 나타냅니다.
+Vector3.left : x 축 음의 방향을 나타내는 단위 벡터를 나타냅니다.
+Vector3.up : y 축 양의 방향을 나타내는 단위 벡터를 나타냅니다.
+Vector3.down : y 축 음의 방향을 나타내는 단위 벡터를 나타냅니다.
+
+----------------------------------------------------------------------------------------------------------------------
+
+4. 목표물, 트리거 함수와 충돌조건
+
+Collider
+- Collider를 붙였다고 관통과 튕겨지는것은 발생하지 않는다.
+- 컴포넌트인 Box Collider나 Rigidbody를 사용해야한다.
+- Collider 영역 안에 오브젝트가 닿거나 들어오면 충돌한 것으로 인식 된다.
+- Collider 기준으로 물리적인 충돌 처리를 해주기 때문에 Rigidbody 컴포넌트를 붙여도 
+  Collider가 없는 오브젝트라면 물리적 충돌 처리가 되지 않고 뚫고 지나가는 등등 이런 현상이 발생하게 된다.
+
+Collision
+- 물리적으로 부딪힌 오브젝트에 대한 정보가 담겨있다.
+- OnCollisionEnter 이벤트 함수가 발생하면 매개 변수이인 Collision 타입의 collision 에 다음과 같은 정보가 담긴다.
+- 자신과 부딪친 오브젝트의 Transform, Collider, GameObject, Rigidbody, 상대 속도 등등
+
+Trigger
+- 물리적으로 부딪히지 않더라도 내 Collider범위 안에 들어온 오브젝트에 대한 정보가 담겨있다. 
+	(Collision은 물리적인 정보가 담겨있는것.)
+		- 두 개의 오브젝트가 충돌한 시점, 충돌한 위치, 충돌한 힘 등 물리적인 정보를 담고있다.
+	(Trigger는 닿은 오브젝트의 정보가 담겨있는것)
+		- Collider의 정보가 담겨있기 때문에, 충돌한 Collider에 대한 정보를 가져올 수 있다.
+- 물리적인 피격, 충돌 없이도 그냥 Collider 범위 안에만 들어 가 있는지만 판단하고 싶을 때 사용
+
+
+요약
+Coliider
+- 충돌영역을 정의하는 컴포넌트, 2개의 오브젝트가 충돌했을때 발생하는 이벤트를 처리하는 클래스
+- 두개의 오브젝트가 둘다 Rigidbody나 Box Collider를 가지고 있어야한다.
+
+Collision
+- 물리적으로 부딪힌 2개의 오브젝트 정보를 가지고 있다.
+- 두 개의 오브젝트 중 하나만 Rigidbody나 Box Collider를 가지고 있으면 사용 가능하다.
+
+Trigger
+- 물리적인 충돌영역을 정의하지않고 Collider를 통해 두개의 오브젝트가 Collider로 인해
+	충돌했다면 충돌 감지 및 이벤트 처리를 위해 사용된다.
+- 다른걸로 영역을 정의해논 상태에서 Trigger를 사용하는것이다.
+- 결국 Trigger는 Collider에 담겨있는 정보를 가져오는 것.
+
+
+Collider는 물리적인 충돌을 감지하고 
+Collision은 물리적인 충돌 정보를 가져오는데 사용되며, 
+Trigger는 충돌을 감지하고 이벤트를 발생시키는 데 사용됩니다.
+
+따라서 Collider과 Collision은 물리 엔진을 통해 물리적인 반응을 처리하고, 
+Trigger는 게임 로직과 상호작용하기 위해 사용됩니다.
+
+
+
+
+
+
+Ex) 코드
+Bullet.cs
+
+    void OnTriggerEnter(Collider col)   //WALL, ENEMY(오브젝트) 가 넘어온다 col에 충돌한 오브젝트의 정보 - col에
+     {
+        if (col.gameObject.Tag("WALL"))
+        {
+            copy_exp.transform.position = col.transform.position;	//이펙트 효과 코드
+            Destroy(this.gameObject);   //총알을 없애겠다
+            Destroy(col.gameObject);    //벽을 없애겠다
+        }
+     }
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+5. 따라오기 2가지, 스크립트와 컴포넌트를 이용한 따라오기
+	- 따라오기에 대한 로직과, 따라오기에 대한 방법
+
+
+5-1
+아군에 대한 Tag 값을 Target으로 설정
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Target").GetComponent<Transform>();    //Inspector 창에 있는 Transform 정보를 가져옴
+        moveSpeed = 1.0f;
+        power = 10;
+        fTime = 0.0f;
+        rotAngle = 15;
+    }
+    void Update()
+    {
+        //transform.LookAt(target.transform.position);    //target 방향으로 회전
+        //총알이 탱크쪽으로 나가는 방향을 알아냄
+        direction = target.transform.position - this.transform.position;
+        distance = Vector3.Distance(target.transform.position, this.transform.position);
+        fTime += Time.deltaTime;
+
+	 if (distance < 15.0f)
+        {
+            //적 탱크 따라오기 구현
+            this.transform.LookAt(target.transform.position);   //탱크 바라보기
+            amtToRot = rotAngle * Time.deltaTime;       //앵글 각도 (회전)-3-
+            transform.RotateAround(Vector3.zero, Vector3.up, amtToRot); //주변을 회전
+				//RotateAround 메서드의 인자값 (중심점 위치, 회전 축, 회전할 각도)
+            this.transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * moveSpeed / 10);    //위치 갱신 : 보간 방법(Vector3.Lerp())
+	}
+    }
+
+5-2
+Plane을 선택하고 Inspecter 창에서 Static - Navigation Static을 선택한다.
+Plane을 선택하고 Navigation 창에서 Bake를 클릭.
+Plane에서 Component를 추가한다 - Nav Mesh Agent
+Stopping Distance를 조정하면 일정 간격을 두고 멈춘다.
+
+using UnityEngine.AI;	@
+
+    // NavMeshAgnet
+    private NavMeshAgent nvAgent;	@
+
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Target").GetComponent<Transform>();
+        fTime = 0.0f;
+        
+        nvAgent = this.gameObject.GetComponent<NavMeshAgent>(); 		@
+    }
+
+    void Update()
+    {
+        distance = Vector3.Distance(target.transform.position, this.transform.position);
+        fTime += Time.deltaTime;
+
+        if (distance < 15.0f)
+        {
+            nvAgent.destination = target.position;  //따라간다는 것
+            //nvAgent - UnityEngine.AI.NavMeshAgent 의 인스턴스를 가르키는 것
+            //NavMeshAgent를 이용하여 목적지를 설정하면 네비게이션 시스템이 목적지로 이동하게해줌
+
+            if (fTime > 1.5f)
+            {
+                fTime = 0.0f;
+            }
+	}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

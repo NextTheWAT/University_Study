@@ -1,0 +1,329 @@
+게임엔진 중간고사 정리
+
+
+C#에 대한 내용이 많음
+
+1. enum, switch, case / Object 와  var 의 차이
+
+1-1
+    class StarCraft
+    {
+        enum UNIT { Protoss, Zerg, Terran }
+//enum이라는 열거형 타입으로 UNIT이라는 타입을 새로 생성한 것.
+//enum의 열거형 타입이면서 UNIT이라는 새로운 타입 이다.
+
+        public void unit_Sel()
+        {
+            Console.WriteLine("번호를 선택해 주세요 : ");
+            Console.WriteLine("0번 - Protoss");
+            Console.WriteLine("1번 - Zerg");
+            Console.WriteLine("2번 - Terran");
+
+            Console.Write("선택 : ");
+            int sel = Int32.Parse(Console.ReadLine());  //enum 타입으로 값을 입력받을 수 없다.
+                                                        //switch 문에서 사용하려면 형변환을 해줘야한다.
+            switch ((UNIT)sel)
+            {
+                case UNIT.Protoss:		//case 값이 UNIT으로 사용되고있다.
+                    Console.WriteLine("Protoss를 선택하셨습니다.");
+                    break;
+                case UNIT.Zerg:
+                    Console.WriteLine("Zerg를 선택하셨습니다.");
+                    break;
+                case UNIT.Terran:
+                    Console.WriteLine("Terran을 선택하셨습니다.");
+                    break;
+            }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StarCraft star = new StarCraft();
+
+            star.unit_Sel();
+
+        }
+    }
+
+1-2
+var - 타입을 찾아서 형식을 지정해준다. (모든 타입을 var로 사용 가능)
+	//하나의 타입으로만 사용 가능
+var - 처음 값이 할당된느 순간 타입이 결정되고 형변환은 필요없다.
+	Ex)  이 코드는 돌아가지 않음
+	    var a = 1;	//int
+
+            Console.WriteLine(a);	//1
+
+            a = a + 1;		// a = 2
+            a = "아아" + a;		//에러
+
+            Console.WriteLine(a);	// 2
+
+Object - 타입캐스팅(형변환)이 되어야 사용가능.
+Object - 모든 타입을 받을 수 있지만, 형변환을 해줘야한다. (받을때 값의 형변환)
+예를 들어, a 변수를 int 타입으로 사용하려면 a 변수를 int 타입으 로 캐스팅해야합니다. 
+마찬가지로 a 변수를 문자열로 사용하려면 a 변수를 문자열 타입으로 캐스팅해야합니다.
+(사용할때를 얘기하는 것)
+	 Ex)  object a = 1;
+               Console.WriteLine(a);		//1
+                a = (int) a + 1;
+            	a = "아아" + a;
+
+               Console.WriteLine(a);	 //아아2
+
+2개의 차이점 var 는 타입을 할당된 값에 따라 지정해주고
+		 Object 는 그냥 Object 타입.
+var 또는 Object는 값의 원래 특성을 유지할 수 있냐 없냐의 차이.
+
+
+
+2. foreach 와 ArrayList의 관계
+foreach(int i in al) //var, Object, int를 사용가능s
+
+C#에서 foreach 문은 배열(Array)에 있는 항목들을 반복적으로 열거하는 데 사용됩니다.
+Ex)
+            ArrayList al = new ArrayList();
+            //ArrayList를 사용하려면 using System.Collections; 를 사용해야한다.
+
+            al.Add("100");
+            al.Add(100);
+            al.Add(200);
+            al.Add(200);
+            al.Add(200);
+
+            foreach (Object i in al)
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine();
+
+            al[4] = 500;
+
+            for(int i=0; i<al.Count; i++)
+            {
+                Console.WriteLine(al[i]);
+            }
+2개의 for문과 foreach문은 같게 작동한다.
+
+foreach문과 배열의 특징은
+foreach문을 사용하면 가독성이 높아지며 코드가 간결해진다.
+하지만 for문과 달리 읽기전용으로만 사용가능하다.
+배열의 각 요소를 순회하며 for문처럼 인덱스값을 직접 지정하지 않아도
+알아서 사용된다
+
+요약
+- 가독성 증가, 코드 간결, 인덱스값 지정x, 읽기전용
+
+
+3. 탱크 이동처리 방법 Circle
+
+        //전진 후진
+        move = moveSpeed * Time.deltaTime;      //d = v * t     디스턴스 = 속도 * 시간
+        moveVertical = Input.GetAxis("Vertical");   //키보드 정보
+        transform.Translate(Vector3.forward * move * moveVertical);//여기서 this는 탱크다 생략될뿐
+			// transform.Translate - 변환.이동시키다
+        // Vector3 v = new Vector3(x,y,z)
+        // ( 0 , 0 , 1) 이 값을 가지니까 x, y, 는 움직이지않고 z만 움직임
+
+        //좌우 이동
+        rotate = rotSpeed * Time.deltaTime;	//회전 = 회전속도 * 1프레임 당 시간
+        rotHorizon = Input.GetAxis("Horizontal");
+        transform.Rotate(new Vector3(0.0f, rotate * rotHorizon, 0.0f));
+	//변환.회전
+
+
+4. 목표물, 트리거 함수와, 충돌조건
+
+Collider
+- Collider를 붙였다고 관통과 튕겨지는것은 발생하지 않는다.
+- 컴포넌트인 Box Collider나 Rigidbody를 사용해야한다.
+- Collider 영역 안에 오브젝트가 닿거나 들어오면 충돌한 것으로 인식 된다.
+- Collider 기준으로 물리적인 충돌 처리를 해주기 때문에 Rigidbody 컴포넌트를 붙여도 
+  Collider가 없는 오브젝트라면 물리적 충돌 처리가 되지 않고 뚫고 지나가는 등등 이런 현상이 발생하게 된다.
+
+Collision
+- 물리적으로 부딪힌 오브젝트에 대한 정보가 담겨있다.
+- OnCollisionEnter 이벤트 함수가 발생하면 매개 변수이인 Collision 타입의 collision 에 다음과 같은 정보가 담긴다.
+- 자신과 부딪친 오브젝트의 Transform, Collider, GameObject, Rigidbody, 상대 속도 등등
+
+Trigger
+- 물리적으로 부딪히지 않더라도 내 Collider범위 안에 들어온 오브젝트에 대한 정보가 담겨있다.
+- 물리적인 피격, 충돌 없이도 그냥 Collider 범위 안에만 들어 가 있는지만 판단하고 싶을 때 사용
+
+Bullet.cs
+
+    void OnTriggerEnter(Collider col)   //WALL, ENEMY(오브젝트) 가 넘어온다 col에 충돌한 오브젝트의 정보 - col에
+     {
+        if (col.gameObject.tag == "WALL")
+        {
+            copy_exp.transform.position = col.transform.position;	//이펙트 효과 코드
+            Destroy(this.gameObject);   //총알을 없애겠다
+            Destroy(col.gameObject);    //벽을 없애겠다
+        }
+     }
+
+현재 코드에서는 만약 col의 값을 가지고 GameObject이며 태그가 WALL인 값이라면
+현재의 받은 col 값의 위치정보를 copy_exp에 저장하고 (이펙트효과)
+현재 스크립트를 가지고있는 Bullet의 오브젝트를 삭제
+또한 col로 값을 입력받은(WALL) 오브젝트를 삭제
+
+
+5. 따라오기 2가지, 스크립트와 컴포넌트를 이용한 따라오기
+	- 따라오기에 대한 로직과, 따라오기에 대한 방법
+
+5-1
+아군에 대한 Tag 값을 Target으로 설정
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Target").GetComponent<Transform>();    //Inspector 창에 있는 Transform 정보를 가져옴
+        moveSpeed = 1.0f;
+        power = 10;
+        fTime = 0.0f;
+        rotAngle = 15;
+    }
+    void Update()
+    {
+        //transform.LookAt(target.transform.position);    //target 방향으로 회전
+        //총알이 탱크쪽으로 나가는 방향을 알아냄
+        direction = target.transform.position - this.transform.position;
+        distance = Vector3.Distance(target.transform.position, this.transform.position);
+        fTime += Time.deltaTime;
+
+	 if (distance < 15.0f)
+        {
+            //적 탱크 따라오기 구현
+            this.transform.LookAt(target.transform.position);   //탱크 바라보기
+            amtToRot = rotAngle * Time.deltaTime;       //앵글 각도 (회전)-3-
+            transform.RotateAround(Vector3.zero, Vector3.up, amtToRot); //주변을 회전
+				//RotateAround 메서드의 인자값 (중심점 위치, 회전 축, 회전할 각도)
+            this.transform.position = Vector3.Lerp(transform.position, target.position, Time.deltaTime * moveSpeed / 10);    //위치 갱신 : 보간 방법(Vector3.Lerp())
+	}
+    }
+
+5-2
+Plane을 선택하고 Inspecter 창에서 Static - Navigation Static을 선택한다.
+Plane을 선택하고 Navigation 창에서 Bake를 클릭.
+Plane에서 Component를 추가한다 - Nav Mesh Agent
+Stopping Distance를 조정하면 일정 간격을 두고 멈춘다.
+
+using UnityEngine.AI;	@
+
+    // NavMeshAgnet
+    private NavMeshAgent nvAgent;	@
+
+    void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Target").GetComponent<Transform>();
+        fTime = 0.0f;
+        
+        nvAgent = this.gameObject.GetComponent<NavMeshAgent>(); 		@
+    }
+
+    void Update()
+    {
+        distance = Vector3.Distance(target.transform.position, this.transform.position);
+        fTime += Time.deltaTime;
+
+        if (distance < 15.0f)
+        {
+            nvAgent.destination = target.position;  //따라간다는 것
+            //nvAgent - UnityEngine.AI.NavMeshAgent 의 인스턴스를 가르키는 것
+            //NavMeshAgent를 이용하여 목적지를 설정하면 네비게이션 시스템이 목적지로 이동하게해줌
+
+            if (fTime > 1.5f)
+            {
+                fTime = 0.0f;
+            }
+	}
+     }
+
+
+6. 코드을 짜는 것이 아니라 코드에 대한 분석@
+
+7. 스위치 케이스문에서 타입 변환 시키는 방법
+	1-1 참고
+
+8. 현재 int 타입이지만 enum 타입으로 타입캐스팅(형 변환)을 하는것에 대한
+	1-1 참고
+
+9. 태그를 사용하는 방법
+	- Ex) if문을 사용하여
+
+        if (col.gameObject.tag == "WALL")
+        {
+            copy_exp.transform.position = col.transform.position;
+            Destroy(this.gameObject);   //총알을 없애겠다
+            Destroy(col.gameObject);    //벽을 없애겠다
+        }
+
+10. 씬 전환하는 방법
+
+using UnityEngine.SceneManagement;
+
+        else if (col.gameObject.tag == "ENEMY"))
+        {
+            copy_exp.transform.position = col.transform.position;
+
+            Debug.Log("Test Enemy Counter");
+            Destroy(this.gameObject);   //총알을 없애겠다
+            Score.Counter++;    //정적 변수이기 때문에 클래스.변수명 으로 엑세스 가능
+
+            if(Score.Counter > 5)	@@
+            {
+                SceneManager.LoadScene("Win");
+            }
+        }
+
+
+
+C#
+
+int형 입력하는 법
+int a = Int32.Parse(Console.ReadLine());
+
+
+String형 입력하는 법
+string a = Console.ReadLine();
+
+
+int형 배열 선언하는 법
+int a = new int[] {0, 1, 2, 3};
+
+
+String형 배열 선언하는 법
+string[] a = { "사과", "배", "포도"};
+
+
+var 타입 선언 : 컴파일시 해당 타입으로 바뀜
+object 타입 : 모든 타입을 받을 수 있음
+
+
+Mathf.Clamp - 최대,최소값 지정해주는 함수
+ex)
+ang.x = Mathf.Clamp(ang.x, -15, 5);
+
+
+라운드형으로 rotateAround 함수 사용
+
+
+Vectoe3.Lerp()
+Vectoe3.Slerp()
+
+Lerp는 직선 상에서 두 점 사이를 이동하는 것이며, 
+Slerp는 곡선 상에서 두 점 사이를 이동하는 것입니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
