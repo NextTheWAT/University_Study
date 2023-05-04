@@ -1,0 +1,79 @@
+게임수학 10주차
+
+2주 뒤 실습내용 과제 제출
+
+자연스럽게 늘리기
+Mesh Type 에서 Full Rect을 해준다. 
+Sprite Renderer 에서 Draw mode - Tiled로 바꿔주기
+
+이 상태에서 Box Collider2D가 가운데에만 있다.
+Auto Tiling 을 체크해주자 그러면 모든면이 Box Collider2D가 적용된다.
+
+
+중력 - Rigidbody2D
+
+
+OnKeyPress_Move 
+- 낙하하지 않고 왼쪽/오른쪽/위/아래 로 움직일 수 있다. 
+- 낙하하지 않는 첫번 째 이유는 Start에서 GravityScale = 0 으로 지정했기 때문
+- 또한, 두번째 이유는 Vector2(vx, vy)에서 x방향, y방향을 강제적으로 업데이트 하고 있기 때문
+
+
+낙하하면서 좌우로 움직이는 방법@@
+- Rigidbody2D가 가지고 있는 y 방향의 이동량(rbody.velocity.y)을 그대로 적용하도록 한다. 
+- 그러면 중력을 받으면서 좌우로 이동할 수 있게 된다. 
+- 기존의 vy를 다루는 위아래 이동처리는 주석으로 해두도록 한다. 
+
+
+OnTriggerEnter
+- 충돌됐을때
+
+OnTriggerStay
+- 충돌하면서 곂치는 시간?
+
+OnTriggerExit
+- 충돌후 곂치지않는상태 나온것
+
+Collider 박스가 크면 계산이 많이 들어간다.
+
+
+Circle Collider2D
+- Radius 값을 잘 조정하기
+
+prefab -> GameObject 끌어다 놓는것
+하드디스크에 물리적인 파일로 존재 하는 prefab을
+메모리의 영역에 GameObejct 타입으로 할당하는 것
+
+prefab - 하드디스크에 물리적인 파일로 존재
+GameObject - 메모리 영역
+
+prefab을 GameObejct 인스턴스화 할때는 instantiate함수를 이용해서
+객체를 생성하지만 GameObejct 타입으려 변환해줘야 한다
+Ex) as GameObejct 
+
+GameObject에는 Transform을 가지고있다. - 유일하다
+
+Matrix - 행렬을 가지고있는 , 게임을 만들때 가장 먼저 해줘야 하는 것.
+
+유니티 게임의 최적화가 중요하다
+만약 GameObejct에 64기가가 최대지만 100기가의 Instantiate를 한다면
+뻑 날거다 그러니까 최적화가 중요하다
+Instantiate와 Destroy가 중요하다@@
+
+
+벽에 붙어 이지 않게 만들기
+메뉴 - Assets - Create - 2D - Physics Material 2D 를 생성
+Friction 을 0 으로 셋팅
+New Pysics Material 2D를 내려가는 벽의 Box Collider2D의 Material 에다가 넣어 준다.
+
+
+위로는 올라가고 밑으로는 착지하는 벽
+- 위에 있는 벽에 부딪혀서 올라가지 못할 경우
+- 위로는 뚫고 올라갈 수 있지만 아래로는 착지 할 수 있도록 만들어 보자. 
+- 위에 있는 벽을 선택 한 후 
+- Add Component - Physics - Platform Effect 2D 추가
+- Box Collider 2D 에 Used By Effect를 체크
+
+
+총알 나가는것, 지진효과, 벽등을 회전시키는 것등등 게임을 만들어보자
+
