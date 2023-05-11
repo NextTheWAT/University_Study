@@ -1,0 +1,66 @@
+게임수학 11주차
+
+
+    class Score
+    {
+        public int value;
+
+        public static int value2;
+
+        public static void SetValue2()
+        {
+
+        }
+    }
+
+        static void Main(string[] args)
+        {
+
+            Score myS = new Score(); //Ex) GetComponent<Rigidbody>();   객체를 인스턴스화 하는 것
+            myS.value = 10 ;    //인스턴스화 한 Score의 value값을 설정
+
+            Score.value2 = 10;  //이건 객체를 인스턴스화 하지않고 바로 static으로인한
+                                //정적변수이기때문에 인스턴스화 하지 않아도 된다.
+
+            Score.SetValue2();  //정적함수 값 변환 다른 클래스에서도 참조 가능 public일때
+}
+
+        public static int VALUE
+        {
+            set
+            {
+                value = this.value2;
+            }
+            get
+            {
+                return value2;
+            }
+        }
+
+
+static 
+
+static 변수?
+- 게임에서 매우 중요한 기능
+- 외부에서 바로 액세스가 가능한 변수
+- 씬이 전환되더라도 계속 값이 남아 있는 변수
+
+사용 방법
+- 선언
+- public static <변수 형> <변수 명>	@
+- 액세스 방법
+< 클래스 이름>.<변수 이름>	@
+
+get, set 사용하는방법도 잘 알아두기
+
+
+(2) 계속 카운터를 표시
+- Text라는 게임오브젝트를 가져와서 static 변수의 값을 스트링으로 변환하여 대입함
+- Text 오브젝트는 using UnityEngine.UI 라는 namespace를 선언 해야 함
+- GetComponent<Text>().text = < 문자열>
+- 새로운 스크립트를 생성 : Forever_ShowCount.cs
+
+
+
+
+
