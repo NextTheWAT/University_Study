@@ -1,0 +1,82 @@
+게임수학 12주차
+
+
+CatGame
+
+Rigidbody 의 Body Type을 Kinematic으로 바꿔주면 중력으로인해 내려가지않는다.
+
+태그를 활용하는것보단 Collider 를 나눠서 사용하는것이 더 효율적이다
+
+Cat의 Rigidbody 의 Constrains 의 Rotation 의 z값을 Freeze 를 해준다 z값으로 자꾸 넘어지기 때문
+
+
+Find 메소드@@ 시험에 나옴
+Find 메소드 : 게임 씬에서 오브젝트를 찾을 때 사용
+
+ 메소드 이름
+설명 
+Find(오브젝트이름)
+씬 중에서 오브젝트 이름과 일치하는 게임 오브젝트를 한 개 찾아서 반환한다. 
+FindWithTag(태그이름)
+씬 중에서 태그 이름과 일치하는 게임 오브젝트를 한 개 찾아서 반환한다. 
+FindGameObjectsWithTag(태그이름)
+씬 중에서 태그 이름과 일치하는 게임 오브젝트를 여러개 찾아서 반환한다. 반환값은 GameObject 배열이다. 
+FindObjectOfType(타입이름)
+씬 중에서 타입 이름과 일치하는 게임 오브젝트를 한 개 찾아서 반환한다. 
+FindObjectsOfType(타입이름)
+씬 중에서 타입 이름과 일치하는 게임 오브젝트를 여러개 찾아서 반환한다. 
+반환값은 Object 배열이다. 
+
+
+        if (Input.GetKeyDown(KeyCode.Space))     //한번눌렸을때		
+        if(Input.GetKey("space"))                  //누를때 계속 값을 호출	
+두개 알아두기 시험@@
+
+
+방향 바꾸기
+
+1번 Sprite Renderer 에서 Flip을 가져와서 방향 바꿔주는 것 하고 
+
+
+2번
+        //움직이는 방향에 따라 반전한다.
+        if(key != 0)
+        {
+            transform.localScale = new Vector3(key, 1, 1);  
+        }
+1번보다 2번이 훨씬 빠르고 깔끔하다.
+
+
+애니메이션은
+Sprite로 만들어준다
+애니메이션을 커스터마이징 가능하다.
+애니메이션을 마음대로 만들어낼수있음.
+
+
+딕셔너리 자료구조를이용해서 객체활용을 어떻게 하는가 중요@@
+
+백그라운드 코드 잘알아두기 올라갔다가 내려가고 올라갔다가 내려가고 @
+
+
+Manager 잘 만들기
+Ex) 백그라운드 매니저, 백그라운드 애니메이션,터  등등
+
+Trigger는 Collider로 받는거고
+Collision은 collision으로 받는다 물리적인걸 받는것
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
