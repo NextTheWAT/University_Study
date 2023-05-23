@@ -1,0 +1,47 @@
+앱프로그래밍 11주차
+
+
+
+CREATE TABLE tb1 (
+  no bigint(100) unsigned NOT NULL AUTO_INCREMENT,
+  email varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  PRIMARY KEY (no)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE tb2 (
+  no bigint(100) unsigned NOT NULL AUTO_INCREMENT,
+  email varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  radiol varchar(50) NOT NULL,
+  radio2 varchar(50) NOT NULL,
+  PRIMARY KEY (no)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE tb3 (
+  no bigint(100) unsigned NOT NULL AUTO_INCREMENT,
+  email varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  menu varchar(50) NOT NULL,
+  comment varchar(50) NOT NULL,
+  PRIMARY KEY (no)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+
+
+
+기말고사,@@
+화면주고 for문에 대해서 데이터를 inssert할수있는걸 구성을 그리고 코딩을 작성하시오
+반대로 읽는거라면 전반적으로 db를 읽어서 뿌려라 에대해서 설명하시오 가 나올수 있다
+
+
+
+
+
+
+
+
+
+
+

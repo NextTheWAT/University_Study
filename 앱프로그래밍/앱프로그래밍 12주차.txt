@@ -1,0 +1,19 @@
+앱프로그래밍 12주차
+
+
+
+CREATE TABLE data10 (
+  no bigint(100) unsigned NOT NULL AUTO_INCREMENT,
+  data_title varchar(50) NOT NULL,
+  data_data varchar(50) NOT NULL,
+  PRIMARY KEY (no)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+
+
+
+
+
+
+
