@@ -1,0 +1,396 @@
+컴퓨터그래픽스 12주차
+
+
+그래픽 변환
+
+강체변환(Rigid Body Transformation)@
+• 이동변환, 회전변환
+• 물체 자체의 모습은 불변
+
+유사변환(Similarity Transformation)@
+• 강체변환 + 균등 크기조절 변환, 반사변환
+• 물체면 사이의 각이 유지됨.
+• 물체내부 정점간의 거리가 일정한 비율로 유지됨
+
+어파인변환(Affine Transformation) @
+• 유사변환 + 차등 크기조절 변환, 전단변환
+• 물체의 타입이 유지
+ 직선은 직선으로, 다각형은 다각형으로, 
+	곡면은 곡면으로
+	 평행선이 보존
+	 변환행렬의 마지막 행이 항상 (0, 0, 0, 1)
+
+비선형변환은 - 선이 곡선이 될수도있고 등등 모양도 바뀐다.
+
+원근변환(Perspective Transformation) 
+• 평행선이 만남.
+• 직선이 직선으로 유지
+• 변환행렬의 마지막 행이 (0, 0, 0, 1) 아님.
+
+선형변환(Linear Transformation) 
+• 어파인 변환 + 원근 변환
+• 선형 조합(Linear Combination)으로 표시되는 변환
+• x' = ax + by + cz에서 x'는 x, y, z 라는 변수를 각각 상수 배 한 것을 더한것이다.
+
+
+Section 03 지엘의 모델변환- 모델 좌표계
+
+모델링
+• 물체를 설계 = 물체 정점을 정의
+
+좌표계 (눈금)단위
+• 임의로 설정
+• 물체공간(Object Space): 부동소수 정밀도
+
+좌표계 원점 및 축방향
+• 설계상의 편의
+• 물체마다 서로 다름
+
+@@모델 좌표계(MCS, Modeling Coordinate System) 또는 지역 좌표계
+(LCS, Local Coordinate System)
+
+
+전역 좌표계, 시점 좌표계
+
+장면
+• 여러 물체가 존재 = 여러 지역 좌표계가 존재
+• 일률적으로 어우를 수 있는 기준 좌표계
+ 전역 좌표계(WCS, World Coordinate System)  or 세계좌표계 등등-
+• 임의 위치에 선정
+
+시점
+• 바라보는 위치에 따라 장면은 달라보임
+• 시점 좌표계(VCS, View Coordinatge System)-
+
+
+변환행렬의 의미
+
+Ex. 이동변환
+• 기본값으로 WCS=MCS
+• 일반적 관점
+	 변환행렬 T는 WCS 기준으로 물체 정점을 (3, 2, 0)만큼 이동함을 의미.
+• 지엘의 관점
+	 변환과 동시에 WCS와 MCS가 분리됨
+	 변환 후에도 MCS 기준의 정점 좌표는 불변@
+	 좌표계의 이동으로 간주. 
+	 전역 좌표계를 (3, 2, 0)만큼 이동하면 모델 좌표계와 일치.
+	 "전역 좌표계를 모델 좌표계로 일치시키기 위한 것이 변환행렬이다@
+
+회전
+	• 물체와 함께 MCS도 회전. 
+	• MCS 기준의 물체 좌표는 불변
+	• 회전변환 행렬 T를 (a)의 WCS를 45(b)의 MCS로 일치시키는데 사용. 이
+	후 이를 MCS 기준으로 물체를 렌더링
+
+크기조절: x축으로 2배
+	• MCS x축 눈금의 절대 길이가 바뀜.
+	• MCS 기준의 물체 좌표는 불변(Ex. (2, 2, 0))
+	
+
+지엘 파이프라인
+
+모델변환ㅇ
+• 물체에 가해지는 기하변환(이동, 회전, …)
+• 모델행렬로 대변됨
+• 모델 좌표에 모델 행렬을 곱하면 전역좌표
+
+시점변환 또는 뷰변환
+• 카메라 위치와 방향 설정
+• 뷰행렬로 대변됨
+• 전역좌표에 뷰행렬을 곱하면 시점좌표
+
+지엘은 모델행렬과 뷰행렬을 모델뷰 행렬 하나로 취급
+• 물체를 뒤로 빼나 카메라를 앞으로 미나 마찬가지
+
+
+지엘의 모델변환
+
+행렬모드 설정
+• 조작하고자하는 행렬을 선택
+• void glMatrixMode(GLenum mode); 
+	 GL_MODELVIEW@, GL_PROJECTION, GL_TEXTURE   
+
+현 변환행렬(CTM: Current Transformation Matrix)
+• 상태변수. 스택 탑에 존재
+• 항상 이것이 정점에 곱해짐
+
+초기화
+• void glLoadIdentity( );
+• 항등행렬로 초기화
+• 초기화 결과
+ 모델 좌표계 = 전역 좌표계 = 시점 좌표계
+
+기하변환을 명시
+• void glTranslatef(GLfloat dx, GLfloat dy, GLfloat dz); 
+• void glScalef(GLfloat sx, GLfloat sy, GLfloat sz); 
+• void glRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloat z); 
+
+후위곱셈(PostMultiplication)@
+• 전역 좌표계를 기준으로 하는 모델 좌표계의 변환
+• CTM = CTM • M
+• Ex. glTranslatef(1, 2, 0
+
+
+계층구조 모델링
+
+void drawArm( ){ 
+glMatrixMode(GL_MODELVIEW); 
+glLoadIdentity( ); 전역 좌표계 = 모델 좌표계
+Draw_Body( ); 몸체 그리기
+glPushMatrix( ); 전역 좌표계 저장
+GoToShoulderCoordinates( ); 어깨 기준 모델 좌표계
+Draw_UpperArm( ); 위 팔 그리기
+glPushMatrix( ); 어깨 기준 모델 좌표계 저장
+GoToElbowCoordinates( ); 팔꿈치 기준 모델 좌표계
+Draw_LowerArm( ); 아래팔 그리기
+glPushMatrix( ); 팔꿈치 기준 모델 좌표계 저장
+GoToWristCoordinates( ); 손목 기준 모델 좌표계
+Draw_Hand( ); 손 그리기
+glPopMatrix( ); 팔꿈치 좌표계 복원
+glPopMatrix( ); 어깨 좌표계 복원
+glPopMatrix( ); 몸체 좌표계 복원
+} 
+
+push를 해준만큼 pop을 해줘야함@@ 중요 시험에 나올수도
+
+
+
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+static int Day = 0;
+static int Time = 0;
+
+void MyDisplay() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glColor3f(1.0, 0.3, 0.3);
+    glutWireSphere(0.2, 20, 16);
+
+    glPushMatrix();
+    glRotatef((GLfloat)Day, 0.0, 1.0, 0.0);
+    glTranslatef(0.7, 0.0, 0.0);
+    glRotatef((GLfloat)Time, 0.0, 1.0, 0.0);
+    glColor3f(0.5, 0.6, 0.7);
+    glutWireSphere(0.1, 10, 8);
+
+    glPushMatrix();
+    glRotatef((GLfloat)Time, 0.0, 1.0, 0.0);
+    glTranslatef(0.2, 0.0, 0.0);
+    glColor3f(0.9, 0.8, 0.2);
+    glutWireSphere(0.04, 10, 8);
+    glPopMatrix();
+
+    glPopMatrix();
+    glutSwapBuffers();
+}
+
+void MyKeyboard(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'd':
+            Day = (Day + 10) % 360;
+            glutPostRedisplay();
+            break;
+        case 't':
+            Time = (Time + 5) % 360;
+            glutPostRedisplay();
+            break;
+        default:
+            break;
+    }
+}
+
+int main(int argc, char* argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(500, 500);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("OpenGL Sample Drawing");
+
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
+    glutDisplayFunc(MyDisplay);
+    glutKeyboardFunc(MyKeyboard);
+
+    glutMainLoop();
+
+    return 0;
+}
+
+
+Q1) 이동변환 T1 후, 이동변환 T2를 적용한 후 CTM을 쓰시오.
+
+T1은 다음과 같은 이동 변환 행렬이다: 
+T1 = 	| 1 0 0 dx1 |
+	| 0 1 0 dy1 |
+	| 0 0 1 dz1 |
+	| 0 0 0 1 |
+
+T2는 다음과 같은 이동 변환 행렬이다: 
+T2 = 	| 1 0 0 dx2 |
+	| 0 1 0 dy2 |
+	| 0 0 1 dz2 |
+	| 0 0 0 1 |
+
+CTM = T2 * T1
+
+= 	| 1 0 0 dx2 | 		 	| 1 0 0 dx1 |
+	| 0 1 0 dy2 |		* 	| 0 1 0 dy1 |
+	| 0 0 1 dz2 |		 	| 0 0 1 dz1 |
+	| 0 0 0 1 |			| 0 0 0 1 |
+
+= 	| 1 0 0 dx2 + dx1 |
+	| 0 1 0 dy2 + dy1 |
+	| 0 0 1 dz2 + dz1 |
+	| 0 0 0 1 |
+
+CTM = 	| 1 0 0 dx2 + dx1 |
+		| 0 1 0 dy2 + dy1 |
+		| 0 0 1 dz2 + dz1 |
+		| 0 0 0 1 |
+
+Q2) 위 문제에서 이동변환 T1, 이전으로 좌표계로 복귀시키기 위한 방법을 glPushMatrix()와 glPopMatrix()를 이용하여 쓰시오.
+
+#include <GL/glut.h>
+
+// 이동 변환 행렬 T1
+float dx1 = 1.0f;  // x 축 이동량
+float dy1 = 2.0f;  // y 축 이동량
+float dz1 = 3.0f;  // z 축 이동량
+
+// T1 적용 전 좌표계
+float originalPoint[3] = { 0.0f, 0.0f, 0.0f };
+
+// T1 적용 후 좌표계
+float transformedPoint[3] = { 0.0f, 0.0f, 0.0f };
+
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    // T1 적용
+    glPushMatrix();
+    glTranslatef(dx1, dy1, dz1);
+    glGetFloatv(GL_MODELVIEW_MATRIX, matrix);  // 변환 행렬 가져오기
+    glPopMatrix();
+    
+    // T1 적용 후 좌표계 계산
+    transformedPoint[0] = matrix[12];  // x 좌표
+    transformedPoint[1] = matrix[13];  // y 좌표
+    transformedPoint[2] = matrix[14];  // z 좌표
+    
+    // 이전 좌표계로 복귀
+    glPushMatrix();
+    glLoadIdentity();  // 단위 행렬로 초기화
+    glTranslatef(-dx1, -dy1, -dz1);  // T1의 역변환
+    // 이전 좌표계에서 필요한 변환 수행
+    // ...
+    glPopMatrix();
+    
+    glFlush();
+}
+
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(400, 400);
+    glutCreateWindow("Transformation Example");
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluOrtho2D(-10.0, 10.0, -10.0, 10.0);
+    glutDisplayFunc(display);
+    glutMainLoop();
+    
+    return 0;
+}
+
+
+Q3) p285의 코드 [6-6]을 프로그램하고 태양계 계층구조를 이해하시오.
+
+//태양계
+static int Day = 0;
+static int Time = 0;
+
+void MyDisplay() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glColor3f(1.0, 0.3, 0.3);
+    glutWireSphere(0.2, 20, 16);
+
+    glPushMatrix();
+    glRotatef((GLfloat)Day, 0.0, 1.0, 0.0);
+    glTranslatef(0.7, 0.0, 0.0);
+    glRotatef((GLfloat)Time, 0.0, 1.0, 0.0);
+    glColor3f(0.5, 0.6, 0.7);
+    glutWireSphere(0.1, 10, 8);
+
+    glPushMatrix();
+    glRotatef((GLfloat)Time, 0.0, 1.0, 0.0);
+    glTranslatef(0.2, 0.0, 0.0);
+    glColor3f(0.9, 0.8, 0.2);
+    glutWireSphere(0.04, 10, 8);
+    glPopMatrix();
+
+    glPopMatrix();
+    glutSwapBuffers();
+}
+
+void MyKeyboard(unsigned char key, int x, int y) {
+    switch (key) {
+    case 'd':
+        Day = (Day + 10) % 360;
+        glutPostRedisplay();
+        break;
+    case 't':
+        Time = (Time + 5) % 360;
+        glutPostRedisplay();
+        break;
+    default:
+        break;
+    }
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(500, 500);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("OpenGL Sample Drawing");
+
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
+    glutDisplayFunc(MyDisplay);
+    glutKeyboardFunc(MyKeyboard);
+
+    glutMainLoop();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
