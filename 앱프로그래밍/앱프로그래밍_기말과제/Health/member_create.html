@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>성결대 미디어소프트 회원가입 실습</title>
+    <script language="javascript">
+
+        function Input() 
+        {
+
+            if(document.frmInput.email.value == "") {
+                alert("please check your Email.");
+                document.frmInput.email.focus();
+                return false;
+            }
+            if(document.frmInput.pw_1.value == "") {
+                alert("please check your Password.");
+                document.frmInput.pw_1.focus();
+                return false;
+            }
+            if(document.frmInput.pw_2.value == "") {
+                alert("please check your Repeat Password.");
+                document.frmInput.pw_2.focus();
+                return false;
+            }
+
+            if(document.frmInput.name.value == "") {
+                alert("please check your Name.");
+                document.frmInput.name.focus();
+                return false;
+            }
+
+            if(document.frmInput.Phone.value == "") {
+                alert("please check your Phone Number.");
+                document.frmInput.Phone.focus();
+                return false;
+            }
+
+            document.frmInput.submit();
+        }
+
+    </script>
+</head>
+<body>
+                        
+    <form name="frmInput" action="memberWrite.php" method="post" enctype="multipart/form-data">
+        
+        <h4>Basic Information</h4>
+        
+        <label for="email">email(ID)</label>
+        <input type="email" name="email" id="email" required>
+        <br><br>
+        
+        <label for="pw_1">비밀번호</label>
+        <input type="password" name="pw_1" id="pw_1" required>
+        <br><br>
+
+        <label for="pw_2">비밀번호 확인</label>
+        <input type="password" name="pw_2" id="pw_2" required>
+        <br><br>
+
+        <label for="name">이름</label>
+        <input type="text" name="name" id="name" required>
+        <br><br>
+
+        <label for="Phone">휴대전화</label>
+        <input type="tel" name="Phone" id="Phone" required>
+        <br><br>
+
+        <br><br>
+        <button type="button" onclick="Input()">회원가입</button>
+    </form>
+   
+</body>
+</html>

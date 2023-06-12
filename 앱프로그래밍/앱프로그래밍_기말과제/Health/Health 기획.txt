@@ -1,0 +1,15 @@
+Health 기획
+
+index.html - 메인 페이지
+login - 로그인페이지
+	index_login - 로그인확인된 페이지
+register - 회원가입 페이지
+customer_service.html - 고객센터 페이지
+product.html - 제품정보 페이지
+health.html - 운동정보
+
+http://34.64.70.30/Health/index.html
+
+health_member
+
+select * from health_member;
