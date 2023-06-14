@@ -1,0 +1,384 @@
+앱프로그래밍 기말고사 정리
+
+
+9장
+
+Application Programming Interface
+
+- API는 애플리케이션 소프트웨어를 빌드하고 통합하기 위한 정의 및 프로토콜 세트인 
+  애플리케이션 프로그래밍 인터페이스(Application Programming Interface)를 뜻합니다.
+- 관련 없는 두 애플리케이션이 서로 통신할 수 있도록 하는 소프트웨어 중개자입니다.
+
+
+API 동작방식
+- API를 사용하면 구현 방식을 알지 못하는 제품 또는 서비스와도 통신할 수 있으며 애플리케이션 개발을 간소화하여 시간과 비용을 절약할 수 있습니다. 
+
+
+- API를 통한 혁신
+  파트너 또는 일반 사용자에게 API를 공개하면 다음과 같은 이점을 얻을 수 있습니다.
+• 새로운 수익 채널을 확보하거나 기존 수익 채널을 확장합니다.
+• 브랜드 인지도를 확대합니다.
+• 외부 개발을 활용하고 협업을 수행하여 오픈 혁신을 촉진하거나 효율성을 높입니다.
+
+
+원격 API
+ - 원격 API는 커뮤니케이션 네트워크를 통해 상호 작용하도록 설계되었습니다. 
+
+
+SOAP와 REST의 차이에 대해 자세히 알아보기@
+
+- SOAP(Simple Object Access Protocol)라
+	- SOAP로 설계된 API는 XML 메시지 형식을 사용하며 HTTP 또는 SMTP를 통해 요청을 수신합니다.
+	-  XML 기반의 메시지를 컴퓨터 네트워크 상에서 교환하는 프로토콜이다
+		- SMTP (Simple Mail Transfer Protocol) 란 인터넷 연결을 통하여 이메일을 보낼 때 사용되는 프로토콜을 일컫습니다.
+		- HTTP(Hypertext Transfer Protocol)는 클라이언트와 서버 간 통신을 위한 통신 규칙 세트 또는 프로토콜입니다.
+- REST(Representational State Transfer)
+	- 아키텍처의 제약 조건을 준수하는 웹 API를 RESTful API라고합니다.
+	- 자원을 이름으로 구분하여 해당 자원의 상태를 주고받는 모든 것을 의미합니다.
+- 차이점
+	- SOAP는 프로토콜이지만 REST는 아키텍처 스타일이라는 근본적인 차이가 있으며 따라서 RESTful 웹 API에는 공식적인 표준이 없습니다.
+
+
+- 클라이언트-서버 아키텍처
+	- 클라이언트, 서버, 리소스로 구성된 REST 아키텍처이며 HTTP를 통해 요청을 처리합니다
+- 스테이트리스(Statelessness)
+	- 요청 후 다음 요청이 있을 때까지 클라이언트 콘텐츠가 서버에 저장되지 않으며 그 대신
+	  세션 상태에 대한 정보가 클라이언트에 저장됩니다.
+- 캐시 가능성
+	- 캐싱으로 일부 클라이언트-서버 간 상호 작용을 대신할 수 있습니다.
+- 계층화된 시스템
+	- 추가 계층으로 클라이언트-서버 간의 상호 작용을 조정할 수 있으며 이러한 계층은 로드 밸런싱, 
+	  공유 캐시 또는 보안과 같은 추가 기능을 제공할 수 있습니다.
+- 코드 온디맨드(옵션)
+	- 서버에서 실행 가능한 코드를 전송하여 클라이언트의 기능을 확대할 수 있습니다
+- 통합된 인터페이스
+	- 이 제약 조건은 RESTful API 설계의 핵심이며 다음과 같은 4가지 측면을 포함합니다.
+
+
+JSON (JavaScript Object Notation)@
+	- JSON 은 경량의 DATA-교환 형식이다. 이 형식은 사람이 읽고 쓰기에 용이하며, 
+	  기계가 분석하고 생성함에도 용이하다.
+	-  JSON은 상대적으로 쉽게 읽고 작성할 수 있고, 소프트웨어에서 파싱 및 생성하기도 쉽습니다.
+
+
+DB테이블 작성
+create table fresh(
+	no bigint(100) unsigned not null auto_increment,
+	ID varchar(255) not null,
+	Time_Stamp varchar(20) not null,
+	Car_No varchar(20) not null,
+	Category varchar(20) not null,
+	Temp varchar(20) not null,
+	Hum varchar(10) not null,
+	Ref_min varchar(30) not null,
+	Ref_max varchar(30) not null,
+	Accept varchar(10) not null,
+	hash varchar(300) not null,
+	primary key (no)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+Insert 할 DB table 에 맞도록 JSON 작성
+{
+	"ID":"010",
+	22223333",
+	"TimeStamp":"14:44:00",
+	"Car_No":"100호3000",
+	"Category":"Food",
+	"Temp":"9",
+	"Hum":"71",
+	"Ref_min":"0",
+	"Ref_max":"10",
+	"Accept":"Y",
+	"Hash":""
+}
+
+
+
+10장
+
+
+AJAX@
+	- AJAX란 비동기 자바스크립트와 XML (Asynchronous JavaScript And XML)을 말합니다. 간단히 말하면, 서버와 통신하기 
+	  위해 XMLHttpRequest 객체를 사용하는 것을 말합니다. 
+		- 비동기적 처리 작업은 순서대로 진행하는 것일 아니라 한번에 여러개가 진행되는 것
+- AJAX의 주요 주가지 특징은 아래의 작업을 할 수 있게 해줍니다.
+	- 페이지 새로 고침 없이 서버에 요청
+	- 서버로부터 데이터를 받고 작업을 수행
+
+코드
+<button id="ajaxButton" type="button">Make a request</button>
+<script>
+(function() {
+	var httpRequest;
+	document.getElementById("ajaxButton").addEventListener('click', makeRequest);
+
+	function makeRequest() {
+	httpRequest = new XMLHttpRequest();
+
+	if(!httpRequest) {
+	alert('XMLHTTP 인스턴스를 만들 수가 없어요 ㅠㅠ');
+	return false;
+	}
+	httpRequest.onreadystatechange = alertContents;
+	httpRequest.open('GET', 'test.html');
+	httpRequest.send();
+	}
+
+	function alertContents() {
+	  if (httpRequest.readyState === XMLHttpRequest.DONE) {
+		if (httpRequest.status === 200) {
+		  alert(httpRequest.responseText);
+		  } else {
+		   alert('request에 뭔가 문제가 있어요.');
+		}
+	}
+}
+})();
+</script>
+
+
+
+JQuery Ajax 사용
+
+메소드 	설명
+$.ajax() 	비동기식 Ajax를 이용하여 HTTP 요청을 전송함.
+$.get() 	전달받은 주소로 GET 방식의 HTTP 요청을 전송함.
+$.post()	전달받은 주소로 POST 방식의 HTTP 요청을 전송함.
+$.getScript() 웹 페이지에 스크립트를 추가함.
+$.getJSON()  전달받은 주소로 GET 방식의 HTTP 요청을 전송하여, 응답으로 JSON 파일을 전송받음.
+.load() 	서버에서 데이터를 읽은 후, 읽어 들인 HTML 코드를 선택한 요소에 배치함
+
+
+$.ajax() 메소드
+jQuery는 Ajax와 관련된 다양하고 편리한 많은 메소드를 제공한다.
+그중에서도 $.ajax() 메소드는 모든 jQuery Ajax 메소드의 핵심이 되는 통합적인 메소드이다 .
+$.ajax() 메소드는 HTTP 요청을 만드는 강력하고도 직관적인 방법을 제공한다.
+
+
+
+
+11장
+
+기말고사,@@
+화면주고 for문에 대해서 데이터를 inssert할수있는걸 구성을 그리고 코딩을 작성하시오
+반대로 읽는거라면 전반적으로 db를 읽어서 뿌려라 에대해서 설명하시오 가 나올수 있다
+
+	data_tb1_Write.php
+
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<?php
+
+	$host = 'localhost';
+	$user = 'jh4161126';
+	$pw = '1234';
+	$dbName = 'test';
+	$mysqli = new mysqli($host, $user, $pw, $dbName);
+
+	$email = $_POST['email'];
+    $password = $_POST['password'];
+
+	$sql = "insert into tb100 (
+			email,
+			password
+	)";
+	
+	$sql = $sql. "values (
+			'$email',
+			'$password'
+	)";
+
+	if($mysqli->query($sql)){ 
+	  echo '<script>alert("success inserting")</script>'; 
+	}else{
+	  echo '<script>alert("fail to insert sql")</script>';
+	}
+
+	mysqli_close($mysqli);
+  
+?>
+
+<script>
+	location.href = "table.html";
+</script>
+</html>
+
+
+
+read_b1_API.php
+
+
+<?php
+
+    $host = 'localhost';
+    $user = 'jh4161126';
+    $pw = '1234';
+    $dbName = 'test';
+    $mysqli = new mysqli($host, $user, $pw, $dbName);
+
+    $sql = "SELECT * FROM tb100"; 
+    $result = mysqli_query($mysqli, $sql);
+
+    while($row = mysqli_fetch_assoc($result)) {
+
+        $email = $row['email'];
+        $password = $row['password'];
+        
+    }
+
+    $myObj = new stdClass();
+
+    $myObj->email = $email;
+    $myObj->password = $password;
+
+    $myJSON = json_encode($myObj);
+
+    echo $myJSON;
+
+?>
+
+
+
+12강
+
+form.html 을통해 서버로 데이터 전송, form tag에서 연동할 서버페이지와 전송할 데이터의 name을 추가
+알아두기
+
+<form action="data_tb1_Write.php" method="post" enctype="multipart/form-data">
+
+<input name="email" type"email" class="form-control" id="exampleInputEmail1">
+
+<input name="password" type"email" class="form-control" id="exampleInputPassword1">
+
+
+
+data_tb1_Write.php
+
+
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<?php
+
+	$host = 'localhost';
+	$user = 'jh4161126';
+	$pw = '1234';
+	$dbName = 'test';
+	$mysqli = new mysqli($host, $user, $pw, $dbName);
+
+	$email = $_POST['email'];
+    $password = $_POST['password'];
+    $menu = $_POST['menu'];
+    $comment = $_POST['comment'];
+
+	$sql = "insert into tb104 (
+			email,
+			password,
+			menu,
+			comment
+	)";
+	
+	$sql = $sql. "values (
+			'$email',
+			'$password',
+			'$menu',
+			'$comment'
+	)";
+
+	if($mysqli->query($sql)){ 
+	  echo '<script>alert("success inserting")</script>'; 
+	}else{
+	  echo '<script>alert("fail to insert sql")</script>';
+	}
+
+	mysqli_close($mysqli);
+  
+?>
+
+<script>
+	location.href = "table.html";
+</script>
+</html>
+
+
+read_tb1_API_email.php
+
+
+function read_API_email(){
+	var Temp;
+	
+	$.ajax({
+		url: 'read_tb1_API.php' ,
+		type: 'get' ,
+		dataType: 'false' ,
+		success: fucntion (data) {
+			Temp = data.email;
+		},
+
+	error: function(e) {
+		alert("");
+	}
+}};
+return Temp;
+}
+
+
+
+13장
+
+
+<html>
+<!-- <meta charset="utf-8"> -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<?php
+
+		$host = 'localhost';
+		$user = 'jh4161126';
+		$pw = '1234';
+		$dbName = 'test';
+		$mysqli = new mysqli($host, $user, $pw, $dbName);
+
+		$member_email = $_POST['email'];
+	    $member_pw_1 = $_POST['pw_1'];
+	    $member_name = $_POST['name'];
+		$member_Phone = $_POST['Phone'];
+
+		$sql = "insert into member (
+				member_email,
+				member_pw_1,
+				member_name,
+				member_Phone
+		)";
+		
+		$sql = $sql. "values (
+				'$member_email',
+				'$member_pw_1',
+				'$member_name',
+				'$member_Phone'
+		)";
+
+		if($mysqli->query($sql)){ 
+		  echo '<script>alert("success inserting")</script>'; 
+		}else{ 
+		  echo '<script>alert("fail to insert sql")</script>';
+		}
+
+		mysqli_close($mysqli);
+	  
+	?>
+
+<script>
+	location.href = "member_create.html";
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
