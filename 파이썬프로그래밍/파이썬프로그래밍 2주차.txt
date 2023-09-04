@@ -1,0 +1,147 @@
+파이썬프로그래밍 2주차
+
+교재 : 이공계생을 위한 파이썬 프로그래밍
+점프 투 파이썬
+소스코드 : www.freelec.co.kr
+
+변수 - 중요
+
+문자열
+
+자료구조 : (리스트-(인덱스,슬라이딩),튜플
+
+함수 
+
+제어문
+
+파일 입출력
+
+문자열 처리 : 정규식(regex) <- NLP(Natrual Lanuguage Processing) -> 파싱(Parsing)
+
+
+리스트는 박스같은 느낌 , 패키징
+
+join
+print(' '.join(['I','Love', 'Korea']))은 박스끼리 연결해서 추가하는 느낌, 붙인다 사이사이에 ' ' 공백을 넣는것
+					다른것도 가능
+split
+print("I Love Korea".split(' ')) 은 공백을 기준으로 문자열을 자르는 것
+
+함수
+print(list("HiKorea"))
+def f1(x):
+    tmp=list(x)
+    tmp1 = '-'.join(tmp)
+    return tmp1
+print(f1("SouthAmerica"))
+
+def f2(x,y='-'):
+    tmp=list(x)
+    tmp1 = y.join(tmp)
+    return tmp1
+print(f2("SouthAmerica",'@'))
+
+두개 함수의 의미는 같다
+f2 에서의 y는 기본 default 값이 -인데
+밑에서 출력하듯이 y값을 @으로 정의하면 @으로 바뀐다.
+
+
+.lower()
+- 모두 소문자로 만드는 것
+upper()
+- 모두 대문자로 만드는 것
+capitalize()
+- 맨 앞만 대문자로 만드는 것
+
+range(start, end, 증가값)
+range(1,5)	(1<= x < 5)    [1, 2, 3, 4]
+
+len은 리스트의? 갯수를 새주는 것
+Ex) print(len(list(range(1,101))))	- 100개
+
+리스트를 이용해 range값 출력과 갯수 출력
+tmp = list(range(3,101, 3))
+print(tmp)
+print(len(tmp))
+
+첫 번쨰 리스트  값
+print(tmp[0])
+마지막 리스트 값
+print(tmp[-1])
+마지막에서 두 번째 리스트 값
+print(tmp[-2])
+처음부터 5번째 까지의 리스트 갑 
+print(tmp[:5])
+마지막의 5번째 까지의 리스트 값
+print(tmp[-5:])
+x~y까지 값 0~1 그냥 0
+print(tmp[0:1])
+1부터 10까지 2씩 증가되는 값
+print(tmp[1:10:2])
+2부터 3씩 마지막까지 증가되는 값
+print(tmp[2::3])
+마지막에서부터 처음까지 반대로 출력
+print(tmp[::-1])
+마지막에서 처음까지 2씩 반대로 출력 100, 98...
+print(tmp[::-2])
+
+문자열 뒤집기
+print(list("America")[::-1])  리스트 자체가 객체
+print(''.join(list("America")[::-1]))
+
+문자열 뒤집으면서 소문자로 만드는 함수
+def f2(x):
+    tmp = list(x)[::-1]
+    tmp1 = ''.join(tmp)
+    tmp2 = tmp1.lower()
+    return tmp2
+print(f2("AmericaHiRu"))
+
+문자열 뒤집으면서 대문자로 만드는 함수
+def f2(x):
+    tmp = list(x)[::-1]
+    tmp1 = ' '.join(tmp)
+    tmp2 = tmp1.upper()
+    return tmp2
+print(f2("AmericaHiRu"))
+
+
+구글 입사문제
+그냥 문제 
+str(333)
+3 in [3,6,9] -> true
+'1233345'.count('3') - 3이 몇개냐
+
+1~1999꺼자 3이 몇개가 들어가냐
+
+temp = 0
+for i in range(1,1001):
+    if '3'  in str(i):
+        temp += str(i).count('3')
+print(temp)
+
+함수로 만들기
+def f5(start, end, find=3):
+    temp = 0
+    for i in range(start, end+1):
+        if str(find) in str(i):
+            temp += str(i).count(str(find))
+    return temp
+print(f5(1,50,7))
+
+리스컴프리레이션?
+#위에것과 비슷하지만 소수 값 출력
+print([i for i in range(2, 1000+1) if primeQ(i)])
+가운데 for문 을 돌리고 오른쪽의 if문을 거쳐서 왼쪽의 i가 값이 나온다.,
+
+#피타고라스의 정리
+print([(i,j,k) for i in range(1,10+1) for j in range(1,10+1) for k in range(1, 10+1) if i*i + j*j == k*k])
+
+
+
+
+
+
+
+
+
