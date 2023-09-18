@@ -1,0 +1,143 @@
+파이썬프로그래밍 4주차
+
+
+'''
+def f(x):
+    return 100*x[0] + x[1]
+
+print(list(map(f, [(2,2), (3,3)])))
+'''
+
+# print('a b c d'.split())
+
+'''
+#두개의 실행값은 같다.
+def f(x):
+    return '@' + str(x) + '@'
+
+g = lambda x: '@' + str(x) + '@'
+
+print(list(map(f, range(1, 100+1))))
+
+#람다식
+print(list(map(lambda x: '@' + str(x) + '@', range(1, 100+1))))
+'''
+
+#print("hello" + " "*5 + "PyThon")
+#print('Hello' * 10)
+#print(10 * 'Hello')
+#print(' '.join(['Hello', 'Python', '123']))
+
+"""
+# 따음표 3개는 문장 전체를 보는 그대로 전달
+print(''' Hi 
+Im Jae Eun
+hahaha
+111111
+55555
+123123123
+''')
+"""
+
+#len 함수는 글자의 갯수를 알려줌@
+#print(len('python'))   #6
+
+#변수를 만들때는 문자열이 앞으로
+#a123 = 100
+#print(a123)
+
+#이런식으로는 사용하지 못 한다.
+#123a = 100
+
+
+'''
+books = ['책1', '책2', '책3']
+print(books.index('책3'))   #책3의 인덱스 번호를 알아내기
+books.append('책4')
+print(books)
+books.insert(2,'책100')  #인덱스 2번에 팩100 값을 넣는다 나머지값은 뒤로 밀린다.
+print(books)
+books.pop(2) #인덱스의 번호에 있는 값을 날린다.
+print(books)
+books.pop() #값을 입력하지 않으면 끝 값이 날라간다
+print(books)
+books.pop(0)    #첫 번째 인덱스에 있는 값을 날리기
+print(books)
+print(books + ['책11', '책12'])   #print에서 더한다고해서 books에 값이 들어가지 않는다
+print(books)
+books.extend(['책11', '책12'])    #뒤에다가 값을 더 추가하기
+print(books)
+books = ['책100', '책200'] + books    #자기 자신에 값 앞에 값을 추가하기
+print(books)
+'''
+
+'''
+books = ['책1', '책2', '책1', '책1', '책5'] + ['책1'] *10 #리스트에 중복된 값이 있을때3
+print(books)
+books.remove('책1')  #다 지워지지않고 1개만 지워짐
+print(books)
+while '책1' in books:        #cooks에 책1이 다 없어질때까지 계속 무한반복
+    books.remove('책1')
+print(books)
+'''
+
+'''
+#튜플
+colors = ('red', 'greed', 'blue')
+print(len(colors))  #튜플의 원소 갯수
+print(colors[0])    #0번째 원소의 값
+'''
+
+'''
+#세트 중복되지 않는 값 - 중복값이 있다면 알아서 제거, 순서는 없음
+print(len(set([1,2,3,4,5,6,7,8,9])))
+
+def f(x):
+    return list(set(x))
+print(f([1,2,3,4,5,6,7,8,1,1,2,2,3,4,4,]))  #중복이 없어짐.
+'''
+
+#set1 = [1,2,3,4,5,1]
+#print(len(set(set1)) == len(set1))  #값이 너무 많아서 중복이 있는지 모를때 값의 갯수로 체크
+
+'''
+def g(x):
+    return len(set(x)) == len(x)
+print(g([1,2,3,4,5,1,1]))   #중복체크하는 함수이다.
+'''
+
+'''
+#딕셔너리       딕셔너리 = 사전
+grades = {'수학':90, '영어':80, '국어':70}
+print(grades)
+grades['역사'] = 60   #딕셔너리에 값 추가
+print(grades)
+print(grades['영어']) #영어점수 보기
+grades['역사'] = 95   #역사점수 수정
+print(grades)
+grades['체육'] = 100
+print(grades)
+'''
+
+'''
+#딕셔너리2
+dic1 = {'flower':'꽃', 'star':'별','car':'자동차'}
+dic2 = {'sea':'바다','mountain':'산','tree':'나무'}
+dic1.update(dic2)   #딕셔너리 합치기
+print(dic1)
+
+dic3 = {v:k for(k,v) in dic1.items()}   #dic1을 가지고 새로운 딕셔너리를 만드는 것
+print(dic3)          #영어 - 한글 에서 한글 - 영어로 변환
+print(dic3['꽃'])
+
+dic4 = {'?'+v+'?':'@'+k+'@' for(k,v) in dic1.items()}   # 글자 꾸며주기 바뀐키를 반영해서 바뀐 value가 나온다
+print(dic4)
+'''
+
+
+
+
+
+
+
+
