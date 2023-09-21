@@ -1,0 +1,212 @@
+게임엔진(2) 4주차
+
+
+중간고사는 2주차 레이캐스팅부터
+
+
+포톤 함수 호출 단계 알아두기@
+
+캐릭터
+- Rigidbody 말고 Chractor Controller 라는 컴포넌트가 있다
+	Rigidbody가 없이 움직임을 움직일 수 있다.
+	Ex) controller.SimpleMove 라는 함수를 이용
+	앞,뒤,옆으로밖에 움직이지 않는다 캐릭터의 Movement는
+
+
+포톤 서버 접속
+- 포톤 서버
+	- 룸 (Room)
+	- 로비 (Lobby)
+- 포톤 서버는 룸과 로비의 개념이 존재한다. 즉, 룸 단위 네트워킹 기능을 제공하며 포톤 서버에 접속하면 룸을 생성할 수 있다
+- 룸이란 네트워크 게임을 실행할 수 있는 논리적인 공간으로 룸에 입장해야만 해당 룸에 접속한 다른 유저와 통신이 가능하다. 
+- 로비에 입장(접속)한 유저는 어떤 룸이 생성되었는지에 대한 정보를 수신 받을 수 있다. 
+- 룸의 목록을 받아와서 특정 룸을 선택하여 입장하는 방식
+
+- AutomaticallySyncScene 
+	- 방장(마스터 권한이 있는 유저)이 새로운 씬을 로딩 했을 때 해당 룸에 입장한 다른 접속 유저들에게도 자동으로 해당 씬을 로딩해 주는 기능
+- GameVersion
+	- 같은 버전의 유저끼리 접속을 허용하는 기능
+- SendRate
+	- 포톤서버와의 통신 횟수 : 기본 초정 30회로 설정
+- ConnectUsingSettings
+	- 포톤 서버에 접속
+
+- 포톤서버에 접속하면 제일먼저 OnConnectedToMaster() 콜백 함수가 호출됨
+- @자동으로 로비에 들어오지 않기 때문에 False 가 출력됨
+- JoinLobby() 함수를 호출하면 로비에 입장이 되고 OnJoinedLobby() 콜백 함수가 호출됨
+
+
+Lobby 입장
+- JoinRandomRoom() 함수와 OnJoinRandomFailed() 콜백 함수
+- 포톤 서버는 랜덤 매칭 메이킹(Random Match Making) 기능을 제공
+- JoinRandomRoom()
+	- 포톤 서버에 접속하거나 로비에 입장 한 후 이미 생성된 룸 중에서 무작위로 선택해 입장할 수 있는 함수
+	- @아무런 룸이 생성되지 않았다면 룸에 입장할 수 없으며 이때 OnJoinedRandomFailed 콜백 함수가 호출됨
+		- 여기에서 룸을 만드는 작업이 필요
+- 처음에 시도할 때는 룸이 만들어져 있지 않기 때문에 입장할 수 없다.
+
+
+룸 속성 설정 및 룸 생성 로직 추가
+- RoomOptions 구조체
+	- MaxPlayers : 최대 접속자 수
+	- IsOpen : 더 이상 접속을 허용하지 말아야 할 경우 룸을 닫아야 함
+	- IsVisibla : 로비에 있는 다른 사용자들에게 룸을 공개할지에 대한 여부
+
+
+룸에 접속한 사용자 정보
+- 룸에 입장한 접속 사용자의 정보는 CurrentRoom.Player로 확인할 수 있다. PhotonManager 
+	스크립트의 OnJoinedRoom 함수를 다음과 같이 수정한다. CurrentRoom.Player.Value 속성 중 
+	NickName으로 접속한 사용자 닉네임을 확인할 수 있다. NickName은 고유의 값이 아니기 때문에 동일한 
+	닉네임이 있을 수 있다. 접속자 고유의 값이 필요한 경우 ActorNumber를 사용해야 한다.
+
+
+주인공 캐릭터의 네트워크 기능 구현
+- PhotonView 
+	- PhotonView 콤포넌트는 네트워크상에 접속한 플레이어간의 데이터를 송수신하는 통신 모듈임
+	- 동일한 룸에 입장한 다른 플레이어에게 위치와 회전 정보를 동기화 시키고 특정 데이터를 송수신 하려면 반드시 PhotonView 콤포넌트가 필요함
+	- Synchronization 은 동기화 방식을 의미한다. 
+	- Observed Components : PhotonView 콤포넌트가 관찰해 데이터를 송수신할 대상을 등록하는 속성
+
+- PhotonView 컴포넌트는 네트워크상에 접속한 플레이어 간의 데이터를 송수신하는 통신 모듈이다. 
+	즉, 동일한 룸에 입장한 다른 플레이어에게 자신의 위치와 회전 정보를 동기화 시키고 특정 데이터를 
+	송수신하려면 반드시 PhotonView 컴포넌트가 필요하다.
+
+
+주인공 캐릭터의 네트워크 기능 구현
+- 동기화
+	- 주인공 캐릭터는 같은 룸에 입장한 다른 네트워크 유저에게 자신의 위치와 회전값, 그리고 애니메이션에 대한 정보를 동기화 해야 한다. 
+	- 두가지 방법을 사용
+		- @@Photon Transform View,Photon Animator View 콤포넌트를 이용하는 방식
+			- 쉽게 네트워크 동기화를 할수는 있지만 세밀한 조정은 할 수 없음
+			- 네트워크 레이턴시가 발생했을 때 위치 및 회전 값을 수동으로 보간할 수 없다. 
+		- OnPhotonSerializeView 콜백함수를 사용하는 방식
+			- 네트워크 레이턴시에 대응할 수 있는 코드를 작성해 좀 더 유연하게 로직을 구현할 수 있다. 
+
+
+Photon Transform View, Photon Animator View
+- Photon Transform View는 Transform 컴포넌트의 position, rotation, scale 값을 동기화하기 위한 것으로 기본값은 
+	position과 rotation 값만 체크돼 있다. Use Local 속성은 동기화하는 데이터가 로컬 기준인지를 결정한다.
+
+- Photon Animator View 는 Animator 컴포넌트의 속성을 동기화하는 컴포넌트로 추가할 때 Animator 컴포넌트의 정보를 
+	읽어 Layer와 Parameter 값을 자동으로 설정한다. 다만 동기화할 Layer와 파라미터 값의 동기화 속도를 설정해야 한다. 
+	네트워크 대역폭과 동기화의 정확성을 고려해 Discrete(이산)와 Continues(연속) 중 하나를 선택한다. 다음과 같이 모두 
+	Discrete로 지정한다.
+
+
+네트워크 환경에서 생성하기 위한 준비
+- 프로젝트 뷰에서 Resources 폴더를 생성한 후 하이어라키 뷰의 Player를 Resources 폴더로 드래그해 
+	프리팹으로 생성한다. 프리팹으로 전환한 후 하이어라키 뷰에 있는 Player는 삭제한다. @포톤에서 
+	네트워크로 동기화할 대상은 PhotonNetwork.Instantiate 함수를 사용하며 모두 Resources 폴더에 위치해야 한다@.
+
+
+PhotonManager 수정
+- 포톤에서 네트워크로 동기화 할 대상은 모두 @PhotonNetwork.Instantiate()@ 함수를 사용하며 모든 개체는 @Resources 폴더@에 위치해야 한다. 
+- 룸에 입장 한 후 주인공 캐릭터를 네트워크 상에서 동기화 되게 생성
+
+
+Movement 스크립트 수정
+- @룸에 입장 한 후 PhotonNetwork.Instanciate로 생성한 네트워크 객체는 자신의 캐릭터와 네트워크를 통해동일한 룸에 입장한 
+	다른 네트워크 유저를 PhotonView.IsMine 속성으로 구별 할 수 있다. 
+- PhotonView.IsMine이 true이면 로컬 유저를 의미하고, 시네머신 가상 카메라와 연결해야 한다. 
+
+
+실행 및 확인
+- 실행한 후 룸에 접속했을 때 주인공 캐릭터가 랜덤한 위치에 생성되고 카메라가 주인공을 따라가는 것을 확인할 수 있다. 
+	하이어라키 뷰에서 Player(Clone)을 선택하고 인스펙터 뷰에서 PhotonView의 IsMine속성과 Controller, Owner, Creator에 
+	대한 정보를 확인할 수 있다.
+
+
+동시 접속을 위한 테스트 환경
+- 메뉴에서 [Edit] -> [Project Settings]를 선택해 Project Settings 윈도우를 연 후 [Player] 섹션을 선택한다. 
+	Resolution and Presentation에서  FullScreen Mode를 [Windowed]로 변경하고 가로 및 세로 해상도를 다음과 같이 설정한다. 
+
+
+OnPhotonSerializeView 콜백함수
+- 같은 룸에 입장한 네트워크 객체 간의 데이터를 동기화하는 두 번째 방식이 바로 @@OnPhotonSerializeView콜백 함수@@를 
+	사용하는 방식이다. 앞서 구현한 PhotonTransformView와 PhotonAnimatorView는 컴포넌트만 추가하면 간단히 
+	동기화 처리가 되지만, 좀 더 세밀한 보정이 필요할 때는 이 콜백 함수를 통해 직접 데이터를 송수신해야 한다.
+- 기존 주인공 캐릭터의 위치와 회전값을 동기화했던 PhotonTransformView 컴포넌트를 제거해야 한다. 프로젝트 뷰에서 
+	Resources 폴더에 있는 Player 프리팹을 선택하고 @PhotonTransformView 컴포넌트를 제거@한다. 그 다음 Movement 
+	스크립트를 다음과 같이 수정한다.
+
+
+RPC를 활용한 총 발사 로직
+- 총알로 사용할 Bullet은 미리 만들어진 프리팹을 사용한다. 임포트한 AngryBotResources/Prefabs 하위에 
+	있는 Bullet프리팹을 씬 뷰로 드래그해 확인해본다. Bullet프리팹은 Capsule Collider와 Rigidbody컴포넌트로 
+	구성된다. 새로운 “BULLET” 태그를 생성해 지정한다.
+- 인스펙터 뷰에 노출된 Effect 속성에 프로젝트 뷰의 AngryBotResources/Particles/Prefabs 하위에 있는 
+	Bullet_Impact_Wall 프리팹을 연결하고 프리팹을 저장한다. 이 이펙트는 다른 물체와 충돌했을 때 발생시킬 
+	스파크 효과로서 일정 시간이 지나면 삭제 처리한다. 또한, 총알의 충돌 지점을 GetContact(0)으로 추출해 해당 
+	위치에 생성하고 법선 벡터를 이용해 이펙트의 방향을 설정한다.
+
+
+Input System
+Warrior
+
+레거시 Input 클래스 
+- 기존의 입력 방식
+- 키보드, 마우스, 터치, 게임 패드와 같은 외부 입력 장치의 입력 값을 미리 정의해 두고코드에서 직접 해당 디바이스로부터 입력값이 있는지를 확인하는 방식
+
+- 문제점
+- (1) 다양한 입력 장치로의 전환이 어렵다.
+- (예) 이동 및 점프를 모바일 디바이스의 터치로 변경할 경우 소스 코드를 다시 작성을 해야 함  
+- (2) Update 함수는 프레임 마다 호출되는 함수이기 때문에 프레임 마다 입력 값을 확인하기 때문에 성능상 좋지 않다. 
+
+
+새로운 Input System 의 특징 
+- Input System의 구조
+	- Control Scheme :  PC, 모바일, XBOX 등 플랫폼 정의 
+			- Action Maps : 플레이어의 이동 및 공격 등을 포괄하는 맵 구성
+				- Action : 게임 내의 행동, 동작을 의미한다. 
+					- 이동, 회전, 점프, 공격, 방어 등이 모두 Action 에 해당함
+					- W/A/S/D 등 값을 정의
+			- Binding : Action을 실제 물리적인 입력 장치와 매핑하는 것을 말함
+
+새로운 Input System 의 특징 
+- Active Input Handling
+	- 유니티가 재시작 된 후 프로젝트가 새로운 Input System으로 셋팅 되었는지를 확인해 본다. 
+	- [Edit] - [Project Settings…] 에서 Player 세션의 Other Settings 의 Active Input Handling 속성이 
+		Input System Package(new) 라고 설정된것을 확인 할 수 있음. 
+
+- Input Action 애셋
+	- 02.Scripts 폴더 하위에 InputActions 폴더를 생성
+	- 메뉴에서 [Assets] -[Create] - [Input Action]  애셋 생성
+	- 생성된 Input Action의 이름을 “MainActions” 로 바꾼다. 
+	- 생성된 MainActions을 두번 클릭하면 Input Actions 창이 열린다. 
+
+- Control Schemes
+	- Input Action 창에서 [Add Control Scheme …]를 선택
+	- PC와 Mobile  두개의 스키마를 생성한다. 
+
+- Action Map 및 Action  생성
+	- 주인공 캐릭터의 이동 및 공격 로직에 사용할 Action Map을 생성
+	- Actions Maps 영역의 [+]을 클릭 한 후 “PlayerActions”로 지정함
+	- Actions 영역의 New Actions를 “Move”로 변경
+	- Action Type 을 “Value”로 바꾼다. 
+	- Control Type 을 Vector2 로 바꾼다. 
+
+Player Input 컴포넌트
+- Actions 속성 지정
+	- Player Input 컴포넌트는 Input Actions에서 정의한 액션이 발생했을 때 코드와 연결해 해당 로직을 실행 시킬 수 있는 기능을 가진다. 
+	- Warrior_bindpose 선택 한 다음, [메뉴] - [Components] - [Input] - [Player Input] 컴포넌트를 추가함
+	- MainActions를 끌어다가 Actions 속성에 저장한다.  
+
+
+
+오클루션 컬링
+
+
+거리 비례에 의한 컬링
+- 프러스텀 컬링은 프러스텀 영역에 들어온 모든 물체를 렌더링 한다. 
+- 렌더링 영역에 들어왔다 하더라도 카메라로부터 너무 멀리 떨어져 사람이 식별하기 어려울 때는 굳이 렌더링 할 필요가 없음
+- 이 방식은 LOD(Level Of Detail)을 이용해 일정 거리 밖의 물체는 컬링 시킨다. 
+
+- @오클루전 컬링은 카메라 시야에서 다른 물체에 가려 보이지 않는 물체를 렌더링 하지 않는 기법을 
+	말한다. -> 두개의 건물이 시야에서 보이지 않기 때문에 렌더링 하지 않음 
+
+
+
+
+
+
+
