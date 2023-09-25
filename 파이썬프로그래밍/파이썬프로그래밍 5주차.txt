@@ -1,0 +1,152 @@
+파이썬프로그래밍 5주차
+
+
+
+'''
+dic = {}
+
+doys = ['b1','b2','b3']
+girls = ['g1','g2','g3']
+
+for (b,g) in zip(boys, girls):
+	dic[b] = g
+
+del dic['b2']
+print(dic)
+
+
+dic1 = {}
+aa={'a1','a2','a3','a4'}
+cc={'c1','c2','c3','c4'}
+
+for (a,c) in zip(aa,cc):
+	dic1[a] = c
+
+dic.update(dic1)
+print(dic1)
+
+
+dic2 = {}
+pp=[p1','p2','p3']
+qq=[100,200,300]
+
+for (a,c) in zip(pp,qq):
+	dic2[a] = c
+
+print(dic2)
+print(sum(list(dic2.values())))
+print(min(list(dic2.values())))
+'''
+
+'''
+pp=['마1','미2','미3']
+qq=['노1','노2','노3']
+rr=['춤1','춤2','춤3']
+
+for(p,q,r) in zip(pp,qq,rr):
+    print(f'걸그룹 미모담당{p}, 노래담당{q}, 춤담당{r}')
+'''
+
+'''
+chapters = ['Introduction', 'Middel','Conclusion']
+for index, chapter in enumerate(chapters):
+    print(f'Chapter {index+1}: {chapter}')
+#둘다 같은것
+for index, chapter in enumerate(chapters,1):    #1부터 시작 17이면 17부터 시작
+    print(f'Chapter {index}: {chapter}')
+for index, chapter in enumerate(chapters, start=1): #이것도 start의 값으로 시작
+    print(f'Chapter {index+1}: {chapter}')
+
+for index, chapter in enumerate(chapters,1):    #1부터 시작 17이면 17부터 시작
+    print(f'content {chapter} is in the Chapter {index}')
+'''
+
+'''
+multiply1 = lamdba x,y : x*y
+
+def multuply2(x,y):
+    return x*y
+
+print(multiply1(3,4), multiply2(3,4))
+'''
+
+'''
+#람다와 일반 함수의 차이
+def square1(x):
+    return x*x
+
+square2 = lambda x : x*x
+
+#4개 다 같다. 리스트 컴플리gpstus?
+print(list(map(square1, range(6))))
+print(list(map(square2, range(6))))
+print(list(map(lambda x: x*x, range(6))))
+print([x*x for x in range(21) if x%2==1])   #홀수값만 출력
+'''
+
+'''
+필터 함수
+numbers = list(range(1,6))
+even1 = list(filter(lambda x: x%2==0, numbers))
+even2 = [x for x in numbers if x%2==0]
+print(even1)
+print(even2)
+'''
+
+'''
+#클래스
+class Smartphone:
+    def __init__(self, brand, color):
+        self.brand = brand
+        self.color = color
+
+    def calling(self, number):
+        self.number = number
+        print(f'{self.color}인 {self.brand} 스마트폰의 번호 {number} 로 전화 중')
+
+#클래스에서 각 객체를 생성하고 callung 호출
+s = Smartphone('삼성','검은색')
+s.calling('01012345678')
+a = Smartphone('애플','하얀색')
+a.calling('01011112222')
+c = Smartphone('샤오미','노란색')
+c.calling('01033334444')
+
+print([i.brand for i in [s,a,c]])
+print([i.color for i in [s,a,c]])
+print([i.number for i in [s,a,c]])
+'''
+
+class Character:
+    def __init__(self, name, level):
+        self.name = name
+        self.level = level
+
+class Wizard(Character):
+    def cast_spell(self):
+        print(f'{self.name} casts a spell.')
+
+class Warrior(Character):
+    def swing_sword(self):
+        print(f'{self.name} swings a sword.')
+
+class Archer(Character):
+    def shoot_arrow(self):
+        print(f'{self.name} shoots an arrow.')
+
+#각 클래스의 객체를 생성
+harry = Wizard('Harry',10)
+aragorn = Warrior('aragorn', 15)
+legolas = Archer('Legolas', 12)
+
+#각 객체의 특별한 능력을 호출
+harry.cast_spell()
+aragorn.swing_sword()
+legolas.shoot_arrow()
+
+
+
+
+
+
+
