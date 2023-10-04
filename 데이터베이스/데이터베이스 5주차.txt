@@ -1,0 +1,360 @@
+데이터베이스 5주차
+
+
+SQL
+- Structured Query Language
+- 관계 DBMS에서 데이터를 다루기 위해 설계된 언어
+- SEQUEL(Structured English QUEry Language)에서 유래
+- ANSI(미국 표준 연구소)와 ISO(국제 표준화 기구)에서 관계 데이터베이스 표준언어로 채택
+- 주요 상용 DBMS에서 데이터 언어로 채택
+
+SQL
+- 종합 데이터베이스 언어 역할
+	- 데이터 정의어(DDL)
+	- 데이터 조작어(DML)
+	- 데이터 제어어(DCL)
+- 관계 대수를 기초로 함
+- SQL 표준화
+	- 사용 RDBMS 간의 전환 용이
+	- 여러 관계 DB를 접근하는 DB 응용 프로그램 작성 지원
+
+SQL
+- 사용 방식
+	- 대화식 SQL : 터미널을 통해 명령과 결과 입출력
+	- 내포된 SQL : 응용 프로그램에 삽입된 형태로 사용
+- 용어
+	- 관계 모델의 공식 용어 대신 일반 용어 사용
+		- 릴레이션 -> 테이블
+		- 튜플 -> 행
+		- 속성 -> 열
+
+
+SHOW DATABASES;   //데이터베이스 확인
+
+
+DB 생성
+- 데이터베이스 구성
+	- 데이터 < 테이블 < 데이터베이스(스키마)
+- 데이터베이스 구축 절차
+	- 데이터베이스(스키마) 생성
+	- 기본 작업 DB로 설정
+	- 테이블 생성
+	- 데이터 입력
+
+
+DB 생성 – 예 	//작동은 안함
+CREATE DATABASE 1234_library ;
+USE 1234_library ;
+CREATE TABLE book(…) ;
+INSERT INTO book VALUES (100, ‘Database’) ;
+
+
+SQL 기본 구조
+- 문자열
+	- 작은 따옴표로 둘러싸서 입력
+	- 예 : 'Database System'
+	- 문자열 값에 작은 따옴표가 포함돼 있는 경우
+		- 이스케이프 문자 사용 : 'Tom\'s notebook'
+		- 두 번 연속 입력 : 'Tom''s notebook'
+- 숫자
+	- 숫자만 그대로 입력 ( 예: 1234, -123.45)
+- 널(null) 값
+	- 데이터가 없음을 의미하는 널 값은 null로 입력
+		대소문자 미구분
+
+SQL 기본 구조
+- 식별자
+	- 데이터베이스/테이블/열/인덱스 이름 : 최대 64자
+	- 별칭 이름 : 최대 256자
+	- MySQL 예약어나 영어/숫자 이외의 문자가 포함된 식별자는 백틱(backtick) 문자 (역따옴표)로
+		둘러싸서 입력 (예: '도서관')
+- 주석
+	/*    */
+	-- , #  같은것 #은 MySQL 한정
+
+DB 생성
+- 데이터베이스 생성
+	CREATE { DATABASE | SCHEMA }
+	[ IF NOT EXISTS ]
+	데이터베이스이름 ;
+	- IF NOT EXISTS를 명시하지 않은 경우, 생성하려는 데이터베이스가 이미 존재하면 에러 발생
+- 기본 작업 DB 지정
+	USE 데이터베이스이름;
+
+테이블 생성
+- 단순화한 기본 형식
+	CREATE TABLE 테이블이름
+	( {열이름 데이터타입}+ ) ;
+
+	CREATE TABLE 도서 (
+	번호 INT,
+	제목 VARCHAR(30),
+	가격 INT);
+
+테이블 생성
+- 참고 : 테이블 구성 확인 
+
+DESCRIBE 도서 ;
+SHOW CREATE TABLE 도서 ;
+둘다 같음
+
+
+데이터 입력
+- 단순화한 기본 형식
+
+	INSERT INTO 테이블이름
+	VALUES ( 열_값_리스트 ) ;
+
+	INSERT INTO 도서
+	VALUES ( 100, ’데이터베이스 시스템’, 25000) ;
+
+
+데이터 검색
+- 다순화한 기본 형식
+	SELECT 열_리스트 FROM 테이블_리스트;
+	- 모든 열을 검색하고자 하는 경우 : 열_리스트에 *를 사용
+	SELECT * FROM 도서;
+	SELECT 번호, 제목 FROM 도서;
+
+
+Example
+- 간단한 DB 생성 및 검색
+
+USE stdt117;
+
+CREATE TABLE 도서 (
+번호 int,
+제목 varchar(30),
+가격 int);
+
+데이터 삽임
+INSERT INTO 도서
+	VALUES (100, '데이터베이스 시스템',25000);
+
+데이터 검색
+SELECT * FROM 도서;
+
+
+테이블 종류
+- 기본 테이블(base Table)
+	- 독자적으로 존재하는 테이블; DBMS 파일로 생성되고 저장됨
+- 가상 테이블 (virtual table)
+	- 어떤 기본 테이블로부터 유도되어 만들어지는 테이블
+	- 독자적으로 존재 불가
+	- VREATE VIEW 문으로 만들어짐
+- 임시 테이블(temporary table)
+	- 질의문 처리 과정의 중간 결과로 만들어지는 테이블
+	- DDL 문으로 만들어지는 것이 아님
+
+테이블 생성 
+- 일반 형식
+CREATE TABLE [ IF NOT EXISTS ] 테이블이름
+	(  {열이름 데이터타입 [NOT NULL | NULL] [DEFAULT 값],}+
+		[CONSTRAINT 이름] [PRIMARY KEY (열이름_리스트),]
+		{[CONSTRAINT 이름] [UNIQUE (열이름_리스트),]}*
+		{[CONSTRAINT 이름] [FOREIGN KEY(열이름_리스트)
+			REFERENCES 기본테이블[(열이름_리스트)]
+			[ON DELETE 옵션]
+			[ON UPDATE 옵션] ,]} *
+	{[CONSTRAINT 이름] [CHECK(조건)]}*
+);
+
+테이블 생성
+{열이름 데이터타입 [NOT NULL | NULL] [DEFAULT 값],}+
+	- NOT NULL : 속성 값 제약조건
+		- null 값을 가지면 안됨
+	- DEFAULT : 속성의 기본 값 설정
+[CONSTRAINT 이름] [PRIMARY KEY (열이름_리스트),]
+{[CONSTRAINT 이름] [UNIQUE (열이름_리스트),]}*
+	- PRIMARY KEY : 기본키와 개체 무결성 제약 조건
+	- UNIQUE : 대체키
+
+테이블 생성
+{[CONSTRAINT 이름] [FOREIGN KEY(열이름_리스트)
+	REFERENCES 기본테이블[(열이름_리스트)]
+	[ON DELETE 옵션]
+	[ON UPDATE 옵션] ,]} *
+- FOREIGN KRY : 외래키와 참조 무결성 제약조건
+	- SQL에서는 피참조 테이블의 대체키(보조키)도 참조 가능
+	- 옵션 : SET NULL, SET DEFAULT, CASCADE, RESTRICT, NO ACTION
+	- ON DELETE SET NULL
+		- 피참조 튜플이 삭제되면 외래키 값을 NULL로 설정
+	- ON UPDATE CASCADE
+		- 피참조 튜플(열 값)이 갱신되면 갱신된 값이 파급적으로 갱신
+			- CASCASE - 연쇄적으로 갱신해라
+
+
+테이블 생성
+{[CONSTRAINT 이름] [CHECK(조건)]}*
+- 정확하고 유요한 데이터 유지를 위함 데이터 무결성 제약조건
+- 삽입/수정 시에도 이 제약조건이 지켜져야 함
+- 예 : 
+	- CHECK (재고량 >= 0 AND 재고량 <= 10000)
+	- CHECK (제조업체 = '한빛제과')
+- 실습용 서버에서는 사용하지 못함 버전이 낮기때문
+
+테이블 생성 - 예
+CREATE TABLE ENROL 
+       ( Sno INT NOT NULL,
+	Cno CHAR(6) NOT NULL,
+	Grade INT,
+	PRIMARY KEY(Sno, Cno),				//기본키를 2개를 사용, 2개의 속성을 결합해서 기본키
+	FOREIGN KEY(Sno) REFERENCES STUDENT(Sno)	//sno는 기본키이면서 외래키다.
+		ON DELETE CASCADE 		//스튜던트 테이블의 튜플이 삭제될떄 외래키값을 같이 삭제해라 라는 뜻
+		ON UPDATE CASCADE ),		//스튜던트 테이블의 sno값이 수정이 됐다면 sno 값도 같이 수정해라.
+	CHECK( Grade >= 0 AND Grade <= 100 );
+
+데이터 타입 - 숫자
+- 정수
+데이터 타입 			설명
+TINYINT 			1바이트 정수 (-128 ~ 127)
+SMALLINT 			2바이트 정수 (-32,768 ~ 32,767)
+MEDIUMINT 			3바이트 정수 (-8,388,608 ~ 8,388,607)
+INT, INTEGER 		4바이트 정수 (-2,147,483,648 ~ 2,147,483,647)
+BIGINT 			8바이트 정수 (-9223372036854775808 ~ 9223372036854775807)
+
+• UNSIGNED 옵션을 명시하면 0 ~ SIGNED 타입의 최대값 * 2 – 1
+	• 데이터 타입 뒤에 명시; 예: INT UNSIGNED
+• AUTO_INCREMENT: NULL 입력 → 1부터 1씩 자동 증가
+	• 테이블당 하나의 칼럼만 지정 가능
+		SERIAL = BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
+
+데이터 타입 - 숫자
+- 부동 소수점
+	- 근사값을 저장하 
+데이터 타입 			설명
+FLOAT 			4바이트 실수
+				(-3.402823466E+38 ~ -1.175494351E-38, 0, 
+				1.175494351E-38 ~ 3.402823466E+38)
+DOUBLE,			8바이트 실수 
+REAL			        (-1.7976931348623157E+308 ~ -2.2250738585072014E-308, 
+				0, 2.2250738585072014E-308 ~ 1.7976931348623157E+308)
+
+데이터 타입 - 숫자
+- 다음 SQL문 실행 결과는?
+CREATE TABLE numbers ( att1 FLOAT );
+INSERT INTO numbers VALUES (0.1);
+SELECT * FROM numbers WHERE att1 = 0.1;
+	- FLOAT, DOUBLE 타입은 동등 비교 불가!@
+	- 근사값으로 저장하기 때문에 FLOAT, DOUBLE은 사용하지 않는게 좋다
+- 고정 소주점
+	- 실수값을 정확히 관리해야 할 경우 사용
+데이터 타입 				설명
+DECIMAL[(M[,D])],			M: 전체 자리수(최대 65; 기본값 10),
+NUMERIC[(M[,D])],			D: 소수점 아래 자리수(최대 30; 기본값 0)
+DEC[(M[,D])],				예: DECIMAL(5, 2) → -999.99 ~ 999.99
+FIXED[(M[,D])]
+이런식으로 FLOAT, DOUBLE 값을 사용하려면 이렇게 써야한다.
+
+
+데이터 타입 - 숫자
+- 숫자 : MySQL vs. Oracle
+구분 			MySQL 				Oracle
+데이터 타입 		TINYINT, SMALLINT, … 		NUMBER
+정수 길이		NT(5)					NUMBER(5)			//그냥 int로 저장하면 된다. 기본적으로 int(11)이 된다.
+			숫자(화면에 표시할 자리수: 5)	숫자(5자리 길이 제한)
+			1234567 저장 가능?			1234567 저장 가능?		
+실수 길이 		DECIMAL(5, 2)			NUMBER(5, 2)
+			999.99					999.99
+
+
+데이터 타입 - 문자열
+- 문자열
+데이터 타입 		설명
+CHAR(길이) 		길이=문자 수. 고정길이문자열(0 ~ 255; 기본값 1). 남은 부분 공백으로 채움.
+VARCHAR(길이) 	가변길이문자열(0 ~ 65535). 오라클: VARCHAR2(길이)
+
+Value 		CHAR(4)	저장공간 	VARCHAR(4) 	저장공간
+‘’		‘      ’ 		4B 		‘’ 			1B
+‘ab’ 		‘ab    ’ 		4B		‘ab’ 			3B
+‘abcd’ 		‘abcd’ 		4B 		‘abcd’ 			5B
+‘abcdefg’ 	‘abcd’ 		4B 		‘abcd’ 			5B
+	VARCHAR 는 1B가 더 큰 이유는 길이의 정보까지 1B 들어가 있기 때문이다.
+- CHAR - 고정길이 문자열
+- VARCHAR - 가변길이 문자열
+
+
+데이터 타입 - 문자열
+- CHAR vs VARCHAR
+	- 길이가 고정적인가?
+	- 길이가 대개 비슷한가?
+	- 값이 자주 변경되는가?
+		- VARCHAR의 경우, 레코드 자체를 다른 공간으로 옮기거나
+			(row migration), 칼럼 값의 나머지 부분을 다른 공간에 저장
+			(row chaining)해야 할 수 있음
+	- 고정 길이 이진 데이터(바이트 스트링)는 VINARY(~255),
+		가변 길이 이진 데이터는 VARBINARY(~65535)
+
+데이터 타입 - 문자열
+- 문자셋
+	- 칼럼 단위로 문자셋 관리
+	- 서버, 데이터베이스, 테이블 단위로 기본 문자셋 설정 가능
+	- 한 문자는 문자셋에 따라 1~4바이트를 차지함
+	- 사용 가능한 문자셋 조회
+SHOW CHARACTER SET;
+
+문자열 타입 - 문자열
+- 콜레이션 					(별로 중요하지 않음)
+	- 문자열 칼럼 값의 비교나 정렬 순서를 위한 규칙
+	- 문자열 타입의 칼럼은 독립적인 문자셋과 콜레이션을 가짐
+	- 사용 가능한 콜레이션 목록 조회
+		SHOW COLLATION;
+	– ci: 대소문자 미구분(기본), cs: 대소문자 구분
+		▪ 콜레이션이 대소문자를 구분하지 않더라도 데이터는
+			대소문자 변환 없이 입력된 내용 그대로 저장됨
+	– bin: 이진 데이터; 문자 데이터의 바이트 값 비교
+
+문자열 타입 - 문자열
+- 문자셋 및 콜레이션 설정 예	(별로 중요하지 않음)
+CREATE DATABASE library CHARACTER SET euckr;
+CREATE TABLE t1 ( ... ) CHARACTER SET utf8 
+	COLLATE utf8_general_ci;
+CREATE TABLE member (
+	id VARCHAR(10) NOT NULL COLLATE latin1_general_cs,
+	name VARCHAR(20) NOT NULL COLLATE utf8_bin,
+	email VARCHAR(100) NOT NULL
+);
+
+데이터 타입 - 문자열
+• 문자셋 및 콜레이션 설정 		(별로 중요하지 않음)
+	– 문자셋=x, 콜레이션=y가 모두 설정된 경우: 
+		그대로 적용
+	– 문자셋=x만 설정된 경우: 문자셋=x, 콜레이션
+		=그 문자셋의 기본 콜레이션
+	– 콜레이션=y만 설정된 경우: 문자셋=y와 연계
+		된 문자셋, 콜레이션=y
+	– 둘 다 설정되지 않은 경우: 칼럼 → 테이블 →
+		데이터베이스의 문자셋/콜레이션 적용
+
+데이터 타입
+- 날짜/시간
+표 참고 05.46p
+
+
+데이터 타입
+- Large Object
+	- 이미지, 동영상, 사운드 등 이진 데이터
+데이터 타입 			설명
+TINYBLOB 			Binary Large Object. 최대 255B
+BLOB 				Binary Large Object. 최대 65,535B
+MEDIUMBLOB 		Binary Large Object. 최대 16,777,215B
+LONGBLOB 			Binary Large Object. 최대 4,294,657,295B
+				오라클: BLOB
+
+데이터 타입
+- Large Object(계속)
+	- 대용량 텍스트 데이터
+	- 문자셋, 콜레이션을 가짐
+데이터 타입 			설명
+TINYTEXT 			텍스트 데이터. 최대 255B
+TEXT 				텍스트 데이터. 최대 65,535B
+MEDIUMTEXT 		텍스트 데이터. 최대 16,777,215B
+LONGTEXT 			텍스트 데이터. 최대 4,294,657,295B
+				오라클: CLOB
+
+
+
+
+
+
+	
