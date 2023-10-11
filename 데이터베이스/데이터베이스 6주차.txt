@@ -1,0 +1,416 @@
+데이터베이스 6주차
+
+create table 도서 (
+	번호 int, 
+	제목 varchar(30),
+	가격 int );
+
+
+테이블 변경
+
+열 추가/삭제
+
+열 추가
+ALTER TABLE 도서
+ADD 구입일자 DATETIME DEFAULT '2009-11-01';
+
+열 삭제
+alter table 도서
+	drop 구입일자
+
+기본키 추가
+
+• 기본 키 추가
+ALTER TABLE 도서
+ADD [CONSTRAINT [이름]] PRIMARY KEY(번호);
+
+• 기본 키 삭제
+ALTER TABLE 도서
+DROP PRIMARY KEY;
+- 기본키는 테이블당 하나밖에 존재하지않기때문에 그냥 써도 괜찮다.
+
+• 외래키 추가
+ALTER TABLE 도서
+ADD [CONSTRAINT [fk_name]] FOREIGN KEY(...) ...;
+	- 테이블 생성 시 외래키를 정의하는 방식으로 정의
+
+• 외래키 삭제
+ALTER TABLE 도서
+DROP FOREIGN KEY fk_name;
+
+• 데이터 무결성 제약조건 추가
+ALTER TABLE 도서
+ADD [CONSTRAINT [chk_price]] CHECK(가격>=0);
+	- 테이블 생성 시 데이터 무결성 제약조건을 정의하는 방식으로 정의
+
+• 데이터 무결성 제약조건 삭제
+ALTER TABLE 도서
+DROP CONSTRAINT chk_price;
+
+
+열 정의 변경
+
+• 열 정의만 변경
+ALTER TABLE 테이블_이름
+MODIFY 열_이름 새_열_정의;
+	- 초기 테이블 생성 시 칼럼 정의하는 방식으로 정의
+
+• 열 이름과 정의 동시 변경
+ALTER TABLE 테이블_이름
+CHANGE 이전_열_이름 새_열_이름 새_열_정의;
+	- 새_열_정의는 생략할 수 없음
+
+열 정의 변경
+
+ALTER TABLE 도서
+MODIFY 구입일자 DATE;
+
+ALTER TABLE 도서
+CHANGE 번호 도서코드 INT NOT NULL;
+• 이전 정의에 포함되었지만 신규 정의에 명시되지않은 사항은 무시됨
+	– 인덱스 관련 설정(PRIMARY KEY, UNIQUE)은 유지됨
+• 데이터 타입을 변경하면 기존 데이터들은 MySQL이 자동으로 변환함
+
+
+열 기본값 변경
+
+• 열 기본값 변경
+ALTER TABLE 도서
+ALTER 구입일자 SET DEFAULT ‘2009-10-10’;
+
+• 열 기본값 삭제
+ALTER TABLE 도서
+ALTER 구입일자 DROP DEFAULT;
+
+ALTER는 기본값에대한것 
+
+
+이름 변경
+
+• 테이블 이름 변경
+ALTER TABLE 도서
+RENAME TO book ;
+
+• 열 이름 변경
+ALTER TABLE 도서
+RENAME COLUMN 번호 TO 도서코드 ;
+
+
+테이블 제거
+
+DROP TABLE [ IF EXISTS ] 테이블이름
+[ RESTRICT | CASCADE ] ;
+
+– 테이블의 정의 및 모든 내용 삭제
+	▪ MySQL에서는 RESTRICT와 CASCADE는 아무 효과
+		없음. (호환을 위해 문법만 허용)
+– 오라클:
+	DROP TABLE 테이블이름
+		[CASCADE CONSTRAINT] ;
+▪ CASCADE CONSTRAINT: 외래키 제약조건을 함께
+
+
+DB제거
+
+DROP { DATABASE | SCHEMA } 
+	[ IF EXISTS ] 데이터베이스이름 ;
+		- 현재 실습계정은 권한이없어서 사용하지 못함.
+
+
+데이터 삽입
+
+• 일반 형식
+	INSERT INTO 테이블이름 [ (열_이름_리스트) ]
+		VALUES ( 열_값_리스트 ) ;
+	– 열_이름_리스트를 생략하는 경우는 테이블 정
+		의의 열 순서대로 데이터를 나열함
+
+	INSERT INTO 도서 (번호, 제목)
+	VALUES ( 101, '데이터구조‘ );
+	- 자동으로 값을 채워넣어줌 
+
+데이터 삭제
+
+• 모든 레코드 삭제
+	DELETE FROM 도서 ;
+	– 삭제된 행 개수를 리턴함
+
+	TRUNCATE [TABLE] 도서 ;
+	– 삭제된 행 개수가 필요치 않다면 TRUCATE가 속도가 더 빠름
+		- 삭제된 행의 개수가 필요하지않으면 이게 나음
+
+DROP - 내용뿐만아니라 부조까지 다 사라짐
+DELETE - 는 내용만 삭제한다 (튜플만) EX) 도서테이블은 남아있다.
+
+
+- Example 데이터 삽입
+INSERT INTO 도서(번호,제목,가격) VALUES ( 101, '데이터구조', 15000 ) ;
+INSERT INTO 도서(번호,제목,가격) VALUES ( 102, '자바', 20000 ) ;
+INSERT INTO 도서(번호,제목,가격) VALUES ( 103, 'C프로그래밍', 20000 ) ;
+INSERT INTO 도서(번호,제목,가격) VALUES ( 104, '확률통계', 13000 ) ;
+
+
+데이터 삽입
+
+• MySQL Only
+	INSERT INTO 테이블이름 [ (열_이름_리스트) ]
+		VALUES (열_값_리스트1), (열_값_리스트2), ...;
+• 예
+	INSERT INTO 도서(번호,제목,가격) VALUES 
+		( 101, ‘데이터구조’, 15000 ), ( 102, ‘자바’, 20000 ),
+		( 103, ‘C프로그래밍’, 20000 ), ( 104, ‘확률통계’, 13000 ) ;
+
+
+데이터 검색
+
+• 폐쇄 시스템(closed system)
+	– 테이블 처리 결과가 또 다시 테이블이 되는시스템
+	– 중첩 질의문(nested query)을 구성할 수 있는이론적 기초
+
+SQL의 테이블
+• SQL과 이론적 관계 모델은 차이가 있음
+• 기본 키를 반드시 가져야 하는 것은 아님
+• 한 테이블 내에 똑같은 행 중복 가능
+• 이론상 SQL의 테이블은 튜플의 집합이 아님
+• 같은 원소의 중복을 허용하는 다중 집합(multiset) 또는 백(bag)
+
+
+데이터 검색
+• 간략화된 기본 형식
+	SELECT 열_리스트 FROM 테이블_리스트 ;
+• 열 이름 별칭(alias) 사용
+	SELECT 제목, 가격-500 [AS] 할인가 FROM 도서;
+	– AS는 생략 가능
+EX)
+	select 제목, 가격, 가격-1000 as 할인가 from 도서
+
+• 중복 행 제거
+	SELECT [ALL | DISTINCT] 제목 FROM 도서;
+– ALL(기본값): 중복 행 포함하여 매칭된 모든행 리턴
+– DISTINCT: 결과집합에 중복된 행 제거
+▪ 여러 칼럼을 SELECT하더라도 DISTINCT 키워드는 SELECT 다음에 한 번만 사용함
+
+• 정렬
+SELECT * FROM 도서 ORDER BY 가격 ASC ;
+SELECT * FROM 도서 ORDER BY 가격 DESC, 번호 ASC ;
+– ASC: 오름차순, DESC: 내림차순
+– 별도로 지정되지 않으면 오름차순(ASC)으로 정렬됨
+– 여러 열에 대해 지정된 경우, 순서대로 우선 정렬됨
+
+
+• 검색 건수 지정
+	SELECT * FROM 도서 ORDER BY 가격 LIMIT 3 ;
+	– 결과집합(result set)의 처음 3개
+
+	SELECT * FROM 도서 ORDER BY 가격 LIMIT 3, 2 ;
+	– 결과집합의 4번째 행부터 2개 행 검색
+	– 첫번째 행 번호는 0
+
+
+조건에 맞는 데이터 검색
+
+• 간략화된 일반 형식
+	SELECT 열리스트 FROM 테이블리스트 WHERE 조건 ;
+
+	SELECT * FROM 도서 WHERE 번호 = 100 ;
+	SELECT 제목, 가격 FROM 도서 WHERE 제목 = ‘확률통계’ ;
+	SELECT * FROM 도서 WHERE 가격 > 13000; 
+	SELECT * FROM 도서 WHERE 가격 > 13000 ORDER BY 제목;
+
+
+연산자
+
+• 산술 연산자
+	– +, -, *, /, % %: 나머지 연산자
+• 논리 연산자
+	– AND, OR, NOT, &&, ||, !
+• 비교 연산자
+	– =, <, <=, >, >=, <>, !=
+	– BETWEEN~AND
+		SELECT * FROM 도서
+			WHERE 가격 BETWEEN 15000 AND 20000 ;
+
+• 비교 연산자(계속)(널값 비교)
+	– IS NULL, IS NOT NULL
+		SELECT * FROM 도서
+			WHERE 가격 IS NOT NULL ;
+	– IN, NOT IN
+		SELECT * FROM 도서
+			WHERE 가격 IN (13000, 15000) ;
+
+연산자
+
+– LIKE
+SELECT * FROM 도서 WHERE 제목 LIKE ‘데이터%’ ;
+SELECT * FROM 도서 WHERE 제목 LIKE ‘%프로그래밍’ ;
+SELECT * FROM 도서 WHERE 제목 LIKE ‘%프로%’ ;
+SELECT * FROM 도서 WHERE 제목 LIKE ‘자_’ ;
+SELECT * FROM 도서 WHERE 제목 LIKE ‘__통%’ ;
+	▪ %: 여러 문자와 매칭(0개 이상)
+	▪ _: 정확히 하나의 문자와 매칭
+
+
+숫자 함수
+
+• ABS(X): 절대값
+• CEILING(X), CEIL(X): X보다 큰 값 중 가장 작은 정수(올림)
+	– CEILING(1.23) → 2 CEILING(-1.23) → -1
+• FLOOR(X): X보다 작은 값 중 가장 큰 정수(내림)
+	– FLOOR(1.23) → 1 FLOOR(-1.23) → -2
+• ROUND(X), ROUND(X,D): X를 반올림. (D자리까지)
+	– ROUND(1.58) → 2 ROUND(1.298, 1) → 1.3
+• TRUNCATE(X, D): X를 D자리까지 남기고 버림
+	– TRUNCATE(1.999, 1) → 1.9 TRUNCATE(122, -2) → 100
+
+• POW(X,Y), POWER(X,Y): XY
+• RAND(), RAND(X): 난수(random number) 
+	0 ≤ 𝑣 < 1 (실수) 리턴
+	– 𝑖 ≤ 𝑅 < 𝑗 범위에서 임의의 정수 𝑅을 얻으려면: 𝐹𝐿𝑂𝑂𝑅(𝑖 + 𝑅𝐴𝑁𝐷() ∗ (𝑗 − 𝑖))
+	– 무작위 순서로 데이터 추출:
+	SELECT * FROM 도서 ORDER BY RAND();
+	– X: 시드(seed) 값
+
+
+문자열 함수
+
+• LENGTH(str), BIT_LENGTH(str), 
+CHAR_LENGTH_(str) : 길이
+	– LENGTH(‘text’) → 4		//바이트 단위 길이
+	– BIT_LENGTH(‘text’) → 32		//비트 단위 길이
+	– CHAR_LENGTH(‘text’) → 4	//문자 단위 길이
+• CONCAT(str1, str2, …) : 문자열 연결
+	– CONCAT(‘결과는 ‘, 120, ‘입니다.’) 
+	→ ‘결과는 120입니다.’
+
+• LTRIM(str), RTRIM(str): 왼쪽/오른쪽 공백 제거
+	– LTRIM(‘ bar’) → ‘bar’ RTRIM(‘bar ‘) → ‘bar’
+
+• SUBSTRING(str, pos, len)
+	– 문자열 str의 pos에서 시작하여 len개의 문자를 리턴
+	– SUBSTRING(‘데이터베이스 시스템’, 6, 3) 
+	→ ‘스 시’
+	– SUBSTRING(‘데이터베이스 시스템’, -3, 3) 
+	→ ‘시스템’
+
+암호화 함수
+
+• MD5(문자열)
+	– 길이가 32인 16진수 문자열
+	– 예: MD5(‘sungkyul’) →
+		ce19cb3fcf8b9cbbe99e6af3f3cbfdf2
+• SHA1(문자열), SHA(문자열)
+	– 길이가 40인 16진수 문자열
+• SHA2(문자열, 해싱 길이)
+	– 해싱 길이: 비트 단위(224, 256, 384, 512)
+	– 해싱 길이가 224로 설정되면, 결과값의 길이는 56
+
+UNHEX 함수
+
+• UNHEX(문자열)
+	– 16진수 형태의 문자열(암호화된 문자열)을 그
+		숫자로 표현되는 바이트(이진 문자열)로 변환
+	– 예: 
+	UNHEX('ce19cb3fcf8b9cbbe99e6af3f3cbfdf2’) 
+	→   ?ϋ   j     
+	– 이진 문자열의 길이는 16진수 형태의 문자열의 길이의 절반
+
+
+비밀번호 칼럼
+
+• 육안으로 식별할 수 있는 문자열 타입으로 저장하면 안됨
+	– 암호화 필요
+• 사용자가 입력한 비밀번호 값(문자열)과 테이블에 저장되어 있는 비밀번호 칼럼의
+	값이 일치하는지 확인 가능해야 함
+	– BINARY 타입 이용
+
+• 테이블 생성
+	– BINARY 타입으로 도메인 설정
+• 비밀번호 삽입
+	– 사용자가 입력한 비밀번호(문자열)를 암호화하여 저장
+	– 문자열 → 암호화(16진수 문자열) → 이진 문자열
+• 비밀번호 비교
+	– 이진 문자열 간의 비교
+
+테이블 생성
+CREATE TABLE 회원(
+아이디 VARCHAR(30) NOT NULL,
+비밀번호 BINARY(16) NOT NULL,
+이름 VARCHAR(10) NOT NULL,
+PRIMARY KEY(아이디));
+
+– 길이는 암호화 함수에 따라 달리 설정
+	▪ MD5: BINARY(16)
+	▪ SHA1: BINARY(20)
+	▪ SHA2: BINARY(28) ~ BINARY(64)
+
+비밀번호 삽입
+	INSERT INTO 회원 VALUES
+		(‘abcd’, UNHEX(MD5(‘sku1234’)), ‘홍길동’);
+	– 테이블 스키마에 맞춰 암호화 함수 사용
+		▪ MD5, SHA1, SHA2
+	– 이진 문자열로 변환하기 위해 UNHEX 함수적용
+
+비밀번호 일치 확인
+
+	SELECT 아이디, 이름 FROM 회원
+		WHERE 아이디 = ‘abcd’ AND 
+			비밀번호 = UNHEX(MD5(‘xyz’));
+– 아이디 ‘abcd’를 사용하는 사용자가 비밀번호를 ‘xyz’로 입력한 경우
+
+
+날짜/시간 함수		//그냥 참고
+• CURDATE(): 현재의 날짜
+	– CURDATE() → ‘2009-11-12’
+• CURTIME(): 현재 시간
+	– CURTIME() → ‘17:30:25’
+• NOW(): 현재의 날짜/시간
+	– NOW() → ‘2009-11-12 17:30:25’
+• YEAR(date): 년도
+	– YEAR((‘2009-11-12’) → 2009
+	– MONTH(date): 월 DAY(date): 일
+• MONTHNAME(date): 월 이름
+	– MONTHNAME(‘2009-11-12’) → ‘November’
+• DAYNAME(date): 요일 이름
+	– DAYNAME(‘2009-11-12’) → ‘Thursday’
+• DAYOFWEEK(date): 요일 인덱스
+	– DAYOFWEEK(‘2009-11-12’) → 5
+	(1:일, 2:월, …, 7:토)
+• WEEKOFYEAR(date): 1년 중 몇번째 주인가?(1~53)
+	– WEEKOFYEAR('2009-11-12‘) → 46
+• DAYOFYEAR(date): 1년 중 몇번째 날인가?(1~366)
+• LAST_DAY(date): 해당 월의 마지막 날짜
+	– LAST_DAY('2009-11-12') → ‘2009-11-30’
+• HOUR(time): 시간 HOUR(‘10:05:03’) →10
+	– MINUTE(time): 분 SECOND(time): 초
+• MAKEDATE(year, dayofyear): 주어진 연도의 해당 일짜 생성
+	– MAKEDATE(2009, 365) → ‘2009-12-31’
+• MAKETIME(h, m, s): 시간 값 생성
+	– MAKETIME(14, 15, 30) → ‘14:15:30’
+
+
+흐름 제어 함수
+• IF(expr1, expr2, expr3)
+	– expr1이 참이면 expr2를, 아니면 expr3를 리턴
+• IFNULL(expr1, expr2)
+	– eExpr1이 null이면, expr2를 리턴; null이 아니면, expr1을 리턴
+
+
+정리 문제 1: 함수 사용
+• 함수를 이용하여 다음 문자열이 출력되도록 SQL문을 작성하시오.
+	– 오늘은 월요일입니다.
+	– 단, SQL문을 실행하는 순간의 날짜에 따라 요일이 바뀔 수 있어야 함.
+답 : 
+select concat('오늘은 ',
+		substring('일월화수목금토일', dayofweek(now()), 1),
+			'요일입니다.');
+
+정리 문제 2: 함수 사용
+• 다음과 같이 도서 테이블의 가격 칼럼 값
+이 2만원 이상이면 ‘고가‘, 2만원 미만이면
+‘적당’이라는 문자열이 출력되도록 SQL문
+을 작성하시오.
+답 : 
+select 제목, 가격, if(가격>=20000, '고가', '적당') as 평가 from 도서
+
+
+
