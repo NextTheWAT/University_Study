@@ -1,0 +1,124 @@
+게임엔진(2) 6주차
+
+
+public class SelecetShip : MonoBehaviour
+{
+    public void sparrow1()
+    {
+        PlayerPrefs.SetInt("ShipType", 1);
+        SceneManager.LoadScene("GameScene");
+    }
+    public void sparrow2()
+    {
+        PlayerPrefs.SetInt("ShipType", 2);
+        SceneManager.LoadScene("GameScene");
+    }
+}
+
+코드 잘 알아두기
+
+
+2장. 360 영상이란?
+
+360 영상 / 360 Video
+- mmersive Video, Spherical Video 라고도 불림
+- 앞/뒤/좌/우 전방향의 모든 방향을 카메라로 담음
+- 전방향 카메라나 여러개의 카메라를 통해 모든 방향으로 동시에 촬영된 영상
+- 촬영에 사용된 카메라를 360 카메라로 지칭
+
+일체형 360 카메라 / 360 Camera
+- 대중들을 위한 카메라
+- 360 영상 촬영시 필요한 소프트웨어 제공
+- 자동 “스티칭" 솔루션 제공
+	- 스티칭 작업이 자동으로 이루어짐
+- 단일 저장매체 사용
+	- 단일 파일로 만들어져서 바로 확인이 가능
+- 낮은 해상도
+	- 간편하고 접근성이 편하지만 해상도가 낮은 단점
+- 상황에 따른 영상 품질 저하
+
+- 리그 / Rig (전문 분야에서의 360도 카메라)
+	- 360 영상 촬영 및 제작 업계에서 이용하는 촬영 도구
+		- 범용 카메라(고프로) 여러대를 특수 리그에 장착
+		- 카메라의 수가 많을 수록 화질이 좋아질 수 있음
+			- 단일 저장 매체를 사용하지 않고 여러개의 저장 매체를 사용
+		- 카메라의 수가 적을 수록 “스티칭" 작업이 용이함
+			- 스티칭 작업이 자동으로 이루어지지 않음
+
+- 스티칭 / Stitching
+	- 여러개의 영상을 이어 붙이는 작업
+	- 360 영상 작업의 대부분의 시간이 할애되는 작업
+	- 스티칭이 제대로 되지 않을 경우 영상 왜곡이 생겨 몰입감 감소
+	- 대부분 360 영상 전문 업체에서 솔루션 제공
+
+- 스크린도어 효과 / Screen Door Effect
+	- 평면 영상을 360도로 둥그렇게 늘릴때 발생하는 이미지 왜곡 현상
+	- 픽셀을 나누는 수평, 수직 선이 보이는 현상
+	- 보통 디스플레이를 가까이서 보면 느낄 수 있음
+	- 영상의 해상도가 높아져야 해결
+
+
+Video Player 콤포넌트 중요 속성
+- Source 
+	- Video Clip 
+	- URL : 로컬 경로 
+- Play On Awake
+	- 컨텐츠가 실행이 되자마자 영상을 자동으로 플레이 할건지에 대한 여부
+- WaitForFirstFrame
+	- 영상이 켜지자 마자 바로 재생을 할껀지. 혹은 조금 기다렸다가(First Frame 동안) 할 것이인지에 대한 여부 결정
+- Loop 
+	- 영상을 계속해서 반복적으로 플레이 할건지
+
+4장. 셰이더(Shader)란 무엇인가?
+- 이상하다?
+- 구체 밖에다 렌더링을 하는 것이 아니라 구체 안쪽에다 렌더링을 해야 함
+- unlit-shpereinside.shader (쉐이더 파일)
+- 구체 밖의 내용을 구체 안으로 바꿔서 보여주는 쉐이더 파일
+
+
+5장. UI를 VR안에 넣어보기
+- 새로운 씬 생성 : 360Menu
+- 새로만든 씬에서 버튼을 하나 생성
+
+- Canvas를 오브젝트 화함
+	- Canvas를 선택한 후 Canvas속성에서 Render Mode를 World Space로 바꿈
+	- 결과창에 버튼이 사라지고 Rect Transform이 활성화 됨 
+
+- Google VR Emulator를 계층창에 이동
+- 실행
+	- 좌우로 회전했을 때 버튼이 고정되어 있고 우리의 시선만 회전하는 것을 알 수 있음
+	- 캔버스의 위치를 변경(-142.4 / 29.5 / 203.2) 
+	- 버튼의 위치를 변경 (12/2.7/0)
+	- 버튼의 텍스트를 변경(Play 360 Video)
+
+
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class raycast : MonoBehaviour
+{
+    private void Update()
+    {
+        raycasting();
+    }
+
+    void raycasting()
+    {
+        RaycastHit hit;
+        Vector3 forward = transform.TransformDirection(Vector3.forward * 1000);
+        if(Physics.Raycast(transform.position, forward, out hit))
+        {
+            hit.transform.GetComponent<Button>().onClick.Invoke();
+            Debug.Log("Hit!!!");
+        }
+        Debug.DrawRay(transform.position, forward, Color.red);
+    }
+}
+
+Ray직접 버튼을 클릭하는 방법
+VR360에서 제일 중요한 코드
+
+카메라에서 Clipping Planes 에서 Near 0.1로 설정  중요@
