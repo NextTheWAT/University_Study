@@ -1,0 +1,20 @@
+게임엔진(2) 11주차
+
+
+2. IIS 웹 서버 구축
+윈도우에서 설정 / 앱 / 선택적 기능 / 기타 Windows 기능 을 클릭한다.
+
+웹 서버 루트 디렉토리의 위치
+C:\inetpub\wwwroot\
+
+
+
+코드 : cd [MYSQL이 다운된 경로]   => 그 경로로 이동됨
+코드 : mysqld --install      => 저는 아래와같이 이미 존재한다고(already exists!)나오지만, 아마 Service successfully installed라고 뜨실거임
+코드 : Mysqld --initialize
+코드 : Net Start Mysql
+
+DB 서비스 시작하는법
+https://dev-emmababy.tistory.com/37
+
+

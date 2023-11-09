@@ -1,0 +1,12 @@
+게임엔진(2) 10주차
+
+
+URP 설정하는 법
+- 패키지매니저에서 Unity Registry - Universal RP 다운
+- 새로운 파일 만들고 Rendering - URP Asset 
+- Graphics에서 URP등록
+- Quality High 에 URP등록
+	- High하는 이유는 반짝거림이 심하기때문 
+- Window - Rendering - Render Pipeline Converter
+- 전부 체크하고 Convert Assets 해주면 핑크색이 없어진다.
+
