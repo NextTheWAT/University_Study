@@ -1,0 +1,62 @@
+게임엔진(2) 13주차
+
+
+XR 다운로드 받는법
+1. 
+pakage 매니저 에서 Unity Registry - 
+input system , Oculus XR Plugin(OpenXR Plugin이 있으면 상관없다) , 
+Universal RP , Visual Scripting , Visual Studio Code Editor
+
+2. 
+Edit - Project Setting - XR Plug-in Management 다운로드(1.번의 모든것들이 설치된다.)
+
+
+Pakage Manager - XR Interaction Toolkit 다운로드
+Sample - Starter Assets, XT Device Simultor, hands Interaction Demo 3개 다운로드
+수업에서는 Hands 안넣음 - 손가락이라
+
+
+Project Setting - XRPlug-in Management - Project Validation 에서 오류가 난다면 fix all을 하면 된다
+
+
+하이어라키창 - XR - XROrigin 추가
+
+Left, Right Controller 의 Sorting Group 제거
+각 컨트롤러의 XR Controller 스크립트의 물음표 옆 바를 눌러서 각자의 Left, Right Controller를 추가해준다 (기본샛팅)
+
+
+
+컨트롤러 프리팹은
+Starter Assets - Prefabs - Controllers - XR Controrller 오브젝트를
+Left, Right Controller - XR Controller 스크립트의 맨 밑에 모델 프리팹에다가 각자 적용한다.
+
+
+XR Origin (XR Rig)는 한번 셋팅하면 삭제해도 다시 맵핑이 되어있어서 새로 셋팅하지않아도 된다.
+
+
+
+
+
+강의 4. Interactor & Interactable
+
+1. Interactor 만들기
+이번 챕터에서는 Action - Based XR Origin(VR) 안에 Interactor 기능을 하는 기본적으로 들어 가 있는 Left/Right Controller 대신에 직접 Interactor를 만들어 보는 작업을 진행한다. 가장 기본적인 일(물건을 집는 작업)을 하는 XR Direct Interactor 콤포넌트를 활용해서 직접 Interactor를 만드는 작업이다.
+
+Interactor : 인터랙션을 시도하는 쪽(일반적으로 컨트롤러)
+- XR Direct Interactor
+Interactable : 인터랙션이 되어지는 쪽(일반적으로 래이캐스팅 당하는 물체)
+Interaction manager : Interactor와 Interactable 을 주관해서 관리함
+XR Direct Interactor : XR Interaction Toolkit에서 제공해주는 Interactor로서 직접적인 상호 작용을 할 수 있게 해주는 컴포넌트 임. 컨트롤러를 객체에 다가가서 집거나 하는 등의 인터랙션을 수행할 수 있게 해줌
+
+
+
+
+
+
+
+
+
+
+
+
+
